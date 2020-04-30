@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 
 
-namespace PresentationLayer
+namespace PresentationLayer 
 
 {
-    class Mål_Ekg
+    class Mål_Ekg //TEST
     {
         public ADC1015 adc;
         public SerLCD lcd;

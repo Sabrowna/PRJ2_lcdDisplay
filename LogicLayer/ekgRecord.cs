@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace LogicLayer
 {
-    public class ekgRecord
+    public class ekgRecord //TEST
     {
     }
 }
