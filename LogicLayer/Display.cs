@@ -5,6 +5,7 @@ using RaspberryPiCore.ADC;
 using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Threading;
+using LocalDB;
 
 namespace LogicLayer
 {
@@ -14,11 +15,15 @@ namespace LogicLayer
         public SerLCD lcd;
         public TWIST twist;
 
+        LokalDB dataObject;
+
         public Display(ADC1015 adc, SerLCD lcd, TWIST twist)
         {
             this.adc = adc;
             this.lcd = lcd;
             this.twist = twist;
+
+            dataObject = new LokalDB();
 
             //twist.setCount(0)
 

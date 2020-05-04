@@ -1,46 +1,49 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Data.SqlClient;
 
 namespace LocalDB
 {
     public class LokalDB
     {
-        private string socSecNb;
-        public bool verifySocSecNb(string socSecNb)
+        private SqlConnection conn;
+        private SqlDataReader rdr;
+        private SqlCommand cmd;
+        private const string db = "F20ST2ITS2201908775";
+
+        public LokalDB()
         {
-            int[] integer = new int[10];
-
-            // TILFØJ KODE HER. Hvis antal cifre er forkert returner false
-
-            for (int index = 0; index < 10; index++)
-            {
-                // TILFØJ KODE HER. Hvis karakteren på plads index i den modtagne streng ikke er et tal returner false
-
-                // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
-                integer[index] = Convert.ToInt16(number[index]) - 48;
-            }
-
-            // Algoritme der kotrollerer om cifrene danner et gyldigt personnummer
-            if ((4 * integer[0] + 3 * integer[1] + 2 * integer[2] + 7 * integer[3] + 6 * integer[4] + 5 * integer[5] + 4 * integer[6] + 3 * integer[7] + 2 * integer[8] + integer[9]) % 11 != 0)
-                return false;
-            else
-                return true;
+            conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog ="+db+"; User ID ="+db+"; Password ="+db+"; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
         }
-
-        public bool checkDB(string socSecNb)
+        
+            
+        // Undersøg om CPR findes i LokalDB. Returner bool. 
+        public bool checkDBForCPR(string socSecNb)
         {
-            string x;
-            this.socSecNb = socSecNb;
-            for (int i = 0; i < length; i++)
+            bool result = false;
+
+            // Hent kolonnen borger_cprnr fra tabellen SP_NyeEkger
+
+            cmd = new SqlCommand("Select borger_cprnr from db_owner.SP_NyeEkger", conn);
+            conn.Open();
+
+            rdr = cmd.ExecuteReader();
+            rdr.Read();
+
+            while (rdr.Read()) // Så længe der er data at læse, undersøg om indkomne data matcher medsendte parameter socSecNb
             {
-                x = List <i>
-                //løber en liste igennem med alle cpr-numre
-                if (socSecNb = x)
-                { 
-                    return true;
-                    break;
-                }
+                if (rdr == socSecNb)
+                    result = true;
             }
-            return false;
+
+            conn.Close();
+
+            return result;            
+            
         }
     }
 }
