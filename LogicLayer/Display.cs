@@ -67,6 +67,7 @@ namespace LogicLayer
 
         public string getSocSecNumber()
         {
+            string SocSecNumberAsString;
             byte countingIsPressed;
             byte x = 6;
             lcd.lcdGotoXY(0, 0);
@@ -82,13 +83,13 @@ namespace LogicLayer
             {
                 while (twist.isPressed() == false)
                 {
-
+                    // Kode der gør at metoden venter på twist.isPressed
                 }
 
 
                 if (twist.isPressed() == true)
                 {
-                    if (twist.getCount() < 0 && twist.getCount() > 9)
+                    if (twist.getCount() < 0 && twist.getCount() > 9) 
                     {
 
                         lcd.lcdGotoXY(0, 3);
@@ -113,9 +114,10 @@ namespace LogicLayer
                     // break;
                 }
             }
-            //}
-            return CprNumbersL.ToString();
+         
 
+            SocSecNumberAsString =  CprNumbersL.ToString();
+            return SocSecNumberAsString;
 
         }
 

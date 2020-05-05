@@ -20,14 +20,13 @@ namespace LocalDB
         private SqlCommand cmd;
         private const string db = "F20ST2ITS2201908775";
 
-        
 
         public LokalDB()
         {
-            conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog ="+db+"; User ID ="+db+"; Password ="+db+"; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
         }
-        
-            
+
+
         // Undersøg om CPR findes i LokalDB. Returner bool. 
         public bool checkDBForCPR(string socSecNb)
         {
@@ -50,8 +49,8 @@ namespace LocalDB
 
             conn.Close();
 
-            return result;            
-            
+            return result;
+
         }
 
         public int CountRows()
@@ -64,17 +63,21 @@ namespace LocalDB
             rdr = cmd.ExecuteReader();
             rdr.Read();
 
-            NumberOfRows = Convert.ToInt32(rdr.Read());
+            NumberOfRows = Convert.ToInt32(rdr.Read()); // Er konverteringen nødvendig? 
 
             return NumberOfRows;
 
         }
-}
+
 
         public void InsertEKGMeasurement() // Indlæs DTO her med de respektive data. 
         {
-            
+
         }
     }
 }
+
+       
+    
+
 

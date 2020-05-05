@@ -8,7 +8,7 @@ using LocalDB;
 
 namespace LogicLayer
 {
-    public class ekgRecord //TEST
+    public class ekgRecord 
     {
 
         private string socSecNb;

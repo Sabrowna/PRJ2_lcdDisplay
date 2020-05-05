@@ -26,14 +26,13 @@ namespace PresentationLayer
             TWIST twist = new TWIST();
             this.displayRef = displayRef;
             this.ekgRecordRef = ekgRecordRef;
+            displayRef.getSocSecNumber();
         }
 
         
         static void Main(string[] args)
         {
-                    
-
-            
+            // Er det nødvendigt med nedenstående kode? Og skal den så stå her?                  
             lcd.lcdDisplay();
             lcd.lcdClear();
             
