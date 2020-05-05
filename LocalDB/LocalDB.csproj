@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="RaspberryCore">
       <HintPath>..\..\..\..\..\..\..\..\..\RaspberryPi\RaspberryCore.dll</HintPath>
     </Reference>

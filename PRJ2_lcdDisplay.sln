@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "PRJ2_l
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{65200414-48EB-4C03-B102-9F760960D84D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalDB", "LocalDB\LocalDB.csproj", "{140EA456-A5E1-45EC-A384-A8352BA19FD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalDB", "LocalDB\LocalDB.csproj", "{140EA456-A5E1-45EC-A384-A8352BA19FD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{56A47140-B5EF-4C2F-9FBB-54E585A59E4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{140EA456-A5E1-45EC-A384-A8352BA19FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{140EA456-A5E1-45EC-A384-A8352BA19FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{140EA456-A5E1-45EC-A384-A8352BA19FD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56A47140-B5EF-4C2F-9FBB-54E585A59E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56A47140-B5EF-4C2F-9FBB-54E585A59E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56A47140-B5EF-4C2F-9FBB-54E585A59E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56A47140-B5EF-4C2F-9FBB-54E585A59E4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

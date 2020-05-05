@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Data.SqlClient; 
+using System.Data.SqlClient;
+using DTO;
 
 
 
@@ -44,11 +45,17 @@ namespace LocalDB
             {
                 if (Convert.ToString(rdr) == socSecNb)
                     result = true;
+                break;
             }
 
             conn.Close();
 
             return result;            
+            
+        }
+
+        public void InsertEKGMeasurement() // Indlæs DTO her med de respektive data. 
+        {
             
         }
     }
