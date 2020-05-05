@@ -54,6 +54,23 @@ namespace LocalDB
             
         }
 
+        public int CountRows()
+        {
+            int NumberOfRows;
+
+            cmd = new SqlCommand("Select Count(*) from db_owner.SP_NyeEkger", conn);
+            conn.Open();
+
+            rdr = cmd.ExecuteReader();
+            rdr.Read();
+
+            NumberOfRows = Convert.ToInt32(rdr.Read());
+
+            return NumberOfRows;
+
+        }
+}
+
         public void InsertEKGMeasurement() // Indlæs DTO her med de respektive data. 
         {
             

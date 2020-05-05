@@ -11,22 +11,27 @@ using LogicLayer;
 namespace PresentationLayer 
 
 {
-    class Mål_Ekg //TEST
+    public class Mål_Ekg //TEST
     {
         public ADC1015 adc;
         public SerLCD lcd;
         public TWIST twist;
+        private Display displayRef;
+        private ekgRecord ekgRecordRef;
 
-        
-        //Test test
-        static void Main(string[] args)
+        public Mål_Ekg(Display displayRef, ekgRecord ekgRecordRef)
         {
-            
-            Console.WriteLine("Hello World!");
-
             ADC1015 adc = new ADC1015();
             SerLCD lcd = new SerLCD();
             TWIST twist = new TWIST();
+            this.displayRef = displayRef;
+            this.ekgRecordRef = ekgRecordRef;
+        }
+
+        
+        static void Main(string[] args)
+        {
+                    
 
             
             lcd.lcdDisplay();

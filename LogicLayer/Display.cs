@@ -10,13 +10,13 @@ using DTO;
 
 namespace LogicLayer
 {
-    class Display
+    public class Display
     {
         public ADC1015 adc;
         public SerLCD lcd;
         public TWIST twist;
 
-        LokalDB dataObject;
+        LokalDB dataObjectRef;
 
         public Display(ADC1015 adc, SerLCD lcd, TWIST twist)
         {
@@ -24,7 +24,7 @@ namespace LogicLayer
             this.lcd = lcd;
             this.twist = twist;
 
-            dataObject = new LokalDB();
+            dataObjectRef = new LokalDB();
 
             //twist.setCount(0)
 
@@ -45,13 +45,14 @@ namespace LogicLayer
                 lcd.lcdPrint(Convert.ToString(number));
                 x += x++;
                 lcd.lcdGotoXY(x, 1);
-                number += number++;
+                number = number++;
             }
         }
 
         public void getReceipt()
         {
-            //lcd.lcdPrint("Dine data er sendt til den lokale database med EKG nummer" + )
+            int Id = dataObjectRef.CountRows();
+            lcd.lcdPrint($"Dine data er sendt til den lokale database med IDnummer: {Id}");
         }
 
 
@@ -81,8 +82,6 @@ namespace LogicLayer
             {
                 while (twist.isPressed() == false)
                 {
-
-
 
                 }
 
