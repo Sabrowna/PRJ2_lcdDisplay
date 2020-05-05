@@ -6,6 +6,7 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Threading;
 using LocalDB;
+using DTO;
 
 namespace LogicLayer
 {
@@ -117,6 +118,13 @@ namespace LogicLayer
             return CprNumbersL.ToString();
 
 
+        }
+
+        public DTO_EKGMåling CreateEKGDTO()
+        {
+            
+            DTO_EKGMåling Nymåling = new DTO_EKGMåling();
+            return Nymåling;
         }
     }
 }
