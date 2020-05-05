@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Data.SqlClient;
+using System.Data.SqlClient; 
+
+
+
+
 
 namespace LocalDB
 {
@@ -14,6 +18,8 @@ namespace LocalDB
         private SqlDataReader rdr;
         private SqlCommand cmd;
         private const string db = "F20ST2ITS2201908775";
+
+        
 
         public LokalDB()
         {
@@ -36,7 +42,7 @@ namespace LocalDB
 
             while (rdr.Read()) // Så længe der er data at læse, undersøg om indkomne data matcher medsendte parameter socSecNb
             {
-                if (rdr == socSecNb)
+                if (Convert.ToString(rdr) == socSecNb)
                     result = true;
             }
 
