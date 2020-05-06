@@ -20,7 +20,7 @@ namespace LocalDB
         private SqlCommand cmd;
         private const string db = "F20ST2ITS2201908775";
 
-
+        
         public LokalDB()
         {
             conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
@@ -45,6 +45,7 @@ namespace LocalDB
                 if (Convert.ToString(rdr) == socSecNb)
                     result = true;
                 break;
+
             }
 
             conn.Close();
@@ -96,8 +97,15 @@ namespace LocalDB
         }
 
 
-        public void InsertEKGMeasurement() // Indlæs DTO her med de respektive data. 
+        public void InsertEKGMeasurement(DTO_EKGMåling) // Indlæs DTO her med de respektive data. 
         {
+            SqlConnection conn;
+            const String db = "F20ST2ITS2201908775";
+
+            conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
+            conn.Open();
+
+
 
         }
     }

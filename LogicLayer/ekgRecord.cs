@@ -5,32 +5,68 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Collections.Generic;
 using LocalDB;
+using DTO;
+using System.Threading;
+
 
 namespace LogicLayer
 {
+    
+       
     public class ekgRecord 
     {
+        public ADC1015 adc;
+        public SerLCD lcd;
+        public TWIST twist;
+        public Display displayRef;
+        public LokalDB localDBRef;
 
-        private string socSecNb;
-        public bool verifySocSecNb(string socSecNb)
+        public ekgRecord(Display displayRef, LokalDB localDBRef)
         {
-            int[] integer = new int[10];
-
-            // TILFØJ KODE HER. Hvis antal cifre er forkert returner false
-
-            for (int index = 0; index < 10; index++)
-            {
-                // TILFØJ KODE HER. Hvis karakteren på plads index i den modtagne streng ikke er et tal returner false
-
-                // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
-                integer[index] = Convert.ToInt16(number[index]) - 48;
-            }
-
-            // Algoritme der kotrollerer om cifrene danner et gyldigt personnummer
-            if ((4 * integer[0] + 3 * integer[1] + 2 * integer[2] + 7 * integer[3] + 6 * integer[4] + 5 * integer[5] + 4 * integer[6] + 3 * integer[7] + 2 * integer[8] + integer[9]) % 11 != 0)
-                return false;
-            else
-                return true;
+            ADC1015 adc = new ADC1015();
+            SerLCD lcd = new SerLCD();
+            TWIST twist = new TWIST();
+            this.displayRef = displayRef;
+            this.localDBRef = localDBRef;
         }
+
+        
+        double sample = 0; //En sample er ét punkt
+        int antalSamples = 12000; //Hvor mange samples skal der være i løbet af målingen
+        int rawEKG = 0;
+        string starttidspunkt;
+        public List<double> EkgRawData;
+        private int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
+        public void StartEkgRecord() //Start modtagelse af signal fra elektroderne
+        {
+            starttidspunkt = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss") ;
+            rawEKG = adc.readADC_SingleEnded(0); //ADC'en modtager signalet fra elektroderne
+            EkgRawData = new List<double>();
+
+            for (int i = 0; i < antalSamples; i++)
+            {
+                sample = (adc.readADC_SingleEnded(0) / 2048.0) * 6.144; //Konverterer fra adc til strøm (eller omvendt)
+                EkgRawData.Add(sample);
+
+                Thread.Sleep(samplerate);
+            }
+        }
+        
+        public DTO_EKGMåling CreateEKGDTO()
+        {
+            string EmployeeIdAsString = displayRef.EmployeeIdAsString;
+            string SocSecNumberAsString = displayRef.SocSecNumberAsString;
+
+            DTO_EKGMåling NyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),EkgRawData,antalSamples,samplerate);
+          
+            return NyMåling;
+            
+        }
+        
+        public void SendToDB()
+        {
+            localDBRef.InsertEKGMeasurement(CreateEKGDTO());
+        }
+        
     }
 }

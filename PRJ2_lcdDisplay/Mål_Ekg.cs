@@ -11,6 +11,7 @@ using LogicLayer;
 namespace PresentationLayer 
 
 {
+    //Korrigerer mellem de forskellige klasser. Programmet starter
     public class Mål_Ekg //TEST
     {
         public ADC1015 adc;
