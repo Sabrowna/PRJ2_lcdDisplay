@@ -16,6 +16,9 @@ namespace LogicLayer
         public SerLCD lcd;
         public TWIST twist;
 
+        private string number;
+        private bool result;
+
         LokalDB dataObjectRef;
 
         public Display(ADC1015 adc, SerLCD lcd, TWIST twist)
@@ -29,11 +32,6 @@ namespace LogicLayer
             //twist.setCount(0)
 
         }
-
-        private string number;
-        private bool result;
-
-
 
         public void WritenumberLine()
         {
@@ -70,6 +68,8 @@ namespace LogicLayer
             string SocSecNumberAsString;
             byte countingIsPressed;
             byte x = 6;
+
+            // WritenumberLine(); // Kør denne metode for at få vist NumberLine??? 
             lcd.lcdGotoXY(0, 0);
             lcd.lcdPrint("Indtast CPR nummer");
 

@@ -27,7 +27,7 @@ namespace LocalDB
         }
 
 
-        // Undersøg om CPR findes i LokalDB. Returner bool. 
+        // Undersøg om CPR findes i LokalDB - tabel SP_NyeEkger. Returner bool. 
         public bool checkDBForCPR(string socSecNb)
         {
             bool result = false;
@@ -43,6 +43,32 @@ namespace LocalDB
             while (rdr.Read()) // Så længe der er data at læse, undersøg om indkomne data matcher medsendte parameter socSecNb
             {
                 if (Convert.ToString(rdr) == socSecNb)
+                    result = true;
+                break;
+            }
+
+            conn.Close();
+
+            return result;
+
+        }
+
+        // Undersøg om EmployeeID findes i LokalDB - tabel MedarbejderID.
+        public bool checkDBForEmployeeId(string EmployeeId)
+        {
+            bool result = false;
+
+            // Hent kolonnen borger_cprnr fra tabellen SP_NyeEkger
+
+            cmd = new SqlCommand("Select MedarbejderID from db_owner.MedarbejderID", conn);
+            conn.Open();
+
+            rdr = cmd.ExecuteReader();
+            rdr.Read();
+
+            while (rdr.Read()) // Så længe der er data at læse, undersøg om indkomne data matcher medsendte parameter socSecNb
+            {
+                if (Convert.ToString(rdr) == EmployeeId)
                     result = true;
                 break;
             }
