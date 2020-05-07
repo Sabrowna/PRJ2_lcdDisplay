@@ -19,11 +19,12 @@ namespace LocalDB
         private SqlDataReader rdr;
         private SqlCommand cmd;
         private const string db = "F20ST2ITS2201908775";
-
+        public int Retur { get; set; }
         
         public LokalDB()
         {
             conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            
         }
 
 
@@ -97,16 +98,32 @@ namespace LocalDB
         }
 
 
-        public void InsertEKGMeasurement(DTO_EKGMåling) // Indlæs DTO her med de respektive data. 
+        public int InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
         {
             SqlConnection conn;
             const String db = "F20ST2ITS2201908775";
-
             conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
             conn.Open();
 
+            string insertStringParam = $"INSERT INTO SP_NyeEkger ([raa_data],[id_medarbejder],[borger_cprnr],[start_tidspunkt],[antal_maalepunkter],[samplerate_hz]) OUTPUT INSERTED.id_måling VALUES(@data, @employeeID, @socSecNb, @startTime, @antalMålePkt, @hz)";
+            using (SqlCommand cmd = new SqlCommand(insertStringParam, conn))
+            {
+                //Tilføjer vores rådata til et BLOB objekt
+                cmd.Parameters.AddWithValue("@data",
+                nyMåling.RåData.SelectMany(value =>
+                BitConverter.GetBytes(value)).ToArray());
 
+                cmd.Parameters.AddWithValue("@employeeID", (nyMåling.MedarbejderID));
+                cmd.Parameters.AddWithValue("@socSecNb", (nyMåling.BorgerCPR));
+                cmd.Parameters.AddWithValue("@startTime", (nyMåling.StarttidspunktMåling));
+                cmd.Parameters.AddWithValue("@antalMålePkt", (nyMåling.AntalMålepunkter));
+                cmd.Parameters.AddWithValue("@hz", (nyMåling.SampleRateHz));
 
+                Retur = (int)cmd.ExecuteScalar();
+            }
+            conn.Close();
+
+            return Retur;
         }
     }
 }

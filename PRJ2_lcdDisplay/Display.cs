@@ -8,11 +8,9 @@ using System.Threading;
 using LocalDB;
 using DTO;
 
-namespace LogicLayer
+namespace PresentationLayer
 {
-    //Denne klasse er til at logge ind på display - indtastning + verificering af CPR
-    //Her oprettes CPR og medarbejderId
-    public class Display
+  public class Display
     {
         public ADC1015 adc;
         public SerLCD lcd;
@@ -20,27 +18,28 @@ namespace LogicLayer
 
         private string number;
         private bool result;
+        public LokalDB dataObjectRef;
+        public string EmployeeIdAsString { get; set; } //Konvertering af medarbejderlisten til en string
+        public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
+        public List<short> CprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én
+        public List<short> EmployeeIdList = new List<short>(); //Liste til medarbejder id
+        //public ekgRecord ekgRecordRef;
 
-        LokalDB dataObjectRef;
-        public string EmployeeIdAsString { get; set; }
-        public string SocSecNumberAsString { get; set; }
-
-        public Display(ADC1015 adc, SerLCD lcd, TWIST twist)
+        public Display()
         {
-            this.adc = adc;
-            this.lcd = lcd;
-            this.twist = twist;
+            adc = new ADC1015();
+            lcd = new SerLCD();
+            twist = new TWIST();
 
             dataObjectRef = new LokalDB();
-
+            //ekgRecordRef = new ekgRecord();
             //twist.setCount(0)
-
         }
 
         public void WritenumberLine()
         {
             byte number = 0;
-            byte x = 6;
+            byte x = 6; //Værdien på vores x-akse
             lcd.lcdGotoXY(x, 1);
             for (int i = 0; i < 10; i++)
             {
@@ -51,39 +50,28 @@ namespace LogicLayer
             }
         }
 
-        public void getReceipt()
+        public void getReceipt() //TILRETTES til databasen
         {
-            int Id = dataObjectRef.CountRows()+1001;
-            lcd.lcdPrint($"Dine data er sendt til den lokale database med IDnummer: {Id}");
+            lcd.lcdClear();
+            lcd.lcdGotoXY(0, 2);
+
+            int id = dataObjectRef.Retur;
+            lcd.lcdPrint($"Dine data er sendt  med IDnr:           {id}");
         }
-
-
-        //byte[] CprNumbersA = new byte[10];
-        public List<short> CprNumbersL = new List<short>();
-        public List<short> EmployeeIdList = new List<short>(); //Liste til medarbejder id
-        //byte x = 0;
-        //byte y = 0;
-        //byte checkNumerOfPress = 0;
-
-
 
         public string getSocSecNumber()
         {
-            
             byte countingIsPressed;
             byte x = 6;
 
             lcd.lcdClear();
-            WritenumberLine(); // Kør denne metode for at få vist NumberLine??? 
-            
             lcd.lcdGotoXY(0, 0);
             lcd.lcdPrint("Indtast CPR nummer");
+            WritenumberLine(); // Kør denne metode for at få vist NumberLine??? 
+
+
 
             lcd.lcdGotoXY(x, 1); //starter samme sted som numberline
-
-            // for (byte i = 0; i < 10; i++)
-            //{
-            //CprNumbersA[i] = i;
 
             for (countingIsPressed = 0; countingIsPressed < 10; countingIsPressed++)
             {
@@ -92,10 +80,9 @@ namespace LogicLayer
                     // Kode der gør at metoden venter på twist.isPressed
                 }
 
-
                 if (twist.isPressed() == true)
                 {
-                    if (twist.getCount() < 0 && twist.getCount() > 9) 
+                    if (twist.getCount() < 0 && twist.getCount() > 9)
                     {
 
                         lcd.lcdGotoXY(0, 3);
@@ -120,27 +107,23 @@ namespace LogicLayer
                     // break;
                 }
             }
-         
-
-            SocSecNumberAsString =  CprNumbersL.ToString();
+            SocSecNumberAsString = CprNumbersL.ToString();
             return SocSecNumberAsString;
 
         }
 
         public string getEmployeeId()
         {
-           
             byte countingIsPressed;
             byte x = 6;
             lcd.lcdClear();
-            WritenumberLine(); // Kør denne metode for at få vist NumberLine??? 
-            
             lcd.lcdGotoXY(0, 0);
             lcd.lcdPrint("Indtast ID nummer");
+            WritenumberLine(); // Kør denne metode for at få vist NumberLine??? 
+
+
 
             lcd.lcdGotoXY(x, 1); //starter samme sted som numberline
-
-          
 
             for (countingIsPressed = 0; countingIsPressed < 4; countingIsPressed++)
             {
@@ -148,7 +131,6 @@ namespace LogicLayer
                 {
                     // Kode der gør at metoden venter på twist.isPressed
                 }
-
 
                 if (twist.isPressed() == true)
                 {
@@ -168,6 +150,7 @@ namespace LogicLayer
                         lcd.lcdGotoXY(12, 1);
                         lcd.lcdPrint("-");
                     }
+
                     EmployeeIdList.Add(twist.getCount());
                     lcd.lcdGotoXY(x, 2); //Bruger ser cpr nummer på denne linje
                     lcd.lcdPrint(twist.getCount().ToString()); //udskriver på pladsen til cpr nummer
@@ -178,33 +161,28 @@ namespace LogicLayer
                 }
             }
 
-
             EmployeeIdAsString = EmployeeIdList.ToString();
             return EmployeeIdAsString;
-
         }
 
         private string socSecNb;
-        public bool verifySocSecNb(string socSecNb)
-        {
-            int[] integer = new int[10];
+        //public bool verifySocSecNb(string socSecNb)
+        //{
+        //    int[] integer = new int[10];
 
-            // TILFØJ KODE HER. Hvis antal cifre er forkert returner false
+        //    for (int index = 0; index < 10; index++)
+        //    {
+        //        integer[index] = Convert.ToInt16(number[index]) - 48; //Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
+        //    }
 
-            for (int index = 0; index < 10; index++)
-            {
-                // TILFØJ KODE HER. Hvis karakteren på plads index i den modtagne streng ikke er et tal returner false
+        //    // Algoritme der kotrollerer om cifrene danner et gyldigt personnummer
+        //    if ((4 * integer[0] + 3 * integer[1] + 2 * integer[2] + 7 * integer[3] + 6 * integer[4] + 5 * integer[5] + 4 * integer[6] + 3 * integer[7] + 2 * integer[8] + integer[9]) % 11 != 0)
+        //        return false;
+        //    else
+        //        return true;
+        //}
 
-                // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
-                integer[index] = Convert.ToInt16(number[index]) - 48;
-            }
 
-            // Algoritme der kotrollerer om cifrene danner et gyldigt personnummer
-            if ((4 * integer[0] + 3 * integer[1] + 2 * integer[2] + 7 * integer[3] + 6 * integer[4] + 5 * integer[5] + 4 * integer[6] + 3 * integer[7] + 2 * integer[8] + integer[9]) % 11 != 0)
-                return false;
-            else
-                return true;
-        }
     }
 }
 

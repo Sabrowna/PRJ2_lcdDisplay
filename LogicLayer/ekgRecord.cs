@@ -21,26 +21,27 @@ namespace LogicLayer
         public Display displayRef;
         public LokalDB localDBRef;
 
-        public ekgRecord(Display displayRef, LokalDB localDBRef)
+        public ekgRecord()
         {
             ADC1015 adc = new ADC1015();
             SerLCD lcd = new SerLCD();
             TWIST twist = new TWIST();
-            this.displayRef = displayRef;
-            this.localDBRef = localDBRef;
+            displayRef = new Display();
+            localDBRef = new LokalDB();
         }
 
         
         double sample = 0; //En sample er ét punkt
         int antalSamples = 12000; //Hvor mange samples skal der være i løbet af målingen
-        int rawEKG = 0;
+        //int rawEKG = 0;
         string starttidspunkt;
         public List<double> EkgRawData;
         private int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
+
         public void StartEkgRecord() //Start modtagelse af signal fra elektroderne
         {
             starttidspunkt = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss") ;
-            rawEKG = adc.readADC_SingleEnded(0); //ADC'en modtager signalet fra elektroderne
+            //rawEKG = adc.readADC_SingleEnded(0); //ADC'en modtager signalet fra elektroderne
             EkgRawData = new List<double>();
 
             for (int i = 0; i < antalSamples; i++)
@@ -50,22 +51,23 @@ namespace LogicLayer
 
                 Thread.Sleep(samplerate);
             }
+            //return EkgRawData;
         }
         
-        public DTO_EKGMåling CreateEKGDTO()
+        public DTO_EKGMåling CreateEKGDTO(string EmployeeIdAsString, string SocSecNumberAsString) //Modtager disse to fra presentationlayer
         {
-            string EmployeeIdAsString = displayRef.EmployeeIdAsString;
-            string SocSecNumberAsString = displayRef.SocSecNumberAsString;
-
+            StartEkgRecord();
+            //string EmployeeIdAsString = displayRef.EmployeeIdAsString;
+            //string SocSecNumberAsString = displayRef.SocSecNumberAsString;
+          
             DTO_EKGMåling NyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),EkgRawData,antalSamples,samplerate);
           
             return NyMåling;
-            
         }
         
-        public void SendToDB()
+        public void SendToDB(DTO_EKGMåling NyMåling)
         {
-            localDBRef.InsertEKGMeasurement(CreateEKGDTO());
+            localDBRef.InsertEKGMeasurement(NyMåling);
         }
         
     }
