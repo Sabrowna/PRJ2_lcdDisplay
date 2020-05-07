@@ -5,7 +5,7 @@ using RaspberryPiCore.ADC;
 using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Threading;
-using LocalDB;
+using LogicLayer;
 using DTO;
 
 namespace PresentationLayer
@@ -15,10 +15,10 @@ namespace PresentationLayer
         public ADC1015 adc;
         public SerLCD lcd;
         public TWIST twist;
+        public ekgRecord ekgRecordRef;
 
         private string number;
         private bool result;
-        public LokalDB dataObjectRef;
         public string EmployeeIdAsString { get; set; } //Konvertering af medarbejderlisten til en string
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
         public List<short> CprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én
@@ -31,8 +31,7 @@ namespace PresentationLayer
             lcd = new SerLCD();
             twist = new TWIST();
 
-            dataObjectRef = new LokalDB();
-            //ekgRecordRef = new ekgRecord();
+            ekgRecordRef = new ekgRecord();
             //twist.setCount(0)
         }
 
@@ -50,14 +49,7 @@ namespace PresentationLayer
             }
         }
 
-        public void getReceipt() //TILRETTES til databasen
-        {
-            lcd.lcdClear();
-            lcd.lcdGotoXY(0, 2);
-
-            int id = dataObjectRef.Retur;
-            lcd.lcdPrint($"Dine data er sendt  med IDnr:           {id}");
-        }
+     
 
         public string getSocSecNumber()
         {

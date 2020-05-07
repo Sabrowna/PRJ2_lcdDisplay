@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using RaspberryPiCore.ADC;
 using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Collections.Generic;
@@ -51,9 +50,11 @@ namespace PresentationLayer
                 twist.getBlueConnect();//Mere blå jo mere man drejer på knappen?
             }
             // }
-            ekgRecordRef.CreateEKGDTO(); //Starter målingen); //Opretter en DTO
-            ekgRecordRef.SendToDB();
-            displayRef.getReceipt();
+            ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
+            
+            lcd.lcdClear();
+            lcd.lcdGotoXY(0, 2);
+            lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.getReceipt()}");
         }
     }
 }
