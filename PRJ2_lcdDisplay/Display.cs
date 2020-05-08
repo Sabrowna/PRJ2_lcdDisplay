@@ -19,8 +19,8 @@ namespace PresentationLayer
         private bool result;
         public string EmployeeIdAsString { get; set; } //Konvertering af medarbejderlisten til en string
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
-        public List<short> CprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én
-        public List<short> EmployeeIdList = new List<short>(); //Liste til medarbejder id
+        private List<short> cprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én
+        private List<short> employeeIdList = new List<short>(); //Liste til medarbejder id
        
 
         public Display()
@@ -48,7 +48,8 @@ namespace PresentationLayer
 
      
 
-        public string getSocSecNumber()
+        // public string GetSocSecNumber()
+        public void GetSocSecNumber()
         {
             byte countingIsPressed;
             byte x = 6;
@@ -87,7 +88,7 @@ namespace PresentationLayer
                         lcd.lcdGotoXY(12, 1);
                         lcd.lcdPrint("-");
                     }
-                    CprNumbersL.Add(twist.getCount());
+                    cprNumbersL.Add(twist.getCount());
                     lcd.lcdGotoXY(x, 2); //Bruger ser cpr nummer på denne linje
                     lcd.lcdPrint(twist.getCount().ToString()); //udskriver på pladsen til cpr nummer
                                                                //x += countingIsPressed;
@@ -96,12 +97,13 @@ namespace PresentationLayer
                     // break;
                 }
             }
-            SocSecNumberAsString = CprNumbersL.ToString();
-            return SocSecNumberAsString;
+            SocSecNumberAsString = cprNumbersL.ToString();
+            // return SocSecNumberAsString;
 
         }
 
-        public string getEmployeeId()
+        // public string GetEmployeeId()
+        public void GetEmployeeId()
         {
             byte countingIsPressed;
             byte x = 6;
@@ -140,7 +142,7 @@ namespace PresentationLayer
                         lcd.lcdPrint("-");
                     }
 
-                    EmployeeIdList.Add(twist.getCount());
+                    employeeIdList.Add(twist.getCount());
                     lcd.lcdGotoXY(x, 2); //Bruger ser cpr nummer på denne linje
                     lcd.lcdPrint(twist.getCount().ToString()); //udskriver på pladsen til cpr nummer
                                                                //x += countingIsPressed;
@@ -150,11 +152,11 @@ namespace PresentationLayer
                 }
             }
 
-            EmployeeIdAsString = EmployeeIdList.ToString();
-            return EmployeeIdAsString;
+            EmployeeIdAsString = employeeIdList.ToString();
+            // return EmployeeIdAsString;
         }
 
-        private string socSecNb;
+        //private string socSecNb;
         //public bool verifySocSecNb(string socSecNb)
         //{
         //    int[] integer = new int[10];
