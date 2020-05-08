@@ -15,8 +15,8 @@ namespace PresentationLayer
         public TWIST twist;
         private Ekg_Record ekgRecordRef;
 
-        private string number;
-        private bool result;
+        string number;
+        bool result;
         public string EmployeeIdAsString { get; set; } //Konvertering af medarbejderlisten til en string
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
         private List<short> cprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én

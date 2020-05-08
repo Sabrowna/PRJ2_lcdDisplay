@@ -7,24 +7,20 @@ using System.IO;
 using System.Data.SqlClient;
 using DTO;
 
-
-
-
-
-namespace LocalDB
+namespace DataLayer
 {
-    public class LokalDB
+    public class LocalDB
     {
         private SqlConnection conn;
         private SqlDataReader rdr;
         private SqlCommand cmd;
         private const string db = "F20ST2ITS2201908775";
         public int Retur { get; set; }
-        
-        public LokalDB()
+
+        public LocalDB()
         {
             conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            
+
         }
 
 
@@ -127,8 +123,5 @@ namespace LocalDB
         }
     }
 }
-
-       
     
-
 
