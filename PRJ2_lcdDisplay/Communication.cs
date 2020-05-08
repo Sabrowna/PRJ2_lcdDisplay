@@ -20,8 +20,8 @@ namespace PresentationLayer
         public Communication()
         {
             lcd = new SerLCD();
-            ekgRecordRef = new Ekg_Record();
             twist = new TWIST();
+            ekgRecordRef = new Ekg_Record();
             displayRef = new Display();
         }
         public void Program()
@@ -30,10 +30,10 @@ namespace PresentationLayer
             lcd.lcdDisplay(); //Tænder skærmen
             lcd.lcdClear();
 
-            displayRef.getEmployeeId(); //Medarbejderen logger ind
+            displayRef.GetEmployeeId(); //Medarbejderen logger ind
 
             //while løkke - medarbejderen skal ikke logge ind igen
-            displayRef.getSocSecNumber(); //Skriver nummerlinjen + cpr
+            displayRef.GetSocSecNumber(); //Skriver nummerlinjen + cpr
 
             lcd.lcdClear();
             lcd.lcdGotoXY(6, 0);
@@ -54,7 +54,7 @@ namespace PresentationLayer
             
             lcd.lcdClear();
             lcd.lcdGotoXY(0, 2);
-            lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.getReceipt()}");
+            lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
         }
     }
 }

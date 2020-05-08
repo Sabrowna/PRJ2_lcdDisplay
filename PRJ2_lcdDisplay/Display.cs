@@ -13,7 +13,7 @@ namespace PresentationLayer
     {
         public SerLCD lcd;
         public TWIST twist;
-        public Ekg_Record ekgRecordRef;
+        private Ekg_Record ekgRecordRef;
 
         private string number;
         private bool result;

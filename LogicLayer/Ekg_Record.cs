@@ -55,7 +55,7 @@ namespace LogicLayer
         //    localDBRef.InsertEKGMeasurement(NyMåling);
         //}
 
-        public string getReceipt() //TILRETTES til databasen
+        public string GetReceipt() //TILRETTES til databasen
         {
             int id = localDBRef.Retur;
             //string receipt = $"Data er sendt med ID: {id}";
