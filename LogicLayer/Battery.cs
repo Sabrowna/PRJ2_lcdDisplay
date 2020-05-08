@@ -13,7 +13,7 @@ namespace LogicLayer
         private static Led green2; // Svarer til den gule LED i vores UC
         private static Led green3; // Svarer til den grønne LED i vores UC
         private static Led red1; // Svarer til den blå LED i vores UC
-        public double Batterystatus { get; set; }
+        
 
         public Battery()
         {
@@ -22,10 +22,10 @@ namespace LogicLayer
             green2 = new Led(rpi, Led.ID.LD2);
             green3 = new Led(rpi, Led.ID.LD3);
             red1 = new Led(rpi, Led.ID.LD6);
-            Batterystatus = 20; // Få en ægte værdi ind her!!!
+            
         }
 
-        public double ShowBatteryStatus()
+        public double ShowBatteryStatus(double Batterystatus)
         {
             if (Batterystatus >= 0 && Batterystatus <= 20)
             {
@@ -46,6 +46,7 @@ namespace LogicLayer
             }
 
             return Batterystatus;
+            
         }
 
         public bool Charging(bool isCharging) // Besked fra præsentationslaget
