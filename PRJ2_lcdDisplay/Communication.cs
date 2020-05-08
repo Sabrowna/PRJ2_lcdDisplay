@@ -14,13 +14,13 @@ namespace PresentationLayer
         private SerLCD lcd;
         private TWIST twist;
         private Display displayRef;
-        private ekgRecord ekgRecordRef;
+        private Ekg_Record ekgRecordRef;
 
 
         public Communication()
         {
             lcd = new SerLCD();
-            ekgRecordRef = new ekgRecord();
+            ekgRecordRef = new Ekg_Record();
             twist = new TWIST();
             displayRef = new Display();
         }

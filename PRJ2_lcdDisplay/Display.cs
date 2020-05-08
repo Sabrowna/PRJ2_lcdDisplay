@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using RaspberryPiCore.ADC;
 using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Threading;
@@ -12,10 +11,9 @@ namespace PresentationLayer
 {
   public class Display
     {
-        public ADC1015 adc;
         public SerLCD lcd;
         public TWIST twist;
-        public ekgRecord ekgRecordRef;
+        public Ekg_Record ekgRecordRef;
 
         private string number;
         private bool result;
@@ -23,15 +21,14 @@ namespace PresentationLayer
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
         public List<short> CprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én
         public List<short> EmployeeIdList = new List<short>(); //Liste til medarbejder id
-        //public ekgRecord ekgRecordRef;
+       
 
         public Display()
         {
-            adc = new ADC1015();
             lcd = new SerLCD();
             twist = new TWIST();
 
-            ekgRecordRef = new ekgRecord();
+            ekgRecordRef = new Ekg_Record();
             //twist.setCount(0)
         }
 

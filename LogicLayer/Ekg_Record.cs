@@ -7,12 +7,12 @@ using RaspberryPiCore.ADC;
 
 namespace LogicLayer
 { 
-    public class ekgRecord 
+    public class Ekg_Record 
     {
         private LokalDB localDBRef;
         private ADC1015 adc;
 
-        public ekgRecord()
+        public Ekg_Record()
         {
             localDBRef = new LokalDB();
             adc = new ADC1015();
