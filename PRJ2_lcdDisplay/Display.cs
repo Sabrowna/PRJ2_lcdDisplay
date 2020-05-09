@@ -67,7 +67,7 @@ namespace PresentationLayer
             {
                 if (countingIsPressed == 5)
                 {
-                    lcd.lcdGotoXY((xStartValueNumberLine + countingIsPressed) + 1, 2);
+                    lcd.lcdGotoXY((xValueCPRLine + 1), 2);
                     lcd.lcdPrint("-");
                     xValueCPRLine++;
 
