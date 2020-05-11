@@ -21,8 +21,8 @@ namespace PresentationLayer
         private bool result;
         public string EmployeeIdAsString { get; set; } //Konvertering af medarbejderlisten til en string
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
-        public List<short> CprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én
-        public List<short> EmployeeIdList = new List<short>(); //Liste til medarbejder id
+        public List<short> CprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én //short fordi metoden i getCount() er en short
+        public List<short> EmployeeIdList = new List<short>(); //Liste til medarbejder id  //short fordi metoden i getCount() er en short
         //public ekgRecord ekgRecordRef;
 
         public Display()
@@ -43,9 +43,9 @@ namespace PresentationLayer
             for (int i = 0; i < 10; i++)
             {
                 lcd.lcdPrint(Convert.ToString(number));
-                x += x++;
+                x++;
                 lcd.lcdGotoXY(x, 1);
-                number = number++;
+                number++;
             }
         }
 
@@ -62,9 +62,9 @@ namespace PresentationLayer
             WritenumberLine(); // Kør denne metode for at få vist NumberLine??? 
 
 
-
+            /*
             lcd.lcdGotoXY(x, 1); //starter samme sted som numberline
-
+            
             for (countingIsPressed = 0; countingIsPressed < 10; countingIsPressed++)
             {
                 while (twist.isPressed() == false)
@@ -100,6 +100,21 @@ namespace PresentationLayer
                 }
             }
             SocSecNumberAsString = CprNumbersL.ToString();
+            */
+            List<int> tempSocID = new List<int>();
+            int number = 0;
+            lcd.lcdGotoXY(x, 2);
+            /* Skal slettes igen
+            for (int i = 0; i < 10; i++)
+            {
+                number = i;
+                tempSocID.Add(number);
+                //lcd.lcdPrint(number.ToString());
+            }
+            SocSecNumberAsString = tempSocID.ToString();
+            */
+            SocSecNumberAsString = "0123456789";
+            lcd.lcdPrint(SocSecNumberAsString);
             return SocSecNumberAsString;
 
         }
@@ -107,16 +122,18 @@ namespace PresentationLayer
         public string getEmployeeId()
         {
             byte countingIsPressed;
-            byte x = 6;
+            byte x = 8;
             lcd.lcdClear();
-            lcd.lcdGotoXY(0, 0);
+            lcd.lcdGotoXY(1, 0);
             lcd.lcdPrint("Indtast ID nummer");
             WritenumberLine(); // Kør denne metode for at få vist NumberLine??? 
 
 
 
+            /*
             lcd.lcdGotoXY(x, 1); //starter samme sted som numberline
 
+            
             for (countingIsPressed = 0; countingIsPressed < 4; countingIsPressed++)
             {
                 while (twist.isPressed() == false)
@@ -152,8 +169,23 @@ namespace PresentationLayer
                     // break;
                 }
             }
+            
 
             EmployeeIdAsString = EmployeeIdList.ToString();
+            */
+            List<int> tempEmpID = new List<int>();
+            int number = 0;
+            /* Dette skal slettes igen
+            for (int i = 0; i <4; i++)
+            {
+                number = i;
+                tempEmpID.Add(number);
+                //lcd.lcdPrint(number.ToString());
+                
+            } */
+            EmployeeIdAsString = "1234";//tempEmpID.ToString();
+            lcd.lcdGotoXY(x, 2);
+            lcd.lcdPrint(EmployeeIdAsString);
             return EmployeeIdAsString;
         }
 
