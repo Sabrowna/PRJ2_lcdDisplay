@@ -3,57 +3,43 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Text;
 using DataLayer;
-//using RPI;
+
 
 namespace LogicLayer
 {
     public class Battery
     {
-        /*
-        private static RPi rpi;
-        private static Led green1; // Svarer til den røde LED i vores UC
-        private static Led green2; // Svarer til den gule LED i vores UC
-        private static Led green3; // Svarer til den grønne LED i vores UC
-        private static Led red1; // Svarer til den blå LED i vores UC
-        private LocalDB localDBRef;
+
+        
+        private LocalDB localDBRef = new LocalDB();
+        private double BatteryStatus {get; set;}
 
         public Battery()
         {
-            rpi = new RPi();
-            green1 = new Led(rpi, Led.ID.LD1);
-            green2 = new Led(rpi, Led.ID.LD2);
-            green3 = new Led(rpi, Led.ID.LD3);
-            red1 = new Led(rpi, Led.ID.LD6);
-            
+                       
+
         }
 
         public double ShowBatteryStatus()
         {
             // Sæt BatteryStatus 
-            localDBRef = new LocalDB();
             BatteryStatus = localDBRef.GetBatteryStatus();
-            if (Batterystatus >= 0 && Batterystatus <= 20)
+            if (BatteryStatus >= 0 && BatteryStatus <= 20)
             {
-                green1.on();
-                green2.off();
-                green3.off();
+                
             }
 
-            if (Batterystatus > 20 && Batterystatus <= 50)
+            if (BatteryStatus > 20 && BatteryStatus <= 50)
             {
-                green1.on();
-                green2.on();
-                green3.off();
+                
             }
 
-            if (Batterystatus > 50)
+            if (BatteryStatus > 50)
             {
-                green1.on();
-                green2.on();
-                green3.on();
+                
             }
 
-            return Batterystatus;
+            return BatteryStatus;
             
         }
 
@@ -64,7 +50,7 @@ namespace LogicLayer
             // som indikation på at opladning er i gang. 
            {
                 red1.on();
-                ShowBatteryStatus(Batterystatus); // 
+                ShowBatteryStatus(); // 
                 Thread.Sleep(500);
                 red1.off();
             
@@ -74,7 +60,7 @@ namespace LogicLayer
             return isCharging;
 
         }
-        */
+        
     }
 
 }

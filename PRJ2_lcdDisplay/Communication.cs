@@ -35,6 +35,7 @@ namespace PresentationLayer
             
             lcd.lcdDisplay(); //Tænder skærmen
             lcd.lcdClear(); // Nulstiller skærm
+            batteryRef.ShowBatteryStatus(); // Tjekker status på batteri
 
             /*
             batteryRef.ShowBatteryStatus(); // Tjekker status på batteri
