@@ -130,6 +130,7 @@ namespace PresentationLayer
             */
             SocSecNumberAsString = "0123456789";
             lcd.lcdPrint(SocSecNumberAsString);
+            Thread.Sleep(500);
 
         }
 
@@ -198,6 +199,31 @@ namespace PresentationLayer
             lcd.lcdPrint(EmployeeIdAsString);
             //return EmployeeIdAsString;
             
+        }
+        public bool Yes_No()
+        {
+            bool værdi = false;
+            twist.setCount(0);
+
+            lcd.lcdGotoXY(7, 1);
+            lcd.lcdPrint("Ja/Nej");
+            lcd.lcdGotoXY(7, 1);
+
+            lcd.lcdGotoXY(0, 1);
+
+            while (twist.isPressed() == false)
+            {
+                if ((twist.getCount()) % 2 == 0)
+                {
+                    værdi = true; //Man har skrevet ja
+                }
+
+                else if ((twist.getCount()) % 2 == 1)
+                {
+                    værdi = false;
+                }
+            }
+            return værdi;
         }
 
             //EmployeeIdAsString = employeeIdList.ToString();

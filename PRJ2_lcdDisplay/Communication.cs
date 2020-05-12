@@ -20,7 +20,7 @@ namespace PresentationLayer
         public bool isCharging = false; // Værdi skal hentes fra det fysiske system. Knap, kontakt etc.
         // der bør også i forhold til isCharging laves en binding der tjekker om oplader pludselig bliver tilsluttet.
         private double Batterystatus { get; set; }
-        
+
 
         public Communication()
         {
@@ -34,32 +34,38 @@ namespace PresentationLayer
         }
         public void Program()
         {
-            
+
             lcd.lcdDisplay(); //Tænder skærmen
             lcd.lcdClear(); // Nulstiller skærm
-            lcd.lcdSetBackLight(0,0,0);
+            lcd.lcdSetBackLight(0, 0, 0);
             batteryStatusRef.ChangeBackground(); // Ændrer baggrundsfarven efter batteristatus
-
-            lcd.lcdGotoXY(0, 1);
-            lcd.lcdPrint($" Batteristatus: {batteryRef.ShowBatteryStatus()} %"); // Udskriver batteristatus på display
-
-            Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
-
-           
-
             lcd.lcdClear();
+
+
+            displayRef.GetEmployeeId(); //Medarbejderen logger ind
+            Thread.Sleep(500);
             
-           
-                displayRef.GetEmployeeId(); //Medarbejderen logger ind
-                Thread.Sleep(500);
+            
+            //while ()
+            //{
+
+            batteryStatusRef.ChargeBattery();
+            batteryRef.ShowBatteryStatus();
 
 
             //while løkke - medarbejderen skal ikke logge ind igen men det er muligt at ind
             while (Console.KeyAvailable == false)//ændr i koden ved den rigtige test
             { }
+            lcd.lcdClear();
+            lcd.lcdPrint("Maaling med CPR?");
+            displayRef.Yes_No();
+            if (displayRef.Yes_No() == true)
+            {
                 displayRef.GetSocSecNumber(); //Skriver nummerlinjen + cpr
-                Thread.Sleep(500);
-            
+            }
+            else
+                displayRef.SocSecNumberAsString = "1111111111";
+
             while (Console.KeyAvailable == false)
             { }
 
@@ -67,36 +73,26 @@ namespace PresentationLayer
             lcd.lcdGotoXY(1, 0);
             lcd.lcdPrint("Start Ekg maaling");
 
-            //public bool YesNo()
-            //{
-            lcd.lcdGotoXY(7, 1);
-            lcd.lcdPrint("Ja/Nej");
-            lcd.lcdGotoXY(7, 1);
-            twist.setCount(0);
-            /*
-            if (twist.getCount() < 2)
+            displayRef.Yes_No();
+            if (displayRef.Yes_No() == true)
             {
-                twist.getBlueConnect();//Mere blå jo mere man drejer på knappen?
+                //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
+                ekgRecordRef.StartEkgRecord();
+                if (ekgRecordRef.StartEkgRecord() == true)
+                {
+                    lcd.lcdPrint("Maaling afsluttet");
+                }
+                while (Console.KeyAvailable == false)
+                { }
+
+                lcd.lcdClear();
+                lcd.lcdGotoXY(0, 2);
+                lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
             }
-            // }
-            */
-            //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
-            ekgRecordRef.StartEkgRecord();
-            if (ekgRecordRef.StartEkgRecord() == true)
-            {
-                lcd.lcdPrint("måilng afsluttet");
-            }
-            while (Console.KeyAvailable == false)
-            { }
-            
-            lcd.lcdClear();
-            lcd.lcdGotoXY(0, 2);
-            lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
-            
+
             lcd.lcdClear();
             lcd.lcdNoDisplay();
+            //}
         }
-
-        
     }
 }

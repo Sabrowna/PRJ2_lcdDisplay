@@ -28,18 +28,11 @@ namespace LogicLayer
             
         }
 
-        public bool Charging(bool isCharging) // Besked fra præsentationslaget
+        public bool Charging() // Besked fra præsentationslaget
         {
-           while(isCharging == true) // Så længe oplader er tilslutte (bool == true), køres løkken her.
-            // on/off kombineret med Thread.Sleep på red1, skulle gerne få den til at blinke
-            // som indikation på at opladning er i gang. 
-           {
-                ShowBatteryStatus(); // 
-                Thread.Sleep(500);
-                
-           }
+            bool ChargeBattery = localDBRef.ChargeBattery;
 
-            return isCharging;
+            return ChargeBattery;
 
         }
         

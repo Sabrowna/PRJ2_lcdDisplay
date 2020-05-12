@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using LogicLayer;
 using RaspberryPiCore.LCD;
-
+using System.Threading;
 namespace PresentationLayer
 {
     public class BatteryStatus
@@ -18,6 +18,17 @@ namespace PresentationLayer
             if (batteryRef.ShowBatteryStatus() < 20) // Hvis batteristatus er lav jf. UC, udskrives nedenstående
             {
                 lcd.lcdSetBackLight(250, 0, 0);
+
+                lcd.lcdGotoXY(0, 0);
+                for (int i = 0; i < 5; i++)
+                {
+                    lcd.lcdPrint("Enhed deaktiveret   Batteristatus lav   Tilslut oplader");
+                    Thread.Sleep(1000);
+                    lcd.lcdClear();
+                    Thread.Sleep(500);
+                }
+                lcd.lcdNoDisplay();
+                //Environment.Exit(lcd.lcdPrint(); //Kommentar exit code
             }
 
             if (batteryRef.ShowBatteryStatus() >= 20 && batteryRef.ShowBatteryStatus() < 50)
@@ -30,23 +41,39 @@ namespace PresentationLayer
             {
                 lcd.lcdSetBackLight(0, 250, 0);
             }
+
+            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
+            Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
         }
-        /*
-            while (batteryRef.ShowBatteryStatus() < 20) // Så længe batteristatus er lav, bliver systemet i denn løkke
+
+        public void ChargeBattery()
+        {
+            if (batteryRef.Charging() == true) // Så længe oplader er tilslutte (bool == true), køres løkken her. // som indikation på at opladning er i gang. 
             {
-                lcd.lcdGotoXY(0, 0);
-                lcd.lcdPrint("Enhed deaktiveret   Batteristatus lav   Tilslut oplader");
+                lcd.lcdClear();
+                lcd.lcdGotoXY(0, 1);
+                lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
+                Thread.Sleep(3000);
+                lcd.lcdClear();
+                lcd.lcdGotoXY(0, 1);
+                lcd.lcdPrint("Batteriet oplades");
+                Thread.Sleep(3000);
+                //Environment.Exit();
             }
-
+            
         }
+    /*
 
-            if (batteryRef.Charging(isCharging) == true) // Hvis opladning er i gang, køres og udskrives som nedenfor
-            {
-                while (batteryRef.Charging(isCharging) == true) // Så længe opladning er i gang, bliver systemet i denne løkke
-                {
-                    lcd.lcdGotoXY(0, 1);
-                    lcd.lcdPrint("Opladning i gang    Måling ikke mulig");
-                }
-                */
+
     }
+
+        if (batteryRef.Charging(isCharging) == true) // Hvis opladning er i gang, køres og udskrives som nedenfor
+        {
+            while (batteryRef.Charging(isCharging) == true) // Så længe opladning er i gang, bliver systemet i denne løkke
+            {
+                lcd.lcdGotoXY(0, 1);
+                lcd.lcdPrint("Opladning i gang    Måling ikke mulig");
+            }
+            */
+}
 }

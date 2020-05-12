@@ -21,6 +21,7 @@ namespace DataLayer
 
         public int Retur { get; set; }
         public double BatteryStatus { get; set; }
+        public bool ChargeBattery { get; set; }
         public LocalDB()
         {
             conn_online = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
