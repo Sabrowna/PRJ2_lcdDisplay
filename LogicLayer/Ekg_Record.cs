@@ -25,8 +25,9 @@ namespace LogicLayer
         private List<double> ekgRawData;
         int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
 
-        public void StartEkgRecord() //Start modtagelse af signal fra elektroderne
+        public bool StartEkgRecord() //Start modtagelse af signal fra elektroderne
         {
+            bool ekgRecordEnd = false;
             starttidspunkt = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss");
             ekgRawData = new List<double>();
 
@@ -37,13 +38,14 @@ namespace LogicLayer
 
                 Thread.Sleep(samplerate);
             }
+            ekgRecordEnd = true;
+            return ekgRecordEnd;
         }
         
         public void CreateEKGDTO(string EmployeeIdAsString, string SocSecNumberAsString) //Modtager disse to fra presentationlayer
         {
             StartEkgRecord();
-            //string EmployeeIdAsString = displayRef.EmployeeIdAsString;
-            //string SocSecNumberAsString = displayRef.SocSecNumberAsString;
+            
           
             DTO_EKGMåling nyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),ekgRawData,antalSamples,samplerate);
 

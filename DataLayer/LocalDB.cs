@@ -130,7 +130,7 @@ namespace DataLayer
 
         public double GetBatteryStatus()
         {
-            BatteryStatus = 20;
+            BatteryStatus = 45;
             return BatteryStatus;
         }
         

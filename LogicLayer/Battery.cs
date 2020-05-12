@@ -24,21 +24,6 @@ namespace LogicLayer
         {
             // Sæt BatteryStatus 
             BatteryStatus = localDBRef.GetBatteryStatus();
-            if (BatteryStatus >= 0 && BatteryStatus <= 20)
-            {
-                
-            }
-
-            if (BatteryStatus > 20 && BatteryStatus <= 50)
-            {
-                
-            }
-
-            if (BatteryStatus > 50)
-            {
-                
-            }
-
             return BatteryStatus;
             
         }
@@ -49,12 +34,9 @@ namespace LogicLayer
             // on/off kombineret med Thread.Sleep på red1, skulle gerne få den til at blinke
             // som indikation på at opladning er i gang. 
            {
-                red1.on();
                 ShowBatteryStatus(); // 
                 Thread.Sleep(500);
-                red1.off();
-            
-
+                
            }
 
             return isCharging;
