@@ -2,18 +2,20 @@
 using System.Threading;
 using System.Collections.Generic;
 using System.Text;
-using RPI;
+using DataLayer;
+//using RPI;
 
 namespace LogicLayer
 {
     public class Battery
     {
+        /*
         private static RPi rpi;
         private static Led green1; // Svarer til den røde LED i vores UC
         private static Led green2; // Svarer til den gule LED i vores UC
         private static Led green3; // Svarer til den grønne LED i vores UC
         private static Led red1; // Svarer til den blå LED i vores UC
-        
+        private LocalDB localDBRef;
 
         public Battery()
         {
@@ -25,10 +27,11 @@ namespace LogicLayer
             
         }
 
-        public double ShowBatteryStatus(double Batterystatus)
+        public double ShowBatteryStatus()
         {
             // Sæt BatteryStatus 
-
+            localDBRef = new LocalDB();
+            BatteryStatus = localDBRef.GetBatteryStatus();
             if (Batterystatus >= 0 && Batterystatus <= 20)
             {
                 green1.on();
@@ -71,6 +74,7 @@ namespace LogicLayer
             return isCharging;
 
         }
+        */
     }
 
 }

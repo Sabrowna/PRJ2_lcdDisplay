@@ -56,7 +56,7 @@ namespace PresentationLayer
             {
                 while (batteryRef.Charging(isCharging) == true) // Så længe opladning er i gang, bliver systemet i denne løkke
                 {
-                    lcd.lcd.lcdGotoXY(0, 1);
+                    lcd.lcdGotoXY(0, 1);
                     lcd.lcdPrint("Opladning i gang    Måling ikke mulig");
                 }
             }

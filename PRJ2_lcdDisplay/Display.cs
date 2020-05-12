@@ -52,9 +52,8 @@ namespace PresentationLayer
         public void GetSocSecNumber()
         {
             byte countingIsPressed;
-            byte xValueCPRLine = 6;
-            byte xStartValueNumberLine = 6;
-
+            byte xValueCPRLine = 6; //variabel
+            byte xStartValueNumberLine = 6; //konstant
 
             lcd.lcdClear();
             lcd.lcdGotoXY(0, 0);
@@ -64,15 +63,15 @@ namespace PresentationLayer
             lcd.lcdGotoXY(xStartValueNumberLine, 1); //starter samme sted som numberline
 
             /*
-            lcd.lcdGotoXY(x, 1); //starter samme sted som numberline
             
-            for (countingIsPressed = 0; countingIsPressed < 10; countingIsPressed++)
+            for (countingIsPressed = 0; countingIsPressed < 11; countingIsPressed++)
             {
-                if (countingIsPressed == 5)
+                if (countingIsPressed == 5) //Der skal være en bindestreg efter tal nr 6
                 {
                     lcd.lcdGotoXY((xValueCPRLine + 1), 2);
                     lcd.lcdPrint("-");
                     xValueCPRLine++;
+                    countingIsPressed++
 
                 }
 
@@ -131,7 +130,6 @@ namespace PresentationLayer
             */
             SocSecNumberAsString = "0123456789";
             lcd.lcdPrint(SocSecNumberAsString);
-            //return SocSecNumberAsString;
 
         }
 

@@ -12,16 +12,22 @@ namespace DataLayer
     public class LocalDB
     {
         private SqlConnection conn;
+        private SqlConnection conn_online;
         private SqlDataReader rdr;
         private SqlCommand cmd;
-        private const string db = "F20ST2ITS2201908775";
-        public int Retur { get; set; }
+        private const string db = "sa";
+        //private const string source = "SABROWNA\SAB";
 
+        public int Retur { get; set; }
+        public double BatteryStatus { get; set; }
         public LocalDB()
         {
-            conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            conn_online = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            conn = new SqlConnection("Data Source=SABROWNA\SAB; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            //conn = new SqlConnection("Data Source = SABROWNA-SAB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
 
         }
+
 
 
         // Undersøg om CPR findes i LokalDB - tabel SP_NyeEkger. Returner bool. 
@@ -77,9 +83,9 @@ namespace DataLayer
 
         }
 
-        public int CountRows()
+        /*public int CountID()
         {
-            int numberOfRows;
+            int Retur;
 
             cmd = new SqlCommand("Select Count(*) from db_owner.SP_NyeEkger", conn);
             conn.Open();
@@ -87,11 +93,10 @@ namespace DataLayer
             rdr = cmd.ExecuteReader();
             rdr.Read();
 
-            numberOfRows = Convert.ToInt32(rdr.Read()); // Er konverteringen nødvendig? 
-
-            return numberOfRows;
-
+            Retur = (int)cmd.ExecuteScalar();
+            return Retur;
         }
+        */
 
 
         public int InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
@@ -121,7 +126,15 @@ namespace DataLayer
 
             return Retur;
         }
+
+        /*public double GetBatteryStatus()
+        {
+            BatteryStatus =; //Indsæt kode for værdi her
+                return BatteryStatus;
+        }
+        */
     }
 }
-    
+
+
 
