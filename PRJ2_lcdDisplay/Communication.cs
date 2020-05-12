@@ -5,6 +5,7 @@ using RaspberryPiCore.LCD;
 using System.Collections.Generic;
 using LogicLayer;
 using DTO;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PresentationLayer
 {
@@ -34,7 +35,8 @@ namespace PresentationLayer
         }
         public void Program()
         {
-
+            bool continueEKGMeasurement = false;
+            bool answer;
             lcd.lcdDisplay(); //Tænder skærmen
             lcd.lcdClear(); // Nulstiller skærm
             lcd.lcdSetBackLight(0, 0, 0);
@@ -42,10 +44,11 @@ namespace PresentationLayer
             lcd.lcdClear();
 
 
+
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
             Thread.Sleep(500);
-            
-            
+
+
             //while ()
             //{
 
@@ -58,7 +61,7 @@ namespace PresentationLayer
             { }
             lcd.lcdClear();
             lcd.lcdPrint("Maaling med CPR?");
-            displayRef.Yes_No();
+
             if (displayRef.Yes_No() == true)
             {
                 displayRef.GetSocSecNumber(); //Skriver nummerlinjen + cpr
@@ -73,26 +76,36 @@ namespace PresentationLayer
             lcd.lcdGotoXY(1, 0);
             lcd.lcdPrint("Start Ekg maaling");
 
-            displayRef.Yes_No();
-            if (displayRef.Yes_No() == true)
+            answer = displayRef.Yes_No();
+
+            do 
             {
-                //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
-                ekgRecordRef.StartEkgRecord();
-                if (ekgRecordRef.StartEkgRecord() == true)
+                if (answer == true)
                 {
-                    lcd.lcdPrint("Maaling afsluttet");
+                    //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
+                    ekgRecordRef.StartEkgRecord();
+                    if (ekgRecordRef.StartEkgRecord() == true)
+                    {
+                        lcd.lcdPrint("Maaling afsluttet");
+                    }
+                    while (Console.KeyAvailable == false)
+                    { }
+
+                    lcd.lcdClear();
+                    lcd.lcdGotoXY(0, 2);
+                    lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
                 }
-                while (Console.KeyAvailable == false)
-                { }
 
                 lcd.lcdClear();
-                lcd.lcdGotoXY(0, 2);
-                lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
-            }
+                lcd.lcdPrint("Ny maaling?");
 
-            lcd.lcdClear();
-            lcd.lcdNoDisplay();
-            //}
+                answer = displayRef.Yes_No();
+                continueEKGMeasurement = answer;
+                
+                
+
+            } while (continueEKGMeasurement) ;
+
         }
     }
 }

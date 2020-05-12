@@ -58,7 +58,7 @@ namespace PresentationLayer
                 lcd.lcdGotoXY(0, 1);
                 lcd.lcdPrint("Batteriet oplades");
                 Thread.Sleep(3000);
-                //Environment.Exit();
+                Environment.Exit(0);
             }
             
         }
