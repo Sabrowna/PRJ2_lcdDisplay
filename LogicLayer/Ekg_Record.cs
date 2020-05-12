@@ -57,9 +57,8 @@ namespace LogicLayer
 
         public string GetReceipt() //TILRETTES til databasen
         {
-            int id = localDBRef.Retur;
-            //string receipt = $"Data er sendt med ID: {id}";
-
+            int id = localDBRef.CountID();
+            
             return Convert.ToString(id);
         }
         

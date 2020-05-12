@@ -27,15 +27,20 @@ namespace LogicLayer
 
         public double ShowBatteryStatus(double Batterystatus)
         {
+            // Sæt BatteryStatus 
+
             if (Batterystatus >= 0 && Batterystatus <= 20)
             {
                 green1.on();
+                green2.off();
+                green3.off();
             }
 
             if (Batterystatus > 20 && Batterystatus <= 50)
             {
                 green1.on();
                 green2.on();
+                green3.off();
             }
 
             if (Batterystatus > 50)
@@ -56,7 +61,7 @@ namespace LogicLayer
             // som indikation på at opladning er i gang. 
            {
                 red1.on();
-                ShowBatteryStatus();
+                ShowBatteryStatus(Batterystatus); // 
                 Thread.Sleep(500);
                 red1.off();
             

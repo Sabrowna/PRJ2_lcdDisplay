@@ -77,9 +77,9 @@ namespace DataLayer
 
         }
 
-        public int CountRows()
+        public int CountID()
         {
-            int numberOfRows;
+            int Retur;
 
             cmd = new SqlCommand("Select Count(*) from db_owner.SP_NyeEkger", conn);
             conn.Open();
@@ -87,9 +87,9 @@ namespace DataLayer
             rdr = cmd.ExecuteReader();
             rdr.Read();
 
-            numberOfRows = Convert.ToInt32(rdr.Read()); // Er konverteringen nødvendig? 
+            Retur = (int)cmd.ExecuteScalar();
 
-            return numberOfRows;
+            return Retur;
 
         }
 
