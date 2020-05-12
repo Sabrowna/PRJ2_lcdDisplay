@@ -35,10 +35,10 @@ namespace PresentationLayer
             
             lcd.lcdDisplay(); //Tænder skærmen
             lcd.lcdClear(); // Nulstiller skærm
-            batteryRef.ShowBatteryStatus(Batterystatus); // Tjekker status på batteri
+            batteryRef.ShowBatteryStatus(); // Tjekker status på batteri
 
             lcd.lcdGotoXY(0, 1);
-            lcd.lcdPrint($" Batteristatus: {batteryRef.ShowBatteryStatus(Batterystatus)}"); // Udskriver batteristatus på display
+            lcd.lcdPrint($" Batteristatus: {batteryRef.ShowBatteryStatus()}"); // Udskriver batteristatus på display
 
             Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
 

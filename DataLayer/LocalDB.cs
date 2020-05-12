@@ -7,6 +7,7 @@ using System.IO;
 using System.Data.SqlClient;
 using DTO;
 
+
 namespace DataLayer
 {
     public class LocalDB
@@ -83,7 +84,7 @@ namespace DataLayer
 
         }
 
-        /*public int CountID()
+        public int CountID()
         {
             int Retur;
 
@@ -96,7 +97,7 @@ namespace DataLayer
             Retur = (int)cmd.ExecuteScalar();
             return Retur;
         }
-        */
+        
 
 
         public int InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
@@ -127,12 +128,12 @@ namespace DataLayer
             return Retur;
         }
 
-        /*public double GetBatteryStatus()
+        public double GetBatteryStatus()
         {
-            BatteryStatus =; //Indsæt kode for værdi her
-                return BatteryStatus;
+            BatteryStatus = 20;
+            return BatteryStatus;
         }
-        */
+        
     }
 }
 
