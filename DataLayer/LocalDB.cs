@@ -7,28 +7,19 @@ using System.IO;
 using System.Data.SqlClient;
 using DTO;
 
-
-
-
-
-namespace LocalDB
+namespace DataLayer
 {
-    public class LokalDB
+    public class LocalDB
     {
         private SqlConnection conn;
-        private SqlConnection conn_online;
         private SqlDataReader rdr;
         private SqlCommand cmd;
-        private const string db = "sa";
-        //private const string source = "SABROWNA\SAB";
-        
+        private const string db = "F20ST2ITS2201908775";
         public int Retur { get; set; }
-        
-        public LokalDB()
+
+        public LocalDB()
         {
-            conn_online = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            conn = new SqlConnection("Data Source=SABROWNA\SAB; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            //conn = new SqlConnection("Data Source = SABROWNA-SAB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            conn = new SqlConnection("Data Source=st-i4dab.uni.au.dk; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
 
         }
 
@@ -118,7 +109,6 @@ namespace LocalDB
                 nyMåling.RåData.SelectMany(value =>
                 BitConverter.GetBytes(value)).ToArray());
 
-                //Parametrene gør koden på linje 108 mere læsevenlig
                 cmd.Parameters.AddWithValue("@employeeID", (nyMåling.MedarbejderID));
                 cmd.Parameters.AddWithValue("@socSecNb", (nyMåling.BorgerCPR));
                 cmd.Parameters.AddWithValue("@startTime", (nyMåling.StarttidspunktMåling));
@@ -133,8 +123,5 @@ namespace LocalDB
         }
     }
 }
-
-       
     
-
 

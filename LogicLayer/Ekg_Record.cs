@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
-using LocalDB;
+using DataLayer;
 using DTO;
 using RaspberryPiCore.ADC;
 
 namespace LogicLayer
 { 
-    public class ekgRecord 
+    public class Ekg_Record 
     {
-        private LokalDB localDBRef;
+        private LocalDB localDBRef;
         private ADC1015 adc;
 
-        public ekgRecord()
+        public Ekg_Record()
         {
-            localDBRef = new LokalDB();
+            localDBRef = new LocalDB();
             adc = new ADC1015();
         }
 
@@ -22,18 +22,18 @@ namespace LogicLayer
         double sample = 0; //En sample er ét punkt
         int antalSamples = 12000; //Hvor mange samples skal der være i løbet af målingen
         string starttidspunkt;
-        public List<double> EkgRawData;
-        private int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
+        private List<double> ekgRawData;
+        int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
 
         public void StartEkgRecord() //Start modtagelse af signal fra elektroderne
         {
             starttidspunkt = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss");
-            EkgRawData = new List<double>();
+            ekgRawData = new List<double>();
 
             for (int i = 0; i < antalSamples; i++)
             {
                 sample = (adc.readADC_SingleEnded(0) / 2048.0) * 6.144; //Konverterer fra adc til strøm (eller omvendt)
-                EkgRawData.Add(sample);
+                ekgRawData.Add(sample);
 
                 Thread.Sleep(samplerate);
             }
@@ -45,9 +45,9 @@ namespace LogicLayer
             //string EmployeeIdAsString = displayRef.EmployeeIdAsString;
             //string SocSecNumberAsString = displayRef.SocSecNumberAsString;
           
-            DTO_EKGMåling NyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),EkgRawData,antalSamples,samplerate);
+            DTO_EKGMåling nyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),ekgRawData,antalSamples,samplerate);
 
-            localDBRef.InsertEKGMeasurement(NyMåling); //Sender målingen til databasen
+            localDBRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
         }
         
         //public void SendToDB(DTO_EKGMåling NyMåling)
@@ -55,7 +55,7 @@ namespace LogicLayer
         //    localDBRef.InsertEKGMeasurement(NyMåling);
         //}
 
-        public string getReceipt() //TILRETTES til databasen
+        public string GetReceipt() //TILRETTES til databasen
         {
             int id = localDBRef.Retur;
             //string receipt = $"Data er sendt med ID: {id}";

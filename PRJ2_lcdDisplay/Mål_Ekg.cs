@@ -11,7 +11,7 @@ namespace PresentationLayer
 
 {
     //Korrigerer mellem de forskellige klasser. Programmet starter
-    public class Mål_Ekg //TEST
+    public class Mål_Ekg 
     {
         public static Communication commRef;
 
