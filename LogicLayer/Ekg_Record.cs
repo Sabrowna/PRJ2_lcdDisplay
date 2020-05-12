@@ -55,9 +55,10 @@ namespace LogicLayer
         //    localDBRef.InsertEKGMeasurement(NyMåling);
         //}
 
+        
         public string GetReceipt() //TILRETTES til databasen
         {
-            int id = localDBRef.CountID();
+            int id = localDBRef.Retur;
             
             return Convert.ToString(id);
         }

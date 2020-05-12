@@ -197,6 +197,7 @@ namespace PresentationLayer
             lcd.lcdGotoXY(xValueCPRLine, 2);
             lcd.lcdPrint(EmployeeIdAsString);
             //return EmployeeIdAsString;
+            
         }
 
             //EmployeeIdAsString = employeeIdList.ToString();

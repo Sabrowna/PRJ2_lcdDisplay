@@ -35,16 +35,18 @@ namespace PresentationLayer
             
             lcd.lcdDisplay(); //Tænder skærmen
             lcd.lcdClear(); // Nulstiller skærm
-            batteryRef.ShowBatteryStatus(Batterystatus); // Tjekker status på batteri
+
+            /*
+            batteryRef.ShowBatteryStatus(); // Tjekker status på batteri
 
             lcd.lcdGotoXY(0, 1);
-            lcd.lcdPrint($" Batteristatus: {batteryRef.ShowBatteryStatus(Batterystatus)}"); // Udskriver batteristatus på display
+            lcd.lcdPrint($" Batteristatus: {batteryRef.ShowBatteryStatus()}"); // Udskriver batteristatus på display
 
             Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
 
-            if (batteryRef.ShowBatteryStatus(Batterystatus) < 20) // Hvis batteristatus er lav jf. UC, udskrives nedenstående
+            if (batteryRef.ShowBatteryStatus() < 20) // Hvis batteristatus er lav jf. UC, udskrives nedenstående
             {
-                while (batteryRef.ShowBatteryStatus(Batterystatus) < 20) // Så længe batteristatus er lav, bliver systemet i denn løkke
+                while (batteryRef.ShowBatteryStatus() < 20) // Så længe batteristatus er lav, bliver systemet i denn løkke
                 {
                     lcd.lcdGotoXY(0, 0);
                     lcd.lcdPrint("Enhed deaktiveret   Batteristatus lav   Tilslut oplader");
@@ -62,16 +64,16 @@ namespace PresentationLayer
             }
 
             lcd.lcdClear();
-
+            */
            
-                displayRef.getEmployeeId(); //Medarbejderen logger ind
+                displayRef.GetEmployeeId(); //Medarbejderen logger ind
                 Thread.Sleep(500);
 
 
             //while løkke - medarbejderen skal ikke logge ind igen men det er muligt at ind
             while (Console.KeyAvailable == false)//ændr i koden ved den rigtige test
             { }
-                displayRef.getSocSecNumber(); //Skriver nummerlinjen + cpr
+                displayRef.GetSocSecNumber(); //Skriver nummerlinjen + cpr
                 Thread.Sleep(500);
             
             while (Console.KeyAvailable == false)
@@ -101,7 +103,7 @@ namespace PresentationLayer
             
             lcd.lcdClear();
             lcd.lcdGotoXY(0, 2);
-            lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.getReceipt()}");
+            lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
             
             lcd.lcdClear();
             lcd.lcdPrint("slut");
