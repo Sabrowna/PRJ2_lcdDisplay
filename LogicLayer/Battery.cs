@@ -30,9 +30,9 @@ namespace LogicLayer
 
         public bool Charging() // Besked fra præsentationslaget
         {
-            bool ChargeBattery = localDBRef.ChargeBattery;
+            bool ChargingBattery = localDBRef.ChargingBattery;
 
-            return ChargeBattery;
+            return ChargingBattery;
 
         }
         
