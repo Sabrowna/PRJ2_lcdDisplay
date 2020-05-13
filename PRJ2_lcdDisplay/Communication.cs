@@ -48,14 +48,14 @@ namespace PresentationLayer
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
             Thread.Sleep(500);
 
-
+            /*
             //while ()
             //{
 
             batteryStatusRef.ChargeBattery();
             batteryRef.ShowBatteryStatus();
 
-
+            
             //while løkke - medarbejderen skal ikke logge ind igen men det er muligt at ind
             while (Console.KeyAvailable == false)//ændr i koden ved den rigtige test
             { }
@@ -67,8 +67,9 @@ namespace PresentationLayer
                 displayRef.GetSocSecNumber(); //Skriver nummerlinjen + cpr
             }
             else
+            */
                 displayRef.SocSecNumberAsString = "1111111111";
-
+            /*
             while (Console.KeyAvailable == false)
             { }
 
@@ -82,19 +83,22 @@ namespace PresentationLayer
             {
                 if (answer == true)
                 {
-                    //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
+                */
+                    ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
                     ekgRecordRef.StartEkgRecord();
                     if (ekgRecordRef.StartEkgRecord() == true)
                     {
                         lcd.lcdPrint("Maaling afsluttet");
+                Thread.Sleep(3000);
+
                     }
-                    while (Console.KeyAvailable == false)
-                    { }
+                    //while (Console.KeyAvailable == false)
+                    //{ }
 
                     lcd.lcdClear();
                     lcd.lcdGotoXY(0, 2);
                     lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
-                }
+                //}
 
                 lcd.lcdClear();
                 lcd.lcdPrint("Ny maaling?");
@@ -104,7 +108,7 @@ namespace PresentationLayer
                 
                 
 
-            } while (continueEKGMeasurement) ;
+            //} while (continueEKGMeasurement) ;
 
         }
     }
