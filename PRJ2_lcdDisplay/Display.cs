@@ -37,7 +37,7 @@ namespace PresentationLayer
 
         public void WritenumberLine()
         {
-            byte number = 0;
+            byte number = 0; // Lokal variabel til brug for udskrivning af NumberLine
             byte x = 6; //Værdien på vores x-akse
             lcd.lcdGotoXY(x, 1);
             for (int i = 0; i < 10; i++)
@@ -111,72 +111,61 @@ namespace PresentationLayer
 
         }
 
-        // public string GetEmployeeId()
         public void GetEmployeeId()
         {
-            byte countingIsPressed;
-            byte xValueCPRLine = 8;
+
+            byte xValueIDLine = 6; //variabel
+            byte xStartValueNumberLine = Convert.ToByte(6); //konstant
+            byte countingIsPressed = 0;
+
             lcd.lcdClear();
             lcd.lcdGotoXY(1, 0);
             lcd.lcdPrint("Indtast ID nummer");
             WritenumberLine(); // Kør denne metode for at få vist NumberLine
 
-            /*
-            lcd.lcdGotoXY(x, 1); //starter samme sted som numberline
-
-
-            for (countingIsPressed = 0; countingIsPressed < 4; countingIsPressed++)
+            while (countingIsPressed < 5)
             {
                 while (twist.isPressed() == false)
                 {
-                    // Kode der gør at metoden venter på twist.isPressed
-                }
-
-                if (twist.isPressed() == true)
-                {
-                    if (twist.getCount() < 0 && twist.getCount() > 9)
+                    if (twist.getCount() < 0) //Limit-metode - hvis cursoren går forbi 0-tallet, hopper den hen på 9
                     {
-
-                        lcd.lcdGotoXY(0, 3);
-                        lcd.lcdPrint("FEJL");
-                        Thread.Sleep(3000);
-                        lcd.lcdPrint("                    "); //Kan man slette en linje uden at slette det andet?
-                        twist.setCount(0);
-                        lcd.lcdGotoXY(6, 1);
-
+                        lcd.lcdGotoXY(15, 1);
+                        twist.setCount(9);
                     }
 
+                    else if (twist.getCount() > 9) //Limit-metode - hvis cursoren går forbi 9-tallet, hopper den hen på 0
+                    {
+                        lcd.lcdGotoXY(6, 1);
+                        twist.setCount(0);
+                    }
+
+                    else if (twist.getCount() >= 0 || twist.getCount() <= 9)
+                    {
+                        byte getCount = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
+                        lcd.lcdGotoXY(getCount, 1);
+                    }
+
+                    Thread.Sleep(500);
+                    employeeIdList.Add(twist.getCount()); //Tilføj til en liste som vi senere kan videresende
+                    lcd.lcdGotoXY(xValueIDLine, 2); // Går til linjen ID Nummer udskrives på
+                    lcd.lcdPrint(twist.getCount().ToString()); //Udskriver valgte værdi fra numberline som værdi i MedarbejderID
+                    xValueIDLine++; // Lægger 1 til værdien på den lokale variabel, så næste ciffer skrives på feltet til højre for
+                    twist.setCount(twist.getCount()); // Sætter værdien på twisterens count til nuværende
 
 
-                    employeeIdList.Add(twist.getCount());
-                    lcd.lcdGotoXY(x, 2); //Bruger ser cpr nummer på denne linje
-                    lcd.lcdPrint(twist.getCount().ToString()); //udskriver på pladsen til cpr nummer
-                                                               //x += countingIsPressed;
-                    twist.setCount(0);
-                    lcd.lcdGotoXY(x, 1);
-                    // break;
+                    byte getCountEnd = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
+                    lcd.lcdGotoXY(getCountEnd, 1); //Sætter cursoren tilbage på numberline hvor den stod før
+                    countingIsPressed++; // Lægger 1 til countet på antal cifte i indtastet MedarbejderID
                 }
+
+                EmployeeIdAsString = employeeIdList.ToString();
+
             }
 
+        }              
 
-            EmployeeIdAsString = EmployeeIdList.ToString();
-            */
-            List<int> tempEmpID = new List<int>();
-            int number = 0;
-            /* Dette skal slettes igen
-            for (int i = 0; i <4; i++)
-            {
-                number = i;
-                tempEmpID.Add(number);
-                //lcd.lcdPrint(number.ToString());
-
-            } */
-            EmployeeIdAsString = "1234";//tempEmpID.ToString();
-            lcd.lcdGotoXY(xValueCPRLine, 2);
-            lcd.lcdPrint(EmployeeIdAsString);
-            //return EmployeeIdAsString;
-
-        }
+              
+        
         public bool Yes_No()
         {
             bool værdi = false;
@@ -206,11 +195,38 @@ namespace PresentationLayer
             return værdi;
         }
 
-        //EmployeeIdAsString = employeeIdList.ToString();
 
-        //}
+        public bool With_WithOut()
+        {
+            bool værdi = false;
+            twist.setCount(0);
 
-        // Indsæt metode fra CPR checker der kontrollerer om det er validt CPR-nummer? 
+            lcd.lcdGotoXY(0, 1);
+            lcd.lcdPrint("1. Med");
+
+            lcd.lcdGotoXY(0, 2);
+            lcd.lcdPrint("2. Uden");
+
+            while (twist.isPressed() == false)
+            {
+
+                if ((twist.getCount()) % 2 == 0) //Går cursoren op i et lige tal, skriver man 'ja'
+                {
+                    værdi = true; //Man har skrevet ja
+                    lcd.lcdGotoXY(0, 1);
+                }
+
+                else if ((twist.getCount()) % 2 == 1) //Går cursoren op i et ulige tal, skriver man 'nej'
+                {
+                    værdi = false;
+                    lcd.lcdGotoXY(0, 2);
+                }
+            }
+            return værdi;
+        }
+
+
+
     }
 }
 

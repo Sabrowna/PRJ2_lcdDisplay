@@ -20,7 +20,7 @@ namespace PresentationLayer
         private BatteryStatus batteryStatusRef;
         public bool isCharging = false; // Værdi skal hentes fra det fysiske system. Knap, kontakt etc.
         // der bør også i forhold til isCharging laves en binding der tjekker om oplader pludselig bliver tilsluttet.
-        private double Batterystatus { get; set; }
+        // private double Batterystatus { get; set; }
 
 
         public Communication()
@@ -31,7 +31,7 @@ namespace PresentationLayer
             displayRef = new Display();
             batteryRef = new Battery();
             batteryStatusRef = new BatteryStatus();
-            Batterystatus = 20; // Få en ægte værdi ind her. 
+            
         }
         public void Program()
         {
@@ -44,20 +44,28 @@ namespace PresentationLayer
             lcd.lcdBlink();
             lcd.lcdSetBackLight(0, 0, 0);
             batteryStatusRef.ChangeBackground(); // Ændrer baggrundsfarven efter batteristatus
-            lcd.lcdClear();
 
-            /*
+            lcd.lcdClear();
+            lcd.lcdPrint("Indtastning af      medarbejder-ID:"); // Hvad kunne en bedre tekst være? Skal vi eventuelt ændre i koden for valgmulighederne? Se metoden with_without?
+
+            if (displayRef.Yes_No() == true) // Giver valget mellem at foretage logon med eller uden medarbejder ID
+            {
+                displayRef.GetEmployeeId(); //Metode til indtastning af medarbejder ID
+            }
+            else
+            {
+                displayRef.EmployeeIdAsString = "1111";
+            }
+
 
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
             Thread.Sleep(500);
 
-            batteryStatusRef.ChargeBattery();
+            batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
             batteryRef.ShowBatteryStatus();
             Thread.Sleep(2000);
 
-            //while løkke - medarbejderen skal ikke logge ind igen men det er muligt at ind
-            */
-
+           
             lcd.lcdClear();
             lcd.lcdPrint("Maaling med CPR?");
 

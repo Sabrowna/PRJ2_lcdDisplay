@@ -22,16 +22,16 @@ namespace PresentationLayer
                 lcd.lcdGotoXY(0, 0);
                 for (int i = 0; i < 5; i++)
                 {
-                    lcd.lcdPrint("Enhed deaktiveret   Batteristatus lav   Tilslut oplader");
+                    lcd.lcdPrint("Enhed deaktiveres   Batteristatus lav   Tilslut oplader");
                     Thread.Sleep(1000);
                     lcd.lcdClear();
                     Thread.Sleep(500);
                 }
                 lcd.lcdNoDisplay();
-                //Environment.Exit(lcd.lcdPrint(); //Kommentar exit code
+                Environment.Exit(lcd.lcdPrint(0)); 
             }
 
-            if (batteryRef.ShowBatteryStatus() >= 20 && batteryRef.ShowBatteryStatus() < 50)
+            if (batteryRef.ShowBatteryStatus() >= 20 || batteryRef.ShowBatteryStatus() < 50)
             {
                 lcd.lcdSetBackLight(0, 0, 250);
             }
