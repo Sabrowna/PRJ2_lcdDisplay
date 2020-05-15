@@ -48,7 +48,7 @@ namespace DataLayer
                 }
             }
 
-            input.Close();
+            
             reader.Close();
 
             return result;
@@ -76,7 +76,7 @@ namespace DataLayer
                 }
             }
 
-            input.Close();
+            
             reader.Close();
 
             return result;
@@ -116,8 +116,10 @@ namespace DataLayer
             formatter.Serialize(output, nyMåling);
 
 
+
+            // writer.Close();
+
             output.Close();
-            writer.Close();
 
             // Retur = CountID();
 
