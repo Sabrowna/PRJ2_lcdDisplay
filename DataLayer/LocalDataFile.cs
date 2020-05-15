@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DataLayer
 {
-    class LocalDataFile : IData
+   public class LocalDataFile : IData
     {
         private FileStream input;
         private StreamReader reader;
@@ -134,4 +134,4 @@ namespace DataLayer
         }
     }
 }
-}
+

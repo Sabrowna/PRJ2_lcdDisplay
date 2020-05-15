@@ -34,27 +34,7 @@ namespace DataLayer
             ChargingBattery = false;
         }
 
-        public int InsertEKGMeasurement(DTO_EKGMåling nyMåling)
-        {
-            SqlConnection conn;
-            const String db = "F20ST2ITS2201908775";
-            int Retur;
-            conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
-            conn.Open();
-            string insertStringParam = $"INSERT INTO SP_NyeEkger ([raa_data],[id_medarbejder],[borger_cprnr],[start_tidspunkt],[antal_maalepunkter],[samplerate_hz]) OUTPUT INSERTED.id_måling VALUES(@data,'{nyMåling.MedarbejderID}','{nyMåling.BorgerCPR}','{nyMåling.StarttidspunktMåling.ToBinary()}',{nyMåling.AntalMålepunkter},@hz)";
-            using (SqlCommand cmd = new SqlCommand(insertStringParam, conn))
-            {
-                cmd.Parameters.AddWithValue("@data",
-                nyMåling.RåData.SelectMany(value =>
-                BitConverter.GetBytes(value)).ToArray());
-                cmd.Parameters.AddWithValue("@hz", (float)nyMåling.SampleRateHz);
-
-                Retur = (int)cmd.ExecuteScalar();
-            }
-            conn.Close();
-
-            return Retur;
-        }
+       
 
 
         // Undersøg om CPR findes i LokalDB - tabel SP_NyeEkger. Returner bool. 
@@ -125,14 +105,11 @@ namespace DataLayer
         }
 
 
-        /* Udkommenteret 14/5 for test
+        // Udkommenteret 14/5 for test
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
         {
             
-            SqlConnection conn;
-            const String db = "F20ST2ITS2201908775";
-            conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
-            conn.Open();
+          
             
             SqlConnection conn;
             const String db = "F20ST2ITS2201908775";
@@ -160,7 +137,7 @@ namespace DataLayer
             // return Retur;
             
         }
-        */
+        
 
         public double GetBatteryStatus()
         {

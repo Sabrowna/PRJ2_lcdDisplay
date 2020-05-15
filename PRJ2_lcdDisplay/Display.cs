@@ -30,6 +30,9 @@ namespace PresentationLayer
 
             ekgRecordRef = new Ekg_Record();
             //twist.setCount(0)
+            lcd.lcdCursor();
+            lcd.lcdBlink();
+
         }
 
         public void WritenumberLine()
@@ -46,14 +49,12 @@ namespace PresentationLayer
             }
         }
 
-
-
-        // public string GetSocSecNumber()
         public void GetSocSecNumber()
         {
-            byte countingIsPressed;
+
             byte xValueCPRLine = 6; //variabel
-            byte xStartValueNumberLine = 6; //konstant
+            byte xStartValueNumberLine = Convert.ToByte(6); //konstant
+            byte countingIsPressed = 0;
 
             lcd.lcdClear();
             lcd.lcdGotoXY(0, 0);
@@ -62,75 +63,51 @@ namespace PresentationLayer
 
             lcd.lcdGotoXY(xStartValueNumberLine, 1); //starter samme sted som numberline
 
-            /*
-            
-            for (countingIsPressed = 0; countingIsPressed < 11; countingIsPressed++)
+            while (countingIsPressed < 11)
             {
-                if (countingIsPressed == 5) //Der skal være en bindestreg efter tal nr 6
-                {
-                    lcd.lcdGotoXY((xValueCPRLine + 1), 2);
-                    lcd.lcdPrint("-");
-                    xValueCPRLine++;
-                    countingIsPressed++
 
-                }
-
-                else
+                //for (countingIsPressed = 0; countingIsPressed < 11; countingIsPressed++) //Kører 11 gange hvor den udskriver et nummer for hver løkke + en '-'
+                //{
+                while (twist.isPressed() == false)
                 {
-                    while (twist.isPressed() == false)
+                    if (twist.getCount() < 0) //Limit-metode - hvis cursoren går forbi 0-tallet, hopper den hen på 9
                     {
-
-                        if (twist.getCount() < 0 && twist.getCount() > 9)
-                        {
-
-                            if (twist.getCount() < 0)
-                            {
-                                lcd.lcdGotoXY(15, 1);
-                                twist.setCount() = 9;
-                            }
-
-                            else if (twist.getCount() > 9)
-                            {
-                                lcd.lcdGotoXY(6, 1);
-                                twist.setCount() = 0;
-                            }
-                        }
-                        else if (twist.getCount() >= 0 && twist.getCount() <= 9)
-                        {
-                            lcd.lcdGotoXY((twist.getCount()) + xStartValueNumberLine, 1);
-                        }
-
-                        else if (twist.isPressed() == true) // irrelevant statement? Hvis linje 66 er true, kører den her ikke uanset hvad
-                        {
-                            cprNumbersL.Add(twist.getCount());
-                            lcd.lcdGotoXY(xValueCPRLine, 2); //Bruger ser cpr nummer på denne linje
-                            lcd.lcdPrint(twist.getCount().ToString()); //udskriver på pladsen til cpr nummer
-                            xValueCPRLine++;
-                            twist.setCount(twist.getCount()); // Her bliver cursoren stående på positionen på numberline
-
-                        }
-
-                        lcd.lcdGotoXY((twist.getCount()) + xStartValueNumberLine, 1);
+                        lcd.lcdGotoXY(15, 1);
+                        twist.setCount(9);
                     }
-                }                
+
+                    else if (twist.getCount() > 9) //Limit-metode - hvis cursoren går forbi 9-tallet, hopper den hen på 0
+                    {
+                        lcd.lcdGotoXY(6, 1);
+                        twist.setCount(0);
+                    }
+
+                    else if (twist.getCount() >= 0 || twist.getCount() <= 9)
+                    {
+                        byte getCount = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
+                        lcd.lcdGotoXY(getCount, 1);
+                    }
+                }
+                Thread.Sleep(500);
+                cprNumbersL.Add(twist.getCount()); //Tilføj til en liste som vi senere kan videresende
+                lcd.lcdGotoXY(xValueCPRLine, 2); //Bruger ser cpr nummer på denne linje
+                lcd.lcdPrint(twist.getCount().ToString()); //udskriver på pladsen til cpr nummer
+                xValueCPRLine++;
+                twist.setCount(twist.getCount()); // Her bliver cursoren stående på positionen på numberline
+
+                //Sætter cursoren tilbage der hvor den sluttede
+                byte getCountEnd = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
+                lcd.lcdGotoXY(getCountEnd, 1);
+                countingIsPressed++;
+
+                if (countingIsPressed == 6) //Der skal være en bindestreg efter tal nr 6
+                {
+                    lcd.lcdGotoXY((xValueCPRLine++), 2);
+                    lcd.lcdPrint("-");
+                    countingIsPressed++;
+                } 
             }
-            SocSecNumberAsString = CprNumbersL.ToString();
-            */
-            List<int> tempSocID = new List<int>();
-            int number = 0;
-            lcd.lcdGotoXY(xValueCPRLine, 2);
-            /* Skal slettes igen
-            for (int i = 0; i < 10; i++)
-            {
-                number = i;
-                tempSocID.Add(number);
-                //lcd.lcdPrint(number.ToString());
-            }
-            SocSecNumberAsString = tempSocID.ToString();
-            */
-            SocSecNumberAsString = "0123456789";
-            lcd.lcdPrint(SocSecNumberAsString);
-            Thread.Sleep(500);
+            SocSecNumberAsString = cprNumbersL.ToString();
 
         }
 
@@ -147,7 +124,7 @@ namespace PresentationLayer
             /*
             lcd.lcdGotoXY(x, 1); //starter samme sted som numberline
 
-            
+
             for (countingIsPressed = 0; countingIsPressed < 4; countingIsPressed++)
             {
                 while (twist.isPressed() == false)
@@ -166,10 +143,10 @@ namespace PresentationLayer
                         lcd.lcdPrint("                    "); //Kan man slette en linje uden at slette det andet?
                         twist.setCount(0);
                         lcd.lcdGotoXY(6, 1);
-                        
+
                     }
 
-                 
+
 
                     employeeIdList.Add(twist.getCount());
                     lcd.lcdGotoXY(x, 2); //Bruger ser cpr nummer på denne linje
@@ -180,7 +157,7 @@ namespace PresentationLayer
                     // break;
                 }
             }
-            
+
 
             EmployeeIdAsString = EmployeeIdList.ToString();
             */
@@ -192,45 +169,49 @@ namespace PresentationLayer
                 number = i;
                 tempEmpID.Add(number);
                 //lcd.lcdPrint(number.ToString());
-                
+
             } */
             EmployeeIdAsString = "1234";//tempEmpID.ToString();
             lcd.lcdGotoXY(xValueCPRLine, 2);
             lcd.lcdPrint(EmployeeIdAsString);
             //return EmployeeIdAsString;
-            
+
         }
         public bool Yes_No()
         {
             bool værdi = false;
             twist.setCount(0);
 
-            lcd.lcdGotoXY(7, 1);
-            lcd.lcdPrint("Ja/Nej");
-            lcd.lcdGotoXY(7, 1);
-
             lcd.lcdGotoXY(0, 1);
+            lcd.lcdPrint("1. Ja");
+
+            lcd.lcdGotoXY(0, 2);
+            lcd.lcdPrint("2. Nej");
 
             while (twist.isPressed() == false)
             {
-                if ((twist.getCount()) % 2 == 0)
+
+                if ((twist.getCount()) % 2 == 0) //Går cursoren op i et lige tal, skriver man 'ja'
                 {
                     værdi = true; //Man har skrevet ja
+                    lcd.lcdGotoXY(0, 1);
                 }
 
-                else if ((twist.getCount()) % 2 == 1)
+                else if ((twist.getCount()) % 2 == 1) //Går cursoren op i et ulige tal, skriver man 'nej'
                 {
                     værdi = false;
+                    lcd.lcdGotoXY(0, 2);
                 }
             }
             return værdi;
         }
 
-            //EmployeeIdAsString = employeeIdList.ToString();
-            
+        //EmployeeIdAsString = employeeIdList.ToString();
+
         //}
 
         // Indsæt metode fra CPR checker der kontrollerer om det er validt CPR-nummer? 
     }
 }
- 
+
+
