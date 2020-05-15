@@ -70,9 +70,7 @@ namespace PresentationLayer
             */
                 displayRef.SocSecNumberAsString = "1111111111";
             /*
-            while (Console.KeyAvailable == false)
-            { }
-
+            
             lcd.lcdClear();
             lcd.lcdGotoXY(1, 0);
             lcd.lcdPrint("Start Ekg maaling");
@@ -97,12 +95,13 @@ namespace PresentationLayer
 
                     lcd.lcdClear();
                     lcd.lcdGotoXY(0, 2);
-                    lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
+                   // lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
                 //}
 
                 lcd.lcdClear();
                 lcd.lcdPrint("Ny maaling?");
 
+                //displayRef.Yes_No??
                 answer = displayRef.Yes_No();
                 continueEKGMeasurement = answer;
                 

@@ -20,7 +20,7 @@ namespace LogicLayer
 
         
         double sample = 0; //En sample er ét punkt
-        int antalSamples = 12000; //Hvor mange samples skal der være i løbet af målingen
+        int antalSamples = 120; //Rettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
         string starttidspunkt;
         private List<double> ekgRawData;
         int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
@@ -58,12 +58,12 @@ namespace LogicLayer
         //}
 
         
-        public string GetReceipt() //TILRETTES til databasen
+       /* public string GetReceipt() //TILRETTES til databasen
         {
             int id = localDBRef.Retur;
             
             return Convert.ToString(id);
         }
-        
+        */
     }
 }

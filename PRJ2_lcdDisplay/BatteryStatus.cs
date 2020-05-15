@@ -48,6 +48,7 @@ namespace PresentationLayer
 
         public void ChargeBattery()
         {
+
             if (batteryRef.Charging() == true) // Så længe oplader er tilslutte (bool == true), køres løkken her. // som indikation på at opladning er i gang. 
             {
                 lcd.lcdClear();
