@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using LogicLayer;
 using DTO;
 
-namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser
+namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser + filer
 
 {
     //Korrigerer mellem de forskellige klasser. Programmet starter
