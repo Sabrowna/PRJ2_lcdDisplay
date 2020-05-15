@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IData.cs" />
+    <Compile Include="LocalDataFile.cs" />
     <Compile Include="LocalDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

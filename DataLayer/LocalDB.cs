@@ -10,7 +10,7 @@ using DTO;
 
 namespace DataLayer
 {
-    public class LocalDB
+    public class LocalDB : IData
     {
         private SqlConnection conn;
         private SqlConnection conn_online;
@@ -117,8 +117,8 @@ namespace DataLayer
             cmd = new SqlCommand("Select Count(*) from db_owner.SP_NyeEkger", conn);
             conn.Open();
 
-            rdr = cmd.ExecuteReader();
-            rdr.Read();
+            //rdr = cmd.ExecuteReader();
+            //rdr.Read();
 
             Retur = (int)cmd.ExecuteScalar();
             return Retur;
@@ -126,7 +126,7 @@ namespace DataLayer
 
 
         /* Udkommenteret 14/5 for test
-        public int InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
+        public void InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
         {
             
             SqlConnection conn;
@@ -153,11 +153,11 @@ namespace DataLayer
                 cmd.Parameters.AddWithValue("@antalMålePkt", (nyMåling.AntalMålepunkter));
                 cmd.Parameters.AddWithValue("@hz", (nyMåling.SampleRateHz));
 
-                Retur = (int)cmd.ExecuteScalar();
+                // Retur = (int)cmd.ExecuteScalar();
             }
             conn.Close();
 
-            return Retur;
+            // return Retur;
             
         }
         */
