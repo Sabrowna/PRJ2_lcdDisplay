@@ -4,6 +4,7 @@ using System.Text;
 using LogicLayer;
 using RaspberryPiCore.LCD;
 using System.Threading;
+
 namespace PresentationLayer
 {
     public class BatteryStatus

@@ -60,7 +60,9 @@ namespace DataLayer
         {
             bool result = false;
 
-            input = new FileStream("MedarbejderID.txt", FileMode.Open, FileAccess.Read);
+            
+
+            input = new FileStream(@"Skrivebord", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
             string inputRecord;
@@ -81,8 +83,6 @@ namespace DataLayer
             reader.Close();
 
             return result;
-
-
         }
 
         public int CountID()
@@ -109,7 +109,7 @@ namespace DataLayer
 
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
-            output = new FileStream("EKGMaaling_1.txt", FileMode.OpenOrCreate, FileAccess.Write);
+            output = new FileStream(@"Skrivebord\EKGMaaling.txt", FileMode.OpenOrCreate, FileAccess.Write);
             //writer = new StreamWriter(output);
             //writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + )
 

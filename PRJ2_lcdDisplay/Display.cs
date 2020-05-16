@@ -5,7 +5,6 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Threading;
 using LogicLayer;
-using DTO;
 
 namespace PresentationLayer
 {
@@ -108,7 +107,7 @@ namespace PresentationLayer
                     countingIsPressed++;
                 } 
             }
-            SocSecNumberAsString = cprNumbersL.ToString();
+            SocSecNumberAsString = string.Join("", cprNumbersL.ToArray());
 
         }
 
@@ -158,12 +157,12 @@ namespace PresentationLayer
                     byte getCountEnd = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
                     lcd.lcdGotoXY(getCountEnd, 1); //Sætter cursoren tilbage på numberline hvor den stod før
                     countingIsPressed++; // Lægger 1 til countet på antal cifte i indtastet MedarbejderID
-                
 
-                EmployeeIdAsString = employeeIdList.ToString();
+
+                EmployeeIdAsString = string.Join("",employeeIdList.ToArray());
 
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
                 lcd.lcdGotoXY(0, 3);
                 lcd.lcdPrint("Tjekker ID");
@@ -178,7 +177,7 @@ namespace PresentationLayer
                 lcd.lcdPrint(".");
                 Thread.Sleep(800);
                 lcd.lcdGotoXY(0, 3);
-                lcd.lcdPrint("               ");
+                lcd.lcdPrint("             ");
                 Thread.Sleep(500);
 
             }
@@ -242,7 +241,14 @@ namespace PresentationLayer
             return værdi;
         }
 
+        public bool CheckDBForEmployeeId(string EmployeeId)
+        {
+            
+            bool result;
+            result = ekgRecordRef.CheckDBForEmployeeId(EmployeeId);
 
+            return result;
+        }
 
     }
 }

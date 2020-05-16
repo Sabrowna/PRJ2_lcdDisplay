@@ -14,7 +14,7 @@ namespace LogicLayer
 
         public Ekg_Record()
         {
-            localDataRef = new LocalDB();
+            localDataRef = new LocalDataFile();
             adc = new ADC1015();
         }
 
@@ -51,19 +51,28 @@ namespace LogicLayer
 
             localDataRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
         }
-        
-        //public void SendToDB(DTO_EKGMåling NyMåling)
-        //{
-        //    localDataRef.InsertEKGMeasurement(NyMåling);
-        //}
-
-        
-       /* public string GetReceipt() //TILRETTES til databasen
+        /*
+        public void SendToDB(DTO_EKGMåling nyMåling)
         {
-            int id = localDataRef.CountID();
-            
-            return Convert.ToString(id);
+            localDataRef.InsertEKGMeasurement(nyMåling);
         }
         */
+
+
+        /* public string GetReceipt() //TILRETTES til databasen
+         {
+             int id = localDataRef.CountID();
+
+             return Convert.ToString(id);
+         }
+         */
+
+        public bool CheckDBForEmployeeId(string EmployeeId)
+        {
+            
+            bool result;
+            result = localDataRef.CheckDBForEmployeeId(EmployeeId);
+            return result;
+        }
     }
 }

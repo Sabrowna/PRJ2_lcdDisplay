@@ -26,9 +26,9 @@ namespace DataLayer
         public LocalDB()
         {
             //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            conn = new SqlConnection("Data Source=10.10.7.1\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
-           
+            conn = new SqlConnection("Data Source = 10.10.7.72\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
         }
 
        

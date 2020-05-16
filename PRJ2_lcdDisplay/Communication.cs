@@ -4,8 +4,7 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Collections.Generic;
 using LogicLayer;
-using DTO;
-using System.Reflection.Metadata.Ecma335;
+//using System.Reflection.Metadata.Ecma335;
 
 namespace PresentationLayer
 {
@@ -31,7 +30,7 @@ namespace PresentationLayer
             displayRef = new Display();
             batteryRef = new Battery();
             batteryStatusRef = new BatteryStatus();
-            
+
         }
         public void Program()
         {
@@ -44,12 +43,38 @@ namespace PresentationLayer
             lcd.lcdBlink();
             lcd.lcdSetBackLight(0, 0, 0);
 
+            
 
             batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
             batteryStatusRef.ShowBatteryStatus(); // Ændrer baggrundsfarven efter batteristatus
 
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
-           
+           /* displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString);
+            {
+
+                {
+                    while (displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString) == false)
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            lcd.lcdClear();
+                            lcd.lcdPrint("ID ikke godkendt");
+                            Thread.Sleep(1000);
+                            displayRef.GetEmployeeId();
+
+                        }
+                        lcd.lcdClear();
+                        lcd.lcdPrint("Du har brugt dine 3  forsøg. Programmet  lukkes");
+                        Thread.Sleep(1000);
+                        break;
+                        //Environment.Exit(0);
+                    }
+                    lcd.lcdClear();
+                    lcd.lcdPrint("ID godkendt");
+                    Thread.Sleep(1000);
+                }
+            }
+            */
             lcd.lcdClear();
             lcd.lcdPrint("Maaling med CPR?");
 
@@ -73,6 +98,7 @@ namespace PresentationLayer
                 if (answer == true)
                 {
                     ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
+                    //ekgRecordRef.SendToDB();
                     if (ekgRecordRef.StartEkgRecord() == true)
                     {
                         lcd.lcdClear();
@@ -80,7 +106,7 @@ namespace PresentationLayer
                         Thread.Sleep(3000);
 
                     }
-                   
+
 
                     lcd.lcdClear();
                     lcd.lcdGotoXY(0, 2);

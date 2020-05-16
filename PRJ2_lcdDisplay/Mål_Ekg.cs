@@ -5,7 +5,6 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Collections.Generic;
 using LogicLayer;
-using DTO;
 
 namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser + filer
 

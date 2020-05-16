@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Text;
 using DataLayer;
+using DTO;
 
 
 namespace LogicLayer
@@ -16,7 +17,7 @@ namespace LogicLayer
 
         public Battery()
         {
-               localDataRef = new LocalDB();
+               localDataRef = new LocalDataFile();
 
         }
 
