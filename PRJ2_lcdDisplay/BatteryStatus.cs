@@ -58,6 +58,10 @@ namespace PresentationLayer
                 lcd.lcdClear();
                 lcd.lcdGotoXY(0, 1);
                 lcd.lcdPrint("Batteriet oplades");
+                lcd.lcdGotoXY(0, 2);
+                lcd.lcdPrint("Systemet slukkes");
+                lcd.lcdGotoXY(0, 3);
+                lcd.lcdPrint("om 3 sekunder");
                 Thread.Sleep(3000);
                 Environment.Exit(0);
             }

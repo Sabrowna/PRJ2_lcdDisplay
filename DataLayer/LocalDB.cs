@@ -22,7 +22,7 @@ namespace DataLayer
 
         //public int Retur { get; set; }
         public double BatteryStatus { get; set; }
-        public bool ChargingBattery { get; set; } // Kode til at sætte værdien - hvorfra?
+       
         public LocalDB()
         {
             //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
@@ -31,7 +31,7 @@ namespace DataLayer
             //conn = new SqlConnection("Data Source = SABROWNA-SAB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             //conn = new SqlConnection("Data Source=10.10.7.1\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
-            ChargingBattery = false;
+           
         }
 
        
@@ -109,8 +109,7 @@ namespace DataLayer
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
         {
             
-          
-            
+                    
             SqlConnection conn;
             const String db = "F20ST2ITS2201908775";
             conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
@@ -148,9 +147,23 @@ namespace DataLayer
             return BatteryStatus;
             
         }
-        
 
-        
+        public bool ChargingBattery()
+        {
+            bool onOff = false;
+            Random random = new Random();
+            int number = random.Next(0, 11);
+
+            if (number % 6 == 0)
+            {
+                onOff = true;
+            }
+
+            return onOff;
+        }
+
+
+
     }
 }
 

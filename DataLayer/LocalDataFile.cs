@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DTO;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Data.SqlTypes;
 
 namespace DataLayer
 {
@@ -20,11 +21,11 @@ namespace DataLayer
 
         public int Retur { get; set; }
         public double BatteryStatus { get; set; }
-        public bool ChargingBattery { get; set; } // Kode til at sætte værdien - hvorfra? 
+        
 
         public LocalDataFile()
         {
-
+            
         }
 
         public bool CheckDBForCPR(string socSecNb)
@@ -134,6 +135,20 @@ namespace DataLayer
             BatteryStatus = Convert.ToDouble(random.Next(60)); // Batterystatus sættes til min 0 max 60
             // BatteryStatus = random.Next(20, 60); // Min 20, max 60
             return BatteryStatus;
+        }
+
+        public bool ChargingBattery()
+        {
+            bool onOff = false;
+            Random random = new Random();
+            int number = random.Next(0, 11);
+
+            if(number % 6 == 0)
+            {
+                onOff = true;
+            }
+
+            return onOff;
         }
     }
 }

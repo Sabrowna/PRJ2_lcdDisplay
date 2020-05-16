@@ -9,30 +9,30 @@ namespace LogicLayer
 {
     public class Battery
     {
+        IData localDataRef;
 
         
-        private LocalDB localDBRef = new LocalDB();
         private double BatteryStatus {get; set;}
 
         public Battery()
         {
-                       
+               localDataRef = new LocalDataFile();
 
         }
 
         public double ShowBatteryStatus()
         {
             // Sæt BatteryStatus 
-            BatteryStatus = localDBRef.GetBatteryStatus();
+            BatteryStatus = localDataRef.GetBatteryStatus();
             return BatteryStatus;
             
         }
 
         public bool Charging() // Besked fra præsentationslaget
         {
-            bool ChargingBattery = localDBRef.ChargingBattery;
+            bool chargingBattery = localDataRef.ChargingBattery();
 
-            return ChargingBattery;
+            return chargingBattery;
 
         }
         

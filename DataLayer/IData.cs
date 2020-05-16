@@ -17,5 +17,7 @@ namespace DataLayer
         void InsertEKGMeasurement(DTO_EKGMåling nyMåling);
 
         double GetBatteryStatus();
+
+        bool ChargingBattery();
     }
 }
