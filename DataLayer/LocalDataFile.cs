@@ -109,7 +109,7 @@ namespace DataLayer
 
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
-            output = new FileStream("EKGMaaling.txt", FileMode.Append, FileAccess.Write);
+            output = new FileStream("EKGMaaling_1.txt", FileMode.OpenOrCreate, FileAccess.Write);
             //writer = new StreamWriter(output);
             //writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + )
 
@@ -131,15 +131,18 @@ namespace DataLayer
         public double GetBatteryStatus()
         {
             // Metode opbygget til testning som den står her.
-            Random random = new Random();
-            BatteryStatus = Convert.ToDouble(random.Next(60)); // Batterystatus sættes til min 0 max 60
+            //Random random = new Random();
+            //BatteryStatus = Convert.ToDouble(random.Next(60)); // Batterystatus sættes til min 0 max 60
             // BatteryStatus = random.Next(20, 60); // Min 20, max 60
+            BatteryStatus = 30;
             return BatteryStatus;
         }
 
         public bool ChargingBattery()
         {
             bool onOff = false;
+
+            /*
             Random random = new Random();
             int number = random.Next(0, 11);
 
@@ -147,7 +150,7 @@ namespace DataLayer
             {
                 onOff = true;
             }
-
+            */
             return onOff;
         }
     }

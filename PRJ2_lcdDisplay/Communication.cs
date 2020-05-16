@@ -43,28 +43,12 @@ namespace PresentationLayer
             lcd.lcdCursor(); //Tænder for cursoren
             lcd.lcdBlink();
             lcd.lcdSetBackLight(0, 0, 0);
-            batteryStatusRef.ChangeBackground(); // Ændrer baggrundsfarven efter batteristatus
 
-            lcd.lcdClear();
-            lcd.lcdPrint("Indtastning af      medarbejder-ID:"); // Hvad kunne en bedre tekst være? Skal vi eventuelt ændre i koden for valgmulighederne? Se metoden with_without?
-
-            if (displayRef.Yes_No() == true) // Giver valget mellem at foretage logon med eller uden medarbejder ID
-            {
-                displayRef.GetEmployeeId(); //Metode til indtastning af medarbejder ID
-            }
-            else
-            {
-                displayRef.EmployeeIdAsString = "1111";
-            }
-
-
-            displayRef.GetEmployeeId(); //Medarbejderen logger ind
-            Thread.Sleep(500);
 
             batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
-            batteryRef.ShowBatteryStatus();
-            Thread.Sleep(2000);
+            batteryStatusRef.ShowBatteryStatus(); // Ændrer baggrundsfarven efter batteristatus
 
+            displayRef.GetEmployeeId(); //Medarbejderen logger ind
            
             lcd.lcdClear();
             lcd.lcdPrint("Maaling med CPR?");
@@ -82,18 +66,16 @@ namespace PresentationLayer
             lcd.lcdGotoXY(1, 0);
             lcd.lcdPrint("Start Ekg maaling");
 
-            /*
             answer = displayRef.Yes_No();
 
             do
             {
                 if (answer == true)
                 {
-                    
                     ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
-                    ekgRecordRef.StartEkgRecord();
                     if (ekgRecordRef.StartEkgRecord() == true)
                     {
+                        lcd.lcdClear();
                         lcd.lcdPrint("Maaling afsluttet");
                         Thread.Sleep(3000);
 
@@ -116,8 +98,12 @@ namespace PresentationLayer
 
             }
             while (continueEKGMeasurement);
-        */
-
+            lcd.lcdClear();
+            lcd.lcdPrint("Program afsluttes");
+            Thread.Sleep(2000);
+            lcd.lcdClear();
+            lcd.lcdNoDisplay();
+            //EVT VIS BATTERISTATUS HER
         }
     }
 }

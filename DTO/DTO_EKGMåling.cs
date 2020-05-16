@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
+    [Serializable]
     public class DTO_EKGMåling
     {
         public string MedarbejderID { get; set; }

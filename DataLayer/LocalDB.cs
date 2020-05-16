@@ -26,10 +26,7 @@ namespace DataLayer
         public LocalDB()
         {
             //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            //conn = new SqlConnection("Data Source=SABROWNA\\SAB; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            //conn = new SqlConnection("Data Source=\\SAB; Initial Catalog = SP_OfflineLocal; User ID = sa; Password = ********; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            //conn = new SqlConnection("Data Source = SABROWNA-SAB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            //conn = new SqlConnection("Data Source=10.10.7.1\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            conn = new SqlConnection("Data Source=10.10.7.1\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
            
         }
@@ -110,9 +107,9 @@ namespace DataLayer
         {
             
                     
-            SqlConnection conn;
-            const String db = "F20ST2ITS2201908775";
-            conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
+            //SqlConnection conn;
+            //const String db = "F20ST2ITS2201908775";
+            //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
             conn.Open();
 
             string insertStringParam = $"INSERT INTO SP_NyeEkger ([raa_data],[id_medarbejder],[borger_cprnr],[start_tidspunkt],[antal_maalepunkter],[samplerate_hz]) OUTPUT INSERTED.id_måling VALUES(@data, @employeeID, @socSecNb, @startTime, @antalMålePkt, @hz)";
@@ -141,9 +138,10 @@ namespace DataLayer
         public double GetBatteryStatus()
         {
             // Metode opbygget til testning som den står her.
-            Random random = new Random();
-            BatteryStatus = Convert.ToDouble(random.Next(60)); // Batterystatus sættes til min 0 max 60
+            //Random random = new Random();
+            //BatteryStatus = Convert.ToDouble(random.Next(60)); // Batterystatus sættes til min 0 max 60
             // BatteryStatus = random.Next(20, 60); // Min 20, max 60
+            BatteryStatus = 30;
             return BatteryStatus;
             
         }
@@ -151,6 +149,7 @@ namespace DataLayer
         public bool ChargingBattery()
         {
             bool onOff = false;
+            /*
             Random random = new Random();
             int number = random.Next(0, 11);
 
@@ -158,6 +157,7 @@ namespace DataLayer
             {
                 onOff = true;
             }
+            */
 
             return onOff;
         }

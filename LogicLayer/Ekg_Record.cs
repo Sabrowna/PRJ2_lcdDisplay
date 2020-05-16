@@ -14,7 +14,7 @@ namespace LogicLayer
 
         public Ekg_Record()
         {
-            localDataRef = new LocalDataFile();
+            localDataRef = new LocalDB();
             adc = new ADC1015();
         }
 

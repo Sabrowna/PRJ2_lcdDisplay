@@ -57,6 +57,7 @@ namespace PresentationLayer
             byte countingIsPressed = 0;
 
             lcd.lcdClear();
+            twist.setCount(0);
             lcd.lcdGotoXY(0, 0);
             lcd.lcdPrint("Indtast CPR nummer");
             WritenumberLine(); // Kører denne metode for at få vist NumberLine
@@ -113,17 +114,18 @@ namespace PresentationLayer
 
         public void GetEmployeeId()
         {
-
             byte xValueIDLine = 6; //variabel
             byte xStartValueNumberLine = Convert.ToByte(6); //konstant
             byte countingIsPressed = 0;
 
             lcd.lcdClear();
+            twist.setCount(0);
             lcd.lcdGotoXY(1, 0);
             lcd.lcdPrint("Indtast ID nummer");
             WritenumberLine(); // Kør denne metode for at få vist NumberLine
 
-            while (countingIsPressed < 5)
+            lcd.lcdGotoXY(xStartValueNumberLine, 1);
+            while (countingIsPressed < 4)
             {
                 while (twist.isPressed() == false)
                 {
@@ -144,7 +146,7 @@ namespace PresentationLayer
                         byte getCount = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
                         lcd.lcdGotoXY(getCount, 1);
                     }
-
+                }
                     Thread.Sleep(500);
                     employeeIdList.Add(twist.getCount()); //Tilføj til en liste som vi senere kan videresende
                     lcd.lcdGotoXY(xValueIDLine, 2); // Går til linjen ID Nummer udskrives på
@@ -156,16 +158,32 @@ namespace PresentationLayer
                     byte getCountEnd = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
                     lcd.lcdGotoXY(getCountEnd, 1); //Sætter cursoren tilbage på numberline hvor den stod før
                     countingIsPressed++; // Lægger 1 til countet på antal cifte i indtastet MedarbejderID
-                }
+                
 
                 EmployeeIdAsString = employeeIdList.ToString();
 
             }
+            for (int i = 0; i < 5; i++)
+            {
+                lcd.lcdGotoXY(0, 3);
+                lcd.lcdPrint("Tjekker ID");
+                Thread.Sleep(300);
+                lcd.lcdGotoXY(10, 3);
+                lcd.lcdPrint(".");
+                Thread.Sleep(300);
+                lcd.lcdGotoXY(11, 3);
+                lcd.lcdPrint(".");
+                Thread.Sleep(300);
+                lcd.lcdGotoXY(12, 3);
+                lcd.lcdPrint(".");
+                Thread.Sleep(800);
+                lcd.lcdGotoXY(0, 3);
+                lcd.lcdPrint("               ");
+                Thread.Sleep(500);
 
+            }
         }              
 
-              
-        
         public bool Yes_No()
         {
             bool værdi = false;
@@ -194,7 +212,6 @@ namespace PresentationLayer
             }
             return værdi;
         }
-
 
         public bool With_WithOut()
         {

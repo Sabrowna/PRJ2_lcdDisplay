@@ -13,25 +13,27 @@ namespace PresentationLayer
 
 
 
-        public void ChangeBackground()
+        public void ShowBatteryStatus()
         {
             if (batteryRef.ShowBatteryStatus() < 20) // Hvis batteristatus er lav jf. UC, udskrives nedenstående
             {
                 lcd.lcdSetBackLight(250, 0, 0);
 
-                lcd.lcdGotoXY(0, 0);
                 for (int i = 0; i < 5; i++)
                 {
+                    lcd.lcdGotoXY(0, 0);
                     lcd.lcdPrint("Enhed deaktiveres   Batteristatus lav   Tilslut oplader");
                     Thread.Sleep(1000);
                     lcd.lcdClear();
                     Thread.Sleep(500);
                 }
+                lcd.lcdPrint("Slukker");
+                Thread.Sleep(2000);
                 lcd.lcdNoDisplay();
-                Environment.Exit(lcd.lcdPrint(0)); 
+                Environment.Exit(0); 
             }
 
-            if (batteryRef.ShowBatteryStatus() >= 20 || batteryRef.ShowBatteryStatus() < 50)
+            if (batteryRef.ShowBatteryStatus() >= 20 && batteryRef.ShowBatteryStatus() < 50)
             {
                 lcd.lcdSetBackLight(0, 0, 250);
             }
@@ -41,7 +43,7 @@ namespace PresentationLayer
             {
                 lcd.lcdSetBackLight(0, 250, 0);
             }
-
+            lcd.lcdGotoXY(0, 0);
             lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
             Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
         }
@@ -52,19 +54,22 @@ namespace PresentationLayer
             if (batteryRef.Charging() == true) // Så længe oplader er tilslutte (bool == true), køres løkken her. // som indikation på at opladning er i gang. 
             {
                 lcd.lcdClear();
-                lcd.lcdGotoXY(0, 1);
+                lcd.lcdGotoXY(0, 0);
                 lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
                 Thread.Sleep(3000);
                 lcd.lcdClear();
-                lcd.lcdGotoXY(0, 1);
+                lcd.lcdGotoXY(0, 0);
                 lcd.lcdPrint("Batteriet oplades");
-                lcd.lcdGotoXY(0, 2);
+                lcd.lcdGotoXY(0, 1);
                 lcd.lcdPrint("Systemet slukkes");
-                lcd.lcdGotoXY(0, 3);
+                lcd.lcdGotoXY(0, 2);
                 lcd.lcdPrint("om 3 sekunder");
                 Thread.Sleep(3000);
+                lcd.lcdClear();
+                lcd.lcdNoDisplay();
                 Environment.Exit(0);
             }
+           
             
         }
     /*
