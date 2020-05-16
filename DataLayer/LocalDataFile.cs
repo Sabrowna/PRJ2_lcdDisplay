@@ -129,7 +129,10 @@ namespace DataLayer
 
         public double GetBatteryStatus()
         {
-            BatteryStatus = 45;
+            // Metode opbygget til testning som den står her.
+            Random random = new Random();
+            BatteryStatus = Convert.ToDouble(random.Next(60)); // Batterystatus sættes til min 0 max 60
+            // BatteryStatus = random.Next(20, 60); // Min 20, max 60
             return BatteryStatus;
         }
     }
