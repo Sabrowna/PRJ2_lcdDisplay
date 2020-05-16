@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Data.SqlClient;
 using DTO;
-
-
-namespace DataLayer
+namespace DataLayer2
 {
-    public class LocalDB : IData
+   public class LocalDB : IData
     {
         private SqlConnection conn;
         private SqlConnection conn_online;
@@ -21,17 +19,17 @@ namespace DataLayer
 
         //public int Retur { get; set; }
         public double BatteryStatus { get; set; }
-       
+
         public LocalDB()
         {
             //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
             conn = new SqlConnection("Data Source = 10.10.7.72\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-        
+
         }
 
-       
+
 
 
         // Undersøg om CPR findes i LokalDB - tabel SP_NyeEkger. Returner bool. 
@@ -105,8 +103,8 @@ namespace DataLayer
         // Udkommenteret 14/5 for test
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
         {
-            
-                    
+
+
             //SqlConnection conn;
             //const String db = "F20ST2ITS2201908775";
             //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
@@ -131,9 +129,9 @@ namespace DataLayer
             conn.Close();
 
             // return Retur;
-            
+
         }
-        
+
 
         public double GetBatteryStatus()
         {
@@ -143,7 +141,7 @@ namespace DataLayer
             // BatteryStatus = random.Next(20, 60); // Min 20, max 60
             BatteryStatus = 30;
             return BatteryStatus;
-            
+
         }
 
         public bool ChargingBattery()
@@ -166,6 +164,3 @@ namespace DataLayer
 
     }
 }
-
-
-

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
-using DataLayer;
+using DataLayer2;
 using DTO;
 using RaspberryPiCore.ADC;
+
 
 namespace LogicLayer
 { 
@@ -14,9 +15,11 @@ namespace LogicLayer
 
         public Ekg_Record()
         {
-            localDataRef = new LocalDataFile();
+            localDataRef = new LocalDB();
             adc = new ADC1015();
+            
         }
+
 
         
         double sample = 0; //En sample er ét punkt
@@ -49,6 +52,7 @@ namespace LogicLayer
           
             DTO_EKGMåling nyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),ekgRawData,antalSamples,samplerate);
 
+            
             localDataRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
         }
         /*

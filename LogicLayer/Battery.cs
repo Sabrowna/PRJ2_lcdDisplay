@@ -2,8 +2,9 @@
 using System.Threading;
 using System.Collections.Generic;
 using System.Text;
-using DataLayer;
+using DataLayer2;
 using DTO;
+
 
 
 namespace LogicLayer
@@ -17,7 +18,7 @@ namespace LogicLayer
 
         public Battery()
         {
-               localDataRef = new LocalDataFile();
+               localDataRef = new LocalDB();
 
         }
 

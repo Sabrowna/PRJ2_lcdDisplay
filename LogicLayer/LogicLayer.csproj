@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer2\DataLayer2.csproj" />
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-    <ProjectReference Include="..\DTO\DTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

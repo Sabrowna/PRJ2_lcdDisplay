@@ -17,7 +17,7 @@ namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser + fil
         static void Main(string[] args)
         {
             commRef = new Communication();
-
+            
             commRef.Program();
         }
 
