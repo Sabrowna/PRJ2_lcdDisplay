@@ -5,9 +5,10 @@ namespace DataLayer2
 {
     public interface IData
     {
-        bool CheckDBForCPR(string socSecNb);
+        //bool CheckDBForCPR(string socSecNb);
+        
         bool CheckDBForEmployeeId(string EmployeeId);
-
+        
         int CountID();
 
         void InsertEKGMeasurement(DTO_EKGMåling nyMåling);
@@ -15,6 +16,7 @@ namespace DataLayer2
         double GetBatteryStatus();
 
         bool ChargingBattery();
+        
     }
 
 }

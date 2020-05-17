@@ -22,11 +22,7 @@ namespace DataLayer2
 
         public LocalDB()
         {
-            //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog =" + db + "; User ID =" + db + "; Password =" + db + "; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
-            conn = new SqlConnection("Data Source = 10.10.7.72\\SQL_local; Initial Catalog = SQL_local; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-
+           
         }
 
 
@@ -35,6 +31,7 @@ namespace DataLayer2
         // Undersøg om CPR findes i LokalDB - tabel SP_NyeEkger. Returner bool. 
         public bool CheckDBForCPR(string socSecNb)
         {
+            
             bool result = false;
 
             // Hent kolonnen borger_cprnr fra tabellen SP_NyeEkger
@@ -65,8 +62,9 @@ namespace DataLayer2
             bool result = false;
 
             // Hent kolonnen borger_cprnr fra tabellen SP_NyeEkger
-
-            cmd = new SqlCommand("Select MedarbejderID from db_owner.MedarbejderID", conn);
+            //conn = new SqlConnection("Data Source = SABROWNA\\SQL_LOCAL; Initial Catalog = F20ST2ITS2201908775; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            conn = new SqlConnection("Data Source = 10.10.7.72\\SQL_LOCAL; Initial Catalog = F20ST2ITS2201908775; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            cmd = new SqlCommand("Select MedarbejderID from db_owner.SP_MedarbejderID", conn);
             conn.Open();
 
             rdr = cmd.ExecuteReader();

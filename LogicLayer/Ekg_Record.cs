@@ -15,7 +15,7 @@ namespace LogicLayer
 
         public Ekg_Record()
         {
-            localDataRef = new LocalDB();
+            localDataRef = new LocalDataFile();
             adc = new ADC1015();
             
         }
@@ -23,7 +23,7 @@ namespace LogicLayer
 
         
         double sample = 0; //En sample er ét punkt
-        int antalSamples = 120; //Rettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
+        int antalSamples = 1200; //Rettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
         string starttidspunkt;
         private List<double> ekgRawData;
         int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
@@ -52,7 +52,7 @@ namespace LogicLayer
           
             DTO_EKGMåling nyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),ekgRawData,antalSamples,samplerate);
 
-            
+
             localDataRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
         }
         /*

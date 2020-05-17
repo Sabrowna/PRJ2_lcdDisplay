@@ -18,7 +18,7 @@ namespace LogicLayer
 
         public Battery()
         {
-               localDataRef = new LocalDB();
+               localDataRef = new LocalDataFile();
 
         }
 
