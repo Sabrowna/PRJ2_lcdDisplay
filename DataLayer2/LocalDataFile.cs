@@ -134,7 +134,7 @@ namespace DataLayer2
             input = new FileStream("EKGMaaling3.txt", FileMode.Open, FileAccess.Read);
 
             DTO_EKGMåling IndlæstMaaling = (DTO_EKGMåling)(formatter.Deserialize(input));
-            output2 = new FileStream(@"INDSÆT LOKAL STI PÅ PC HER", FileMode.OpenOrCreate, FileAccess.Write);
+            output2 = new FileStream("EKGMaaling3", FileMode.OpenOrCreate, FileAccess.Write); //ER DETTE RIGTIGT
             formatter = new BinaryFormatter();
             formatter.Serialize(output, IndlæstMaaling);
 
