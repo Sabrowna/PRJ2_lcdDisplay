@@ -48,12 +48,12 @@ namespace LogicLayer
         public void CreateEKGDTO(string EmployeeIdAsString, string SocSecNumberAsString) //Modtager disse to fra presentationlayer
         {
             StartEkgRecord();
-            
-          
+
+
             DTO_EKGMåling nyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),ekgRawData,antalSamples,samplerate);
 
 
-            localDataRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
+           localDataRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
         }
         /*
         public void SendToDB(DTO_EKGMåling nyMåling)

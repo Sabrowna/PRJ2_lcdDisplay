@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Data.SqlClient;
-using DTO;
+using DTO2;
 namespace DataLayer2
 {
    public class LocalDB : IData
