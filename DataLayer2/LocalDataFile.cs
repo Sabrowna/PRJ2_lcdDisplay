@@ -15,6 +15,7 @@ namespace DataLayer2
         private FileStream input;
         private StreamReader reader;
         private FileStream output;
+        private FileStream output2;
         private StreamWriter writer;
         private BinaryFormatter formatter;
 
@@ -112,21 +113,25 @@ namespace DataLayer2
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
             output = new FileStream("EKGMaaling3.txt", FileMode.OpenOrCreate, FileAccess.Write);
-            //writer = new StreamWriter(output);
-            //writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + )
-
             formatter = new BinaryFormatter();
             formatter.Serialize(output, nyMåling);
 
-
-
-            // writer.Close();
-
             output.Close();
 
-            // Retur = CountID();
+            //writer = new StreamWriter(output);
+            //writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + )
 
-            // return Retur;
+            input = new FileStream("EKGMaaling3.txt", FileMode.Open, FileAccess.Read);            
+            
+            DTO_EKGMåling IndlæstMaaling = (DTO_EKGMåling)(formatter.Deserialize(input));
+            output2 = new FileStream(@"INDSÆT LOKAL STI PÅ PC HER", FileMode.OpenOrCreate, FileAccess.Write);
+            formatter = new BinaryFormatter();
+            formatter.Serialize(output, IndlæstMaaling);
+
+            input.Close();
+            output2.Close();
+
+            
 
         }
 

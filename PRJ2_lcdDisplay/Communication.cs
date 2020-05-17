@@ -102,6 +102,7 @@ namespace PresentationLayer
                 {
                     ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
                     //ekgRecordRef.SendToDB();
+                    /*
                     if (ekgRecordRef.StartEkgRecord() == true)
                     {
                         lcd.lcdClear();
@@ -109,6 +110,14 @@ namespace PresentationLayer
                         Thread.Sleep(3000);
 
                     }
+                    */
+
+                    while(ekgRecordRef.StartEkgRecord() == false) // Venter her indtil metoden returnerer true = måling færdig
+                    { }
+                    lcd.lcdClear();
+                    lcd.lcdPrint("Maaling afsluttet");
+                    Thread.Sleep(3000);
+
 
 
                     lcd.lcdClear();
