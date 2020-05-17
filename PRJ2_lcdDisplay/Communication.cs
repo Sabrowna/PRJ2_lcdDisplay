@@ -50,7 +50,7 @@ namespace PresentationLayer
 
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
             
-            /*
+            
             displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString);
             {
 
@@ -76,7 +76,7 @@ namespace PresentationLayer
                     Thread.Sleep(1000);
                 }
             }
-            */
+            
             
             lcd.lcdClear();
             lcd.lcdPrint("Maaling med CPR?");

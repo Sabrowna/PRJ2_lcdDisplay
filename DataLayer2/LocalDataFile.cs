@@ -22,7 +22,7 @@ namespace DataLayer2
         public int Retur { get; set; }
         public double BatteryStatus { get; set; }
 
-        
+
         public LocalDataFile()
         {
 
@@ -61,10 +61,20 @@ namespace DataLayer2
         {
             bool result = false;
 
-            
-            input = new FileStream(@"\\C:\SMPRJ2_Filer\MedarbejderID.txt", FileMode.Open, FileAccess.Read);
+            if (File.Exists("MedarbejderID.txt") == false)
+            {
+                input = new FileStream("MedarbejderID.txt", FileMode.Create, FileAccess.Write);
+
+                StreamWriter fileWriter = new StreamWriter(output);
+                fileWriter.WriteLine("1234;2345;3456");
+                fileWriter.Close();
+            }
+
+
+            input = new FileStream("MedarbejderID.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
+            //Hertil skal være en del af løkken
             string inputRecord;
             string[] inputFields;
 
@@ -83,10 +93,10 @@ namespace DataLayer2
             reader.Close();
 
             return result;
-        }       
-        
+        }
 
-        
+
+
 
         public int CountID()
         {
@@ -121,8 +131,8 @@ namespace DataLayer2
             //writer = new StreamWriter(output);
             //writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + )
 
-            input = new FileStream("EKGMaaling3.txt", FileMode.Open, FileAccess.Read);            
-            
+            input = new FileStream("EKGMaaling3.txt", FileMode.Open, FileAccess.Read);
+
             DTO_EKGMåling IndlæstMaaling = (DTO_EKGMåling)(formatter.Deserialize(input));
             output2 = new FileStream(@"INDSÆT LOKAL STI PÅ PC HER", FileMode.OpenOrCreate, FileAccess.Write);
             formatter = new BinaryFormatter();
@@ -131,19 +141,10 @@ namespace DataLayer2
             input.Close();
             output2.Close();
 
-            
+
 
         }
 
-        public double GetBatteryStatus()
-        {
-            // Metode opbygget til testning som den står her.
-            //Random random = new Random();
-            //BatteryStatus = Convert.ToDouble(random.Next(60)); // Batterystatus sættes til min 0 max 60
-            // BatteryStatus = random.Next(20, 60); // Min 20, max 60
-            BatteryStatus = 30;
-            return BatteryStatus;
-        }
 
         public bool ChargingBattery()
         {
@@ -159,6 +160,42 @@ namespace DataLayer2
             }
             */
             return onOff;
+        }
+        //FRA JACOB
+        public void newRecord(double level, double voltage, double current, DateTime date)
+        {
+            //uploade new record of current Ah, voltage, current and time to database or datafile
+            FileStream output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter fileWriter = new StreamWriter(output);
+            fileWriter.WriteLine(level + ";" + voltage + ";" + current + ";" + date);
+            fileWriter.Close();
+        }
+
+        //FRA JACOB
+        public DTO_BatteryLevel getRecord()
+        {
+            if (File.Exists("batteryLevel.txt") == false)
+            {
+                input = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
+                StreamWriter fileWriter = new StreamWriter(output);
+                fileWriter.WriteLine(2000 + ";" + 0 + ";" + 0 + ";" + DateTime.Now);
+                fileWriter.Close();
+            }
+            input = new FileStream("batteryLevel.txt", FileMode.Open, FileAccess.Read);
+            reader = new StreamReader(input);
+            DTO_BatteryLevel result = new DTO_BatteryLevel(0, 0, 0, DateTime.Now);
+
+            string inputRecord;
+            string[] inputFields;
+
+            while ((inputRecord = reader.ReadLine()) != null)
+            {
+                inputFields = inputRecord.Split(';');
+                result = new DTO_BatteryLevel(Convert.ToDouble(inputFields[0]), Convert.ToDouble(inputFields[1]), Convert.ToDouble(inputFields[2]), Convert.ToDateTime(inputFields[3]));
+            }
+
+            reader.Close();
+            return result;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace PresentationLayer
                 lcd.lcdSetBackLight(0, 250, 0);
             }
             lcd.lcdGotoXY(0, 0);
-            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
+            lcd.lcdPrint($"Batteristatus: {Convert.ToInt32(batteryRef.ShowBatteryStatus())} %");
             Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
         }
 

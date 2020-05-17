@@ -13,8 +13,11 @@ namespace DataLayer2
 
         void InsertEKGMeasurement(DTO_EKGMåling nyMåling);
 
-        double GetBatteryStatus();
+        //double GetBatteryStatus();
 
+        void newRecord(double level, double voltage, double current, DateTime date);
+
+        DTO_BatteryLevel getRecord();
         bool ChargingBattery();
         
     }
