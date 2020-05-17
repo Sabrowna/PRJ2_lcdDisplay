@@ -61,10 +61,10 @@ namespace DataLayer2
             bool result = false;
 
             // Hent kolonnen borger_cprnr fra tabellen SP_NyeEkger
-            //conn = new SqlConnection("Data Source = SABROWNA\\SQL_LOCAL; Initial Catalog = F20ST2ITS2201908775; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            conn = new SqlConnection("Data Source = 10.10.7.72\\SQL_LOCAL; Initial Catalog = F20ST2ITS2201908775; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            conn = new SqlConnection("Data Source=10.10.7.72\\SQL_Local;Initial Catalog=" + db + ";User ID=" + db + ";Password=" + db + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             
             cmd = new SqlCommand("Select MedarbejderID from db_owner.SP_MedarbejderID", conn);
+            
             conn.Open();
 
             rdr = cmd.ExecuteReader();
