@@ -17,34 +17,6 @@ namespace DataLayer2
         private FileStream output;
         private StreamWriter writer;
         private BinaryFormatter formatter;
-        public bool CheckDBForEmployeeId(string EmployeeId)
-        {
-            bool result = false;
-
-
-
-            input = new FileStream("MedarbejderID3.txt", FileMode.OpenOrCreate, FileAccess.Read);
-            reader = new StreamReader(input);
-
-            string inputRecord;
-            string[] inputFields;
-
-            while ((inputRecord = reader.ReadLine()) != null)
-            {
-                inputFields = inputRecord.Split(';');
-
-                if (inputFields[0] == EmployeeId)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            result = true;
-
-            reader.Close();
-
-            return result;
-        }
 
         public int Retur { get; set; }
         public double BatteryStatus { get; set; }
@@ -82,6 +54,37 @@ namespace DataLayer2
             return result;
 
         }
+
+
+        public bool CheckDBForEmployeeId(string EmployeeId)
+        {
+            bool result = false;
+
+
+
+            input = new FileStream("MedarbejderID3.txt", FileMode.OpenOrCreate, FileAccess.Read);
+            reader = new StreamReader(input);
+
+            string inputRecord;
+            string[] inputFields;
+
+            while ((inputRecord = reader.ReadLine()) != null)
+            {
+                inputFields = inputRecord.Split(';');
+
+                if (inputFields[0] == EmployeeId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            result = true;
+
+            reader.Close();
+
+            return result;
+        }       
+        
 
         
 
