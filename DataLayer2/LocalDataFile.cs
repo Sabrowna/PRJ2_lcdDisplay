@@ -21,7 +21,7 @@ namespace DataLayer2
         public int Retur { get; set; }
         public double BatteryStatus { get; set; }
 
-
+        
         public LocalDataFile()
         {
 
@@ -60,9 +60,8 @@ namespace DataLayer2
         {
             bool result = false;
 
-
-
-            input = new FileStream("MedarbejderID3.txt", FileMode.OpenOrCreate, FileAccess.Read);
+            
+            input = new FileStream(@"\\C:\SMPRJ2_Filer\MedarbejderID.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
             string inputRecord;
@@ -112,7 +111,7 @@ namespace DataLayer2
 
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
-            output = new FileStream(@"Skrivebord\EKGMaaling2.txt", FileMode.OpenOrCreate, FileAccess.Write);
+            output = new FileStream("EKGMaaling3.txt", FileMode.OpenOrCreate, FileAccess.Write);
             //writer = new StreamWriter(output);
             //writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + )
 
