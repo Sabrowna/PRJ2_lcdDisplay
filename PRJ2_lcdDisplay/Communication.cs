@@ -56,21 +56,31 @@ namespace PresentationLayer
             {
                 while (displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString) == false)
                 {
+                    int index = 0;
                     for (int i = 0; i < 2; i++)
                     {
+                        
                         lcd.lcdClear();
                         lcd.lcdPrint("ID ikke godkendt");
                         Thread.Sleep(1000);
                         displayRef.GetEmployeeId();
-                        displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString);
+
+                        index++;
+                        if (displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString) == true)
+                        {
+                            break;
+                        }
+                        if (index == 3)
+                        {
+                            for (int n = 0; n < 1; n++)
+                            {
+                                lcd.lcdClear();
+                                lcd.lcdPrint("Du har brugt dine 3  forsøg. Programmet  lukkes");
+                                Thread.Sleep(1000);
+                            }
+                            Environment.Exit(0);
+                        }
                     }
-                    for (int i = 0; i < 1; i++)
-                    {
-                        lcd.lcdClear();
-                        lcd.lcdPrint("Du har brugt dine 3  forsøg. Programmet  lukkes");
-                        Thread.Sleep(1000);
-                    }
-                    Environment.Exit(0);
                 }
                 lcd.lcdClear();
                 lcd.lcdPrint("ID godkendt");

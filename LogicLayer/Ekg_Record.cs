@@ -20,7 +20,7 @@ namespace LogicLayer
         }
  
         double sample = 0; //En sample er ét punkt
-        int antalSamples = 120; //2500 samplesRettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
+        int antalSamples = 1200; //2500 samplesRettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
         string starttidspunkt;
         private double[] ekgRawData;
         int samplerate = 2; //Variabel til at regulere hvor længe der går mellem hver måling

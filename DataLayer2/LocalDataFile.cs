@@ -85,6 +85,10 @@ namespace DataLayer2
 
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
+
+
+
+            /*
             if (File.Exists("EKGMaaling4.txt") == false)
             {
                 output = new FileStream("EKGMaaling4.txt", FileMode.OpenOrCreate, FileAccess.Write);
@@ -95,26 +99,29 @@ namespace DataLayer2
             output = new FileStream("EKGMaaling4.txt", FileMode.Append, FileAccess.Write);
             formatter = new BinaryFormatter();
             formatter.Serialize(output, nyMåling);
-
-            /*
+            */
+            
             if (File.Exists("EKGMaaling5.txt") == false)
             {
-
-                output2 = new FileStream("EKGMaaling5.txt", FileMode.OpenOrCreate, FileAccess.Write);
-                writer = new StreamWriter(output2);
-                writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.RåData + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
-                
-
+                output = new FileStream("EKGMaaling5.txt", FileMode.Create, FileAccess.Write);
+                writer = new StreamWriter(output);
+                foreach (double item in nyMåling.RåData)
+                {
+                    writer.Write(item + ";");
+                }
+                writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
             }
 
-            output2 = new FileStream("EKGMaaling5.txt", FileMode.Append, FileAccess.Write);
-            writer = new StreamWriter(output2);
-            writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.RåData + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
-            */
-
-            output.Close();
-            //output2.Close();
-            //writer.Close();
+            output = new FileStream("EKGMaaling5.txt", FileMode.Append, FileAccess.Write);
+            writer = new StreamWriter(output);
+            
+            foreach (double item in nyMåling.RåData) //Vi indlæser først alle værdier fra array (de første 2500 værdier, adskilt med ;)
+            {
+                writer.Write(item + ";");
+            }
+            //Indsætter derefter resterende værdier
+            writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
+            writer.Close();
         }
 
 
