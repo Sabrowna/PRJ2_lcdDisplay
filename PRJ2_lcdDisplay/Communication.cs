@@ -45,8 +45,8 @@ namespace PresentationLayer
 
             
 
-            batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
-            batteryStatusRef.ShowBatteryStatus(); // Ændrer baggrundsfarven efter batteristatus
+            //batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
+            //batteryStatusRef.ShowBatteryStatus(); // Ændrer baggrundsfarven efter batteristatus
 
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
             

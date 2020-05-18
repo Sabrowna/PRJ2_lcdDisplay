@@ -133,13 +133,15 @@ namespace DataLayer2
 
             input = new FileStream("EKGMaaling3.txt", FileMode.Open, FileAccess.Read);
 
+            input.Close();
+            //output2.Close();
+
+            /*
             DTO_EKGMåling IndlæstMaaling = (DTO_EKGMåling)(formatter.Deserialize(input));
             output2 = new FileStream("EKGMaaling3", FileMode.OpenOrCreate, FileAccess.Write); //ER DETTE RIGTIGT
             formatter = new BinaryFormatter();
             formatter.Serialize(output, IndlæstMaaling);
-
-            input.Close();
-            output2.Close();
+            */
 
 
 
