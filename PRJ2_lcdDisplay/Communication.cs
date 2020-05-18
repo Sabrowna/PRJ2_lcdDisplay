@@ -4,6 +4,7 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Collections.Generic;
 using LogicLayer;
+using System.Collections.Immutable;
 //using System.Reflection.Metadata.Ecma335;
 
 namespace PresentationLayer
@@ -60,7 +61,6 @@ namespace PresentationLayer
                         lcd.lcdClear();
                         lcd.lcdPrint("ID ikke godkendt");
                         Thread.Sleep(1000);
-                        displayRef.EmployeeIdAsString = null;
                         displayRef.GetEmployeeId();
                         displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString);
                     }

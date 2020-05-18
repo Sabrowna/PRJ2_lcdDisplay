@@ -112,6 +112,8 @@ namespace PresentationLayer
             lcd.lcdClear();
             twist.setCount(0);
             lcd.lcdGotoXY(1, 0);
+            employeeIdList.Clear();
+            EmployeeIdAsString = string.Join("", employeeIdList.ToArray());
             lcd.lcdPrint("Indtast ID nummer");
             WritenumberLine(); // Kør denne metode for at få vist NumberLine
 
