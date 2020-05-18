@@ -122,26 +122,40 @@ namespace DataLayer2
 
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
-            output = new FileStream("EKGMaaling3.txt", FileMode.OpenOrCreate, FileAccess.Write);
+            if (File.Exists("EKGMaaling4.txt") == false)
+            {
+
+                output = new FileStream("EKGMaaling4.txt", FileMode.OpenOrCreate, FileAccess.Write);
+                formatter = new BinaryFormatter();
+                formatter.Serialize(output, nyMåling);
+
+            }
+
+            output = new FileStream("EKGMaaling4.txt", FileMode.Append, FileAccess.Write);
             formatter = new BinaryFormatter();
             formatter.Serialize(output, nyMåling);
 
+
+            if (File.Exists("EKGMaaling5.txt") == false)
+            {
+
+                output2 = new FileStream("EKGMaaling5.txt", FileMode.OpenOrCreate, FileAccess.Write);
+                writer = new StreamWriter(output2);
+                writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.RåData + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
+                
+
+            }
+
+            output2 = new FileStream("EKGMaaling5.txt", FileMode.Append, FileAccess.Write);
+            writer = new StreamWriter(output2);
+            writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.RåData + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
+
+
             output.Close();
-
-            //writer = new StreamWriter(output);
-            //writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + )
-
-            input = new FileStream("EKGMaaling3.txt", FileMode.Open, FileAccess.Read);
-
-            DTO_EKGMåling IndlæstMaaling = (DTO_EKGMåling)(formatter.Deserialize(input));
-            output2 = new FileStream("EKGMaaling3", FileMode.OpenOrCreate, FileAccess.Write); //ER DETTE RIGTIGT
-            formatter = new BinaryFormatter();
-            formatter.Serialize(output, IndlæstMaaling);
-
-            input.Close();
             output2.Close();
+            writer.Close();
 
-
+            
 
         }
 
