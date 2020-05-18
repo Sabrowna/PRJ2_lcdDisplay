@@ -17,11 +17,8 @@ namespace LogicLayer
         {
             localDataRef = new LocalDataFile();
             adc = new ADC1015();
-            
         }
-
-
-        
+ 
         double sample = 0; //En sample er ét punkt
         int antalSamples = 120; //2500 samplesRettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
         string starttidspunkt;
@@ -47,33 +44,22 @@ namespace LogicLayer
         
         public void CreateEKGDTO(string EmployeeIdAsString, string SocSecNumberAsString) //Modtager disse to fra presentationlayer
         {
-            StartEkgRecord();
-
+            StartEkgRecord(); //Starter målingen
 
             DTO_EKGMåling nyMåling = new DTO_EKGMåling(EmployeeIdAsString,SocSecNumberAsString,Convert.ToDateTime(starttidspunkt),ekgRawData,antalSamples,samplerate);
 
-
            localDataRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
         }
-        /*
-        public void SendToDB(DTO_EKGMåling nyMåling)
+
+        public string GetReceipt() //Får en værdi på antallet af målinger
         {
-            localDataRef.InsertEKGMeasurement(nyMåling);
-        }
-        */
-
-
-        /* public string GetReceipt() //TILRETTES til databasen
-         {
              int id = localDataRef.CountID();
 
              return Convert.ToString(id);
-         }
-         */
-
+        }
+         
         public bool CheckDBForEmployeeId(string EmployeeId)
-        {
-            
+        {  
             bool result;
             result = localDataRef.CheckDBForEmployeeId(EmployeeId);
             return result;

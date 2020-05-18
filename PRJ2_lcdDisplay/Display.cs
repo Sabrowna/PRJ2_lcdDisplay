@@ -14,8 +14,6 @@ namespace PresentationLayer
         public TWIST twist;
         private Ekg_Record ekgRecordRef;
 
-        string number;
-        bool result;
         public string EmployeeIdAsString { get; set; } //Konvertering af medarbejderlisten til en string
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
         private List<short> cprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én //Short fordi drejeknappen er en short
@@ -28,7 +26,6 @@ namespace PresentationLayer
             twist = new TWIST();
 
             ekgRecordRef = new Ekg_Record();
-            //twist.setCount(0)
             lcd.lcdCursor();
             lcd.lcdBlink();
 
@@ -50,7 +47,6 @@ namespace PresentationLayer
 
         public void GetSocSecNumber()
         {
-
             byte xValueCPRLine = 6; //variabel
             byte xStartValueNumberLine = Convert.ToByte(6); //konstant
             byte countingIsPressed = 0;
@@ -65,9 +61,6 @@ namespace PresentationLayer
 
             while (countingIsPressed < 11)
             {
-
-                //for (countingIsPressed = 0; countingIsPressed < 11; countingIsPressed++) //Kører 11 gange hvor den udskriver et nummer for hver løkke + en '-'
-                //{
                 while (twist.isPressed() == false)
                 {
                     if (twist.getCount() < 0) //Limit-metode - hvis cursoren går forbi 0-tallet, hopper den hen på 9
@@ -108,7 +101,6 @@ namespace PresentationLayer
                 } 
             }
             SocSecNumberAsString = string.Join("", cprNumbersL.ToArray());
-
         }
 
         public void GetEmployeeId()
@@ -158,9 +150,7 @@ namespace PresentationLayer
                     lcd.lcdGotoXY(getCountEnd, 1); //Sætter cursoren tilbage på numberline hvor den stod før
                     countingIsPressed++; // Lægger 1 til countet på antal cifte i indtastet MedarbejderID
 
-
                 EmployeeIdAsString = string.Join("",employeeIdList.ToArray());
-
             }
             for (int i = 0; i < 2; i++)
             {
@@ -179,7 +169,6 @@ namespace PresentationLayer
                 lcd.lcdGotoXY(0, 3);
                 lcd.lcdPrint("             ");
                 Thread.Sleep(500);
-
             }
         }              
 
@@ -193,35 +182,6 @@ namespace PresentationLayer
 
             lcd.lcdGotoXY(0, 2);
             lcd.lcdPrint("2. Nej");
-
-            while (twist.isPressed() == false)
-            {
-
-                if ((twist.getCount()) % 2 == 0) //Går cursoren op i et lige tal, skriver man 'ja'
-                {
-                    værdi = true; //Man har skrevet ja
-                    lcd.lcdGotoXY(0, 1);
-                }
-
-                else if ((twist.getCount()) % 2 == 1) //Går cursoren op i et ulige tal, skriver man 'nej'
-                {
-                    værdi = false;
-                    lcd.lcdGotoXY(0, 2);
-                }
-            }
-            return værdi;
-        }
-
-        public bool With_WithOut()
-        {
-            bool værdi = false;
-            twist.setCount(0);
-
-            lcd.lcdGotoXY(0, 1);
-            lcd.lcdPrint("1. Med");
-
-            lcd.lcdGotoXY(0, 2);
-            lcd.lcdPrint("2. Uden");
 
             while (twist.isPressed() == false)
             {

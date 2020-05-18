@@ -24,57 +24,25 @@ namespace DataLayer2
 
 
         public LocalDataFile()
-        {
-
-        }
-
-        public bool CheckDBForCPR(string socSecNb)
-        {
-            bool result = false;
-
-            input = new FileStream("CPRNUmmer.txt", FileMode.Open, FileAccess.Read);
-            reader = new StreamReader(input);
-
-            string inputRecord;
-            //string[] inputFields;
-
-            while ((inputRecord = reader.ReadLine()) != null)
-            {
-                //inputFields = inputRecord.Split(';');
-
-                if (inputRecord == socSecNb)
-                {
-                    result = true;
-                    break;
-                }
-            }
-
-
-            reader.Close();
-
-            return result;
-
-        }
-
+        { }
 
         public bool CheckDBForEmployeeId(string EmployeeId)
         {
             bool result = false;
 
+            /*
             if (File.Exists("MedarbejderID.txt") == false)
             {
-                input = new FileStream("MedarbejderID.txt", FileMode.Create, FileAccess.Write);
-
+                output = new FileStream("MedarbejderID.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter fileWriter = new StreamWriter(output);
                 fileWriter.WriteLine("1234;2345;3456");
                 fileWriter.Close();
             }
-
+            */
 
             input = new FileStream("MedarbejderID.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
-            //Hertil skal være en del af løkken
             string inputRecord;
             string[] inputFields;
 
@@ -89,24 +57,20 @@ namespace DataLayer2
                 }
             }
             result = true;
-
             reader.Close();
 
             return result;
         }
 
 
-
-
         public int CountID()
         {
             int Retur = 0;
 
-            input = new FileStream("EKGMaaling.txt", FileMode.Open, FileAccess.Read);
+            input = new FileStream("EKGMaaling4.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
             string inputRecord;
-
 
             while ((inputRecord = reader.ReadLine()) != null)
             {
@@ -124,11 +88,9 @@ namespace DataLayer2
         {
             if (File.Exists("EKGMaaling4.txt") == false)
             {
-
                 output = new FileStream("EKGMaaling4.txt", FileMode.OpenOrCreate, FileAccess.Write);
                 formatter = new BinaryFormatter();
                 formatter.Serialize(output, nyMåling);
-
             }
 
             output = new FileStream("EKGMaaling4.txt", FileMode.Append, FileAccess.Write);
@@ -154,9 +116,6 @@ namespace DataLayer2
             output.Close();
             output2.Close();
             //writer.Close();
-
-            
-
         }
 
 
@@ -164,7 +123,6 @@ namespace DataLayer2
         {
             bool onOff = false;
 
-            /*
             Random random = new Random();
             int number = random.Next(0, 11);
 
@@ -172,7 +130,7 @@ namespace DataLayer2
             {
                 onOff = true;
             }
-            */
+            
             return onOff;
         }
         //FRA JACOB

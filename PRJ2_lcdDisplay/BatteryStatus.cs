@@ -13,7 +13,6 @@ namespace PresentationLayer
         private Battery batteryRef = new Battery();
 
 
-
         public void ShowBatteryStatus()
         {
             if (batteryRef.ShowBatteryStatus() < 20) // Hvis batteristatus er lav jf. UC, udskrives nedenstående
@@ -28,15 +27,18 @@ namespace PresentationLayer
                     lcd.lcdClear();
                     Thread.Sleep(500);
                 }
-                lcd.lcdPrint("Slukker");
-                Thread.Sleep(2000);
-                lcd.lcdNoDisplay();
+                for (int i = 0; i < 1; i++)
+                {
+                    lcd.lcdPrint("Slukker");
+                    Thread.Sleep(2000);
+                    lcd.lcdNoDisplay();
+                }
                 Environment.Exit(0); 
             }
 
             if (batteryRef.ShowBatteryStatus() >= 20 && batteryRef.ShowBatteryStatus() < 50)
             {
-                lcd.lcdSetBackLight(0, 0, 250);
+                lcd.lcdSetBackLight(0, 250, 250);
             }
 
 
@@ -51,7 +53,6 @@ namespace PresentationLayer
 
         public void ChargeBattery()
         {
-
             if (batteryRef.Charging() == true) // Så længe oplader er tilslutte (bool == true), køres løkken her. // som indikation på at opladning er i gang. 
             {
                 lcd.lcdClear();
@@ -68,23 +69,8 @@ namespace PresentationLayer
                 Thread.Sleep(3000);
                 lcd.lcdClear();
                 lcd.lcdNoDisplay();
-                Environment.Exit(0);
             }
-           
-            
+            Environment.Exit(0);
         }
-    /*
-
-
     }
-
-        if (batteryRef.Charging(isCharging) == true) // Hvis opladning er i gang, køres og udskrives som nedenfor
-        {
-            while (batteryRef.Charging(isCharging) == true) // Så længe opladning er i gang, bliver systemet i denne løkke
-            {
-                lcd.lcdGotoXY(0, 1);
-                lcd.lcdPrint("Opladning i gang    Måling ikke mulig");
-            }
-            */
-}
 }

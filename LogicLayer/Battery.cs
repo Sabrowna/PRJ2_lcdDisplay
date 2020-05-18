@@ -40,7 +40,6 @@ namespace LogicLayer
         
         //JACOBS BATTERISTATUS KLASSER
         public double getVoltage()
-
         {
             double voltageInput = adc.readADC_SingleEnded(1);
             voltage = maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
@@ -57,7 +56,6 @@ namespace LogicLayer
 
         public double ShowBatteryStatus()
         {
-            //localDataRef.newRecord(2000, 0, 0, DateTime.Now); //KOMMENTERES UD EFTER FØRSTE GANG VI KØRER
             batteryLevelRecord = getRecord();
             newRecord();
             return batteryLevelRecord.BatteryLevel/2000*100;

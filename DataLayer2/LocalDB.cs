@@ -20,47 +20,17 @@ namespace DataLayer2
         private SqlCommand cmd;
         private const string db = "F20ST2ITS2201908775";
 
-
-        //public int Retur { get; set; }
         public double BatteryStatus { get; set; }
 
         public LocalDB()
         { }
-
-        // Undersøg om CPR findes i LokalDB - tabel SP_NyeEkger. Returner bool. 
-        public bool CheckDBForCPR(string socSecNb)
-        {
-            
-            bool result = false;
-
-            // Hent kolonnen borger_cprnr fra tabellen SP_NyeEkger
-
-            cmd = new SqlCommand("Select borger_cprnr from db_owner.SP_NyeEkger", conn);
-            conn.Open();
-
-            rdr = cmd.ExecuteReader();
-            rdr.Read();
-
-            while (rdr.Read()) // Så længe der er data at læse, undersøg om indkomne data matcher medsendte parameter socSecNb
-            {
-                if (Convert.ToString(rdr) == socSecNb)
-                    result = true;
-                break;
-
-            }
-
-            conn.Close();
-
-            return result;
-
-        }
 
         // Undersøg om EmployeeID findes i LokalDB - tabel MedarbejderID.
         public bool CheckDBForEmployeeId(string EmployeeId)
         {
             bool result = false;
 
-            // Hent kolonnen borger_cprnr fra tabellen SP_NyeEkger
+            // Hent kolonnen SP_MedarbejderID fra tabellen SP_NyeEkger
             conn = new SqlConnection("Data Source=10.10.7.72\\SQL_Local;Initial Catalog=" + db + ";User ID=" + db + ";Password=" + db + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             
             cmd = new SqlCommand("Select MedarbejderID from db_owner.SP_MedarbejderID", conn);
@@ -70,7 +40,7 @@ namespace DataLayer2
             rdr = cmd.ExecuteReader();
             rdr.Read();
 
-            while (rdr.Read()) // Så længe der er data at læse, undersøg om indkomne data matcher medsendte parameter socSecNb
+            while (rdr.Read()) // Så længe der er data at læse, undersøg om indkomne data matcher medsendte parameter employeeId
             {
                 if (Convert.ToString(rdr) == EmployeeId)
                     result = true;
@@ -90,22 +60,12 @@ namespace DataLayer2
             cmd = new SqlCommand("Select Count(*) from db_owner.SP_NyeEkger", conn);
             conn.Open();
 
-            //rdr = cmd.ExecuteReader();
-            //rdr.Read();
-
             Retur = (int)cmd.ExecuteScalar();
             return Retur;
         }
 
-
-        // Udkommenteret 14/5 for test
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
-        {
-
-
-            //SqlConnection conn;
-            //const String db = "F20ST2ITS2201908775";
-            //conn = new SqlConnection("Data Source = st-i4dab.uni.au.dk;Initial Catalog = " + db + ";Persist Security Info = True;User ID = " + db + ";Password = " + db + "");
+        { 
             conn.Open();
 
             string insertStringParam = $"INSERT INTO SP_NyeEkger ([raa_data],[id_medarbejder],[borger_cprnr],[start_tidspunkt],[antal_maalepunkter],[samplerate_hz]) OUTPUT INSERTED.id_måling VALUES(@data, @employeeID, @socSecNb, @startTime, @antalMålePkt, @hz)";
@@ -122,18 +82,14 @@ namespace DataLayer2
                 cmd.Parameters.AddWithValue("@antalMålePkt", (nyMåling.AntalMålepunkter));
                 cmd.Parameters.AddWithValue("@hz", (nyMåling.SampleRateHz));
 
-                // Retur = (int)cmd.ExecuteScalar();
             }
             conn.Close();
-
-            // return Retur;
-
         }
 
         public bool ChargingBattery()
         {
             bool onOff = false;
-            /*
+ 
             Random random = new Random();
             int number = random.Next(0, 11);
 
@@ -141,8 +97,7 @@ namespace DataLayer2
             {
                 onOff = true;
             }
-            */
-
+            
             return onOff;
         }
 
@@ -161,7 +116,7 @@ namespace DataLayer2
         {
             if (File.Exists("batteryLevel.txt") == false)
             {
-                input = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
+                output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter fileWriter = new StreamWriter(output);
                 fileWriter.WriteLine(2000 + ";" + 0 + ";" + 0 + ";" + DateTime.Now);
                 fileWriter.Close();

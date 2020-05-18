@@ -43,41 +43,40 @@ namespace PresentationLayer
             lcd.lcdBlink();
             lcd.lcdSetBackLight(0, 0, 0);
 
-            
 
-            //batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
-            //batteryStatusRef.ShowBatteryStatus(); // Ændrer baggrundsfarven efter batteristatus
+
+            batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
+            batteryStatusRef.ShowBatteryStatus(); // Ændrer baggrundsfarven efter batteristatus
 
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
-            
-            
+
+
             displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString);
             {
-
+                while (displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString) == false)
                 {
-                    while (displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString) == false)
+                    for (int i = 0; i < 2; i++)
                     {
-                        for (int i = 0; i < 2; i++)
-                        {
-                            lcd.lcdClear();
-                            lcd.lcdPrint("ID ikke godkendt");
-                            Thread.Sleep(1000);
-                            displayRef.GetEmployeeId();
+                        lcd.lcdClear();
+                        lcd.lcdPrint("ID ikke godkendt");
+                        Thread.Sleep(1000);
+                        displayRef.GetEmployeeId();
 
-                        }
+                    }
+                    for (int i = 0; i < 1; i++)
+                    {
                         lcd.lcdClear();
                         lcd.lcdPrint("Du har brugt dine 3  forsøg. Programmet  lukkes");
                         Thread.Sleep(1000);
-                        break;
-                        //Environment.Exit(0);
                     }
-                    lcd.lcdClear();
-                    lcd.lcdPrint("ID godkendt");
-                    Thread.Sleep(1000);
+                    Environment.Exit(0);
                 }
+                lcd.lcdClear();
+                lcd.lcdPrint("ID godkendt");
+                Thread.Sleep(1000);
             }
-            
-            
+
+
             lcd.lcdClear();
             lcd.lcdPrint("Maaling med CPR?");
 
@@ -92,56 +91,49 @@ namespace PresentationLayer
 
             lcd.lcdClear();
             lcd.lcdGotoXY(1, 0);
-            lcd.lcdPrint("Start Ekg maaling");
+            lcd.lcdPrint("Start Ekg maaling?");
 
             answer = displayRef.Yes_No();
-
             do
             {
                 if (answer == true)
                 {
                     ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
-                    //ekgRecordRef.SendToDB();
-                    /*
-                    if (ekgRecordRef.StartEkgRecord() == true)
-                    {
-                        lcd.lcdClear();
-                        lcd.lcdPrint("Maaling afsluttet");
-                        Thread.Sleep(3000);
 
-                    }
-                    */
-
-                    while(ekgRecordRef.StartEkgRecord() == false) // Venter her indtil metoden returnerer true = måling færdig
+                    while (ekgRecordRef.StartEkgRecord() == false) // Venter her indtil metoden returnerer true = måling færdig
                     { }
                     lcd.lcdClear();
                     lcd.lcdPrint("Maaling afsluttet");
                     Thread.Sleep(3000);
 
 
-
                     lcd.lcdClear();
                     lcd.lcdGotoXY(0, 2);
-                    // lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}");
-                    //}
+                    //lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}"); //Kan ikke lade sig gøre, da vi kun kan gennemgå vores database gennem filer som bindeled.
+                    
 
                     lcd.lcdClear();
                     lcd.lcdPrint("Ny maaling?");
 
-                    //displayRef.Yes_No??
                     answer = displayRef.Yes_No();
-                    continueEKGMeasurement = answer;
+                    continueEKGMeasurement = answer; 
                 }
-
 
             }
             while (continueEKGMeasurement);
             lcd.lcdClear();
+            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
+            if (batteryRef.ShowBatteryStatus() < 20)
+            {
+                lcd.lcdGotoXY(0, 1);
+                lcd.lcdPrint("Lavt batteri        Tilslut oplader     ");
+                Thread.Sleep(2000);
+            }
+            lcd.lcdGotoXY(0, 3);
             lcd.lcdPrint("Program afsluttes");
             Thread.Sleep(2000);
             lcd.lcdClear();
             lcd.lcdNoDisplay();
-            //EVT VIS BATTERISTATUS HER
         }
     }
 }
