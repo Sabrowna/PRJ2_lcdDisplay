@@ -56,7 +56,6 @@ namespace DataLayer2
                     break;
                 }
             }
-            result = true;
             reader.Close();
 
             return result;
@@ -114,7 +113,7 @@ namespace DataLayer2
             */
 
             output.Close();
-            output2.Close();
+            //output2.Close();
             //writer.Close();
         }
 

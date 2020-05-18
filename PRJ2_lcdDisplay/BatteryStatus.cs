@@ -55,22 +55,25 @@ namespace PresentationLayer
         {
             if (batteryRef.Charging() == true) // Så længe oplader er tilslutte (bool == true), køres løkken her. // som indikation på at opladning er i gang. 
             {
-                lcd.lcdClear();
-                lcd.lcdGotoXY(0, 0);
-                lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
-                Thread.Sleep(3000);
-                lcd.lcdClear();
-                lcd.lcdGotoXY(0, 0);
-                lcd.lcdPrint("Batteriet oplades");
-                lcd.lcdGotoXY(0, 1);
-                lcd.lcdPrint("Systemet slukkes");
-                lcd.lcdGotoXY(0, 2);
-                lcd.lcdPrint("om 3 sekunder");
-                Thread.Sleep(3000);
-                lcd.lcdClear();
-                lcd.lcdNoDisplay();
+                for (int i = 0; i < 1; i++)
+                {
+                    lcd.lcdClear();
+                    lcd.lcdGotoXY(0, 0);
+                    lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
+                    Thread.Sleep(3000);
+                    lcd.lcdClear();
+                    lcd.lcdGotoXY(0, 0);
+                    lcd.lcdPrint("Batteriet oplades");
+                    lcd.lcdGotoXY(0, 1);
+                    lcd.lcdPrint("Systemet slukkes");
+                    lcd.lcdGotoXY(0, 2);
+                    lcd.lcdPrint("om 3 sekunder");
+                    Thread.Sleep(3000);
+                    lcd.lcdClear();
+                    lcd.lcdNoDisplay();
+                }
+                Environment.Exit(0);
             }
-            Environment.Exit(0);
         }
     }
 }

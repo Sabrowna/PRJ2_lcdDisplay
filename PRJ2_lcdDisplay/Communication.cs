@@ -60,8 +60,9 @@ namespace PresentationLayer
                         lcd.lcdClear();
                         lcd.lcdPrint("ID ikke godkendt");
                         Thread.Sleep(1000);
+                        displayRef.EmployeeIdAsString = null;
                         displayRef.GetEmployeeId();
-
+                        displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString);
                     }
                     for (int i = 0; i < 1; i++)
                     {

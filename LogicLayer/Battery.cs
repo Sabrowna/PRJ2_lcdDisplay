@@ -56,6 +56,7 @@ namespace LogicLayer
 
         public double ShowBatteryStatus()
         {
+            localDataRef.newRecord(2000, 0, 0, DateTime.Now); //KOMMENTERES UD EFTER FØRSTE GANG
             batteryLevelRecord = getRecord();
             newRecord();
             return batteryLevelRecord.BatteryLevel/2000*100;
