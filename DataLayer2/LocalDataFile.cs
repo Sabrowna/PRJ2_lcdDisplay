@@ -135,7 +135,7 @@ namespace DataLayer2
             formatter = new BinaryFormatter();
             formatter.Serialize(output, nyMåling);
 
-
+            /*
             if (File.Exists("EKGMaaling5.txt") == false)
             {
 
@@ -149,11 +149,11 @@ namespace DataLayer2
             output2 = new FileStream("EKGMaaling5.txt", FileMode.Append, FileAccess.Write);
             writer = new StreamWriter(output2);
             writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.RåData + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
-
+            */
 
             output.Close();
             output2.Close();
-            writer.Close();
+            //writer.Close();
 
             
 
@@ -190,7 +190,7 @@ namespace DataLayer2
         {
             if (File.Exists("batteryLevel.txt") == false)
             {
-                input = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
+                output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter fileWriter = new StreamWriter(output);
                 fileWriter.WriteLine(2000 + ";" + 0 + ";" + 0 + ";" + DateTime.Now);
                 fileWriter.Close();

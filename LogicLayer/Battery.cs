@@ -23,7 +23,7 @@ namespace LogicLayer
         private ADC1015 adc;
         public Battery()
         {
-            localDataRef = new LocalDB();
+            localDataRef = new LocalDataFile();
             batteryLevelRecord = localDataRef.getRecord(); //KOMMENTERES IND EFTER FØRSTE GANG 
             batteryLevelRecord.Date = DateTime.Now; //KOMMENTERES IND EFTER FØRSTE GANG
             adc = new ADC1015();

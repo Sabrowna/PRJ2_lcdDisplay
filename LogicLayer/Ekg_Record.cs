@@ -15,7 +15,7 @@ namespace LogicLayer
 
         public Ekg_Record()
         {
-            localDataRef = new LocalDB();
+            localDataRef = new LocalDataFile();
             adc = new ADC1015();
             
         }
@@ -23,21 +23,21 @@ namespace LogicLayer
 
         
         double sample = 0; //En sample er ét punkt
-        int antalSamples = 1200; //Rettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
+        int antalSamples = 120; //2500 samplesRettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
         string starttidspunkt;
-        private List<double> ekgRawData;
-        int samplerate = 5; //Variabel til at regulere hvor længe der går mellem hver måling
+        private double[] ekgRawData;
+        int samplerate = 2; //Variabel til at regulere hvor længe der går mellem hver måling
 
         public bool StartEkgRecord() //Start modtagelse af signal fra elektroderne
         {
             bool ekgRecordEnd = false;
             starttidspunkt = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss");
-            ekgRawData = new List<double>();
+            ekgRawData = new double[antalSamples];
 
             for (int i = 0; i < antalSamples; i++)
             {
                 sample = (adc.readADC_SingleEnded(0) / 2048.0) * 6.144; //Konverterer fra adc til strøm (eller omvendt)
-                ekgRawData.Add(sample);
+                ekgRawData[i] = sample;
 
                 Thread.Sleep(samplerate);
             }
