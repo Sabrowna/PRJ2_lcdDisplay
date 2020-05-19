@@ -61,6 +61,7 @@ namespace PresentationLayer
                     {
                         
                         lcd.lcdClear();
+                        lcd.lcdGotoXY(2, 1);
                         lcd.lcdPrint("ID ikke godkendt");
                         Thread.Sleep(1000);
                         displayRef.GetEmployeeId();
@@ -83,6 +84,7 @@ namespace PresentationLayer
                     }
                 }
                 lcd.lcdClear();
+                lcd.lcdGotoXY(4,1);
                 lcd.lcdPrint("ID godkendt");
                 Thread.Sleep(1000);
             }
@@ -101,7 +103,7 @@ namespace PresentationLayer
             }
 
             lcd.lcdClear();
-            lcd.lcdGotoXY(1, 0);
+            lcd.lcdGotoXY(0, 0);
             lcd.lcdPrint("Start Ekg maaling?");
 
             answer = displayRef.Yes_No();

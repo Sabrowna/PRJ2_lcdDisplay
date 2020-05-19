@@ -34,7 +34,7 @@ namespace PresentationLayer
         public void WritenumberLine()
         {
             byte number = 0; // Lokal variabel til brug for udskrivning af NumberLine
-            byte x = 6; //Værdien på vores x-akse
+            byte x = 0; //Værdien på vores x-akse
             lcd.lcdGotoXY(x, 1);
             for (int i = 0; i < 10; i++)
             {
@@ -47,8 +47,8 @@ namespace PresentationLayer
 
         public void GetSocSecNumber()
         {
-            byte xValueCPRLine = 6; //variabel
-            byte xStartValueNumberLine = Convert.ToByte(6); //konstant
+            byte xValueCPRLine = 0; //variabel
+            byte xStartValueNumberLine = Convert.ToByte(0); //konstant
             byte countingIsPressed = 0;
 
             lcd.lcdClear();
@@ -65,13 +65,13 @@ namespace PresentationLayer
                 {
                     if (twist.getCount() < 0) //Limit-metode - hvis cursoren går forbi 0-tallet, hopper den hen på 9
                     {
-                        lcd.lcdGotoXY(15, 1);
+                        lcd.lcdGotoXY(9, 1);
                         twist.setCount(9);
                     }
 
                     else if (twist.getCount() > 9) //Limit-metode - hvis cursoren går forbi 9-tallet, hopper den hen på 0
                     {
-                        lcd.lcdGotoXY(6, 1);
+                        lcd.lcdGotoXY(0, 1);
                         twist.setCount(0);
                     }
 
@@ -106,13 +106,13 @@ namespace PresentationLayer
 
         public void GetEmployeeId()
         {
-            byte xValueIDLine = 6; //variabel
-            byte xStartValueNumberLine = Convert.ToByte(6); //konstant
+            byte xValueIDLine = 0; //variabel
+            byte xStartValueNumberLine = Convert.ToByte(0); //konstant
             byte countingIsPressed = 0;
 
             lcd.lcdClear();
             twist.setCount(0);
-            lcd.lcdGotoXY(1, 0);
+            lcd.lcdGotoXY(0, 0);
             employeeIdList.Clear();
             //EmployeeIdAsString = string.Join("", employeeIdList.ToArray());
             lcd.lcdPrint("Indtast ID nummer");
@@ -125,13 +125,13 @@ namespace PresentationLayer
                 {
                     if (twist.getCount() < 0) //Limit-metode - hvis cursoren går forbi 0-tallet, hopper den hen på 9
                     {
-                        lcd.lcdGotoXY(15, 1);
+                        lcd.lcdGotoXY(9, 1);
                         twist.setCount(9);
                     }
 
                     else if (twist.getCount() > 9) //Limit-metode - hvis cursoren går forbi 9-tallet, hopper den hen på 0
                     {
-                        lcd.lcdGotoXY(6, 1);
+                        lcd.lcdGotoXY(0, 1);
                         twist.setCount(0);
                     }
 
