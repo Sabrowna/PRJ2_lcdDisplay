@@ -61,6 +61,12 @@ namespace LogicLayer
             newRecord();
             return batteryLevelRecord.BatteryLevel/2000*100;
         }
+
+        public double ShowBatteryStatusTEST() // Metode kun til test
+        {
+            return localDataRef.ShowBatteryStatusTEST();
+        }
+
         public void newRecord()
         {
             current = getCurrent();
@@ -72,6 +78,8 @@ namespace LogicLayer
         {
             return localDataRef.getRecord();
         }
+
+       
     }
 
 }

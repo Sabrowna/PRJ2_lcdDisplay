@@ -97,7 +97,8 @@ namespace DataLayer2
             {
                 onOff = true;
             }
-            
+
+            // onOff = false; // Linje kun til test
             return onOff;
         }
 
@@ -136,6 +137,12 @@ namespace DataLayer2
 
             reader.Close();
             return result;
+        }
+
+        public double ShowBatteryStatusTEST()
+        {
+            BatteryStatus = 60;
+            return BatteryStatus;
         }
     }
 }

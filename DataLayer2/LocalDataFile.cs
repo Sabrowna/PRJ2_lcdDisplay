@@ -7,6 +7,7 @@ using DTO2;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Data.SqlTypes;
+using System.Security.Cryptography;
 
 namespace DataLayer2
 {
@@ -85,22 +86,7 @@ namespace DataLayer2
 
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
-
-
-
-            /*
-            if (File.Exists("EKGMaaling4.txt") == false)
-            {
-                output = new FileStream("EKGMaaling4.txt", FileMode.OpenOrCreate, FileAccess.Write);
-                formatter = new BinaryFormatter();
-                formatter.Serialize(output, nyMåling);
-            }
-
-            output = new FileStream("EKGMaaling4.txt", FileMode.Append, FileAccess.Write);
-            formatter = new BinaryFormatter();
-            formatter.Serialize(output, nyMåling);
-            */
-            
+                     
             if (File.Exists("EKGMaaling5.txt") == false)
             {
                 output = new FileStream("EKGMaaling5.txt", FileMode.Create, FileAccess.Write);
@@ -136,7 +122,8 @@ namespace DataLayer2
             {
                 onOff = true;
             }
-            
+
+            // onOff = false; // Linje kun til test
             return onOff;
         }
         //FRA JACOB
@@ -174,6 +161,12 @@ namespace DataLayer2
 
             reader.Close();
             return result;
+        }
+
+        public double ShowBatteryStatusTEST()
+        {
+            BatteryStatus = 60;
+            return BatteryStatus;
         }
     }
 }

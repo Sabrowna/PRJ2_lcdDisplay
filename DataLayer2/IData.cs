@@ -16,7 +16,10 @@ namespace DataLayer2
 
         DTO_BatteryLevel getRecord();
         bool ChargingBattery();
-        
+
+        double ShowBatteryStatusTEST();
+      
+
     }
 
 }

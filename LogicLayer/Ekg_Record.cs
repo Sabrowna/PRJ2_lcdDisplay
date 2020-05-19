@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DataLayer2;
 using DTO2;
 using RaspberryPiCore.ADC;
-
+using RaspberryPiCore;
 
 namespace LogicLayer
 { 
@@ -30,6 +30,8 @@ namespace LogicLayer
             bool ekgRecordEnd = false;
             starttidspunkt = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss");
             ekgRawData = new double[antalSamples];
+
+            
 
             for (int i = 0; i < antalSamples; i++)
             {
@@ -64,5 +66,7 @@ namespace LogicLayer
             result = localDataRef.CheckDBForEmployeeId(EmployeeId);
             return result;
         }
+
+       
     }
 }
