@@ -122,7 +122,7 @@ namespace PresentationLayer
 
                     lcd.lcdClear();
                     lcd.lcdGotoXY(0, 2);
-                    //lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}"); //Kan ikke lade sig gøre, da vi kun kan gennemgå vores database gennem filer som bindeled.
+                    lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}"); //Kan ikke lade sig gøre, da vi kun kan gennemgå vores database gennem filer som bindeled.
                     
 
                     lcd.lcdClear();

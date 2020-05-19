@@ -13,9 +13,12 @@ namespace PresentationLayer
         private Battery batteryRef = new Battery();
 
 
-        public void ShowBatteryStatus()
+        public void ShowBatteryStatus() // Ved test kommenteres statements med ShowBatteryStatusTEST ind! 
         {
-            if (batteryRef.ShowBatteryStatus() < 20) // Hvis batteristatus er lav jf. UC, udskrives nedenstående
+            double værdi = batteryRef.ShowBatteryStatus();
+            //double værdi = (batteryRef.ShowBatteryStatusTEST();
+
+            if (værdi < 20)                // Hvis batteristatus er lav jf. UC, udskrives nedenstående
             {
                 lcd.lcdSetBackLight(250, 0, 0);
 
@@ -36,13 +39,13 @@ namespace PresentationLayer
                 Environment.Exit(0); 
             }
 
-            if (batteryRef.ShowBatteryStatus() >= 20 && batteryRef.ShowBatteryStatus() < 50)
+            if (værdi >= 20 && værdi < 50)
             {
                 lcd.lcdSetBackLight(0, 250, 250);
             }
 
 
-            if (batteryRef.ShowBatteryStatus() >= 50)
+            if (værdi >= 50)
             {
                 lcd.lcdSetBackLight(0, 250, 0);
             }
