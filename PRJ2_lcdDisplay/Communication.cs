@@ -27,6 +27,7 @@ namespace PresentationLayer
         {
             lcd = new SerLCD();
             twist = new TWIST();
+            twist.setCount(0);
             ekgRecordRef = new Ekg_Record();
             displayRef = new Display();
             batteryRef = new Battery();
@@ -125,7 +126,7 @@ namespace PresentationLayer
                     lcd.lcdClear();
                     lcd.lcdGotoXY(0, 2);
                     lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}"); //Kan ikke lade sig gøre, da vi kun kan gennemgå vores database gennem filer som bindeled.
-                    
+                    Thread.Sleep(2000);
 
                     lcd.lcdClear();
                     lcd.lcdPrint("Ny maaling?");
@@ -133,11 +134,13 @@ namespace PresentationLayer
                     answer = displayRef.Yes_No();
                     continueEKGMeasurement = answer; 
                 }
-
+                break;
             }
             while (continueEKGMeasurement);
+
             lcd.lcdClear();
             lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
+            Thread.Sleep(2000);
             if (batteryRef.ShowBatteryStatus() < 20)
             {
                 lcd.lcdGotoXY(0, 1);

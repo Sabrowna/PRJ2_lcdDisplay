@@ -155,7 +155,7 @@ namespace DataLayer2
 
         public double ShowBatteryStatusTEST()
         {
-            BatteryStatus = 60;
+            BatteryStatus = 45;
             return BatteryStatus;
         }
     }

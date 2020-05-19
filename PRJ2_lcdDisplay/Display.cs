@@ -97,7 +97,6 @@ namespace PresentationLayer
                 {
                     lcd.lcdGotoXY((xValueCPRLine++), 2);
                     lcd.lcdPrint("-");
-                    cprNumbersL.Add(Convert.ToInt16("-"));
                     countingIsPressed++;
                 } 
             }
