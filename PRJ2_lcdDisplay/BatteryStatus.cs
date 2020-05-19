@@ -20,7 +20,9 @@ namespace PresentationLayer
 
             if (værdi < 20)                // Hvis batteristatus er lav jf. UC, udskrives nedenstående
             {
+
                 lcd.lcdSetBackLight(250, 0, 0);
+
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -30,13 +32,15 @@ namespace PresentationLayer
                     lcd.lcdClear();
                     Thread.Sleep(500);
                 }
-                for (int i = 0; i < 1; i++)
-                {
-                    lcd.lcdPrint("Slukker");
-                    Thread.Sleep(2000);
-                    lcd.lcdNoDisplay();
-                }
-                Environment.Exit(0); 
+
+                lcd.lcdPrint("Slukker");
+                Thread.Sleep(2000);
+                lcd.lcdSetBackLight(0, 0, 0);
+                lcd.lcdNoDisplay();
+
+
+                //Environment.Exit(0);
+
             }
 
             if (værdi >= 20 && værdi < 50)
@@ -56,6 +60,7 @@ namespace PresentationLayer
 
         public void ChargeBattery()
         {
+            
             if (batteryRef.Charging() == true) // Så længe oplader er tilslutte (bool == true), køres løkken her. // som indikation på at opladning er i gang. 
             {
                 for (int i = 0; i < 1; i++)

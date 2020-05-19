@@ -44,11 +44,13 @@ namespace PresentationLayer
             lcd.lcdCursor(); //Tænder for cursoren
             lcd.lcdBlink();
             lcd.lcdSetBackLight(0, 0, 0);
+            Thread.Sleep(1000);
 
 
 
             batteryStatusRef.ChargeBattery(); // Hvis oplader er tilstluttet køres denne metode - exit program. 
             batteryStatusRef.ShowBatteryStatus(); // Ændrer baggrundsfarven efter batteristatus
+            Thread.Sleep(1000);
 
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
 
@@ -64,7 +66,7 @@ namespace PresentationLayer
                         lcd.lcdClear();
                         lcd.lcdGotoXY(2, 1);
                         lcd.lcdPrint("ID ikke godkendt");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(3000);
                         displayRef.GetEmployeeId();
 
                         index++;
@@ -87,7 +89,7 @@ namespace PresentationLayer
                 lcd.lcdClear();
                 lcd.lcdGotoXY(4,1);
                 lcd.lcdPrint("ID godkendt");
-                Thread.Sleep(1000);
+                Thread.Sleep(3000);
             }
 
 
@@ -126,7 +128,7 @@ namespace PresentationLayer
                     lcd.lcdClear();
                     lcd.lcdGotoXY(0, 2);
                     lcd.lcdPrint($"Dine data er sendt  med IDnr: {ekgRecordRef.GetReceipt()}"); //Kan ikke lade sig gøre, da vi kun kan gennemgå vores database gennem filer som bindeled.
-                    Thread.Sleep(2000);
+                    Thread.Sleep(3000);
 
                     lcd.lcdClear();
                     lcd.lcdPrint("Ny maaling?");
@@ -139,17 +141,18 @@ namespace PresentationLayer
             while (continueEKGMeasurement);
 
             lcd.lcdClear();
-            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
-            Thread.Sleep(2000);
-            if (batteryRef.ShowBatteryStatus() < 20)
+            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatusTEST()} %");
+            Thread.Sleep(3000);
+            if (batteryRef.ShowBatteryStatusTEST() < 20)
             {
                 lcd.lcdGotoXY(0, 1);
                 lcd.lcdPrint("Lavt batteri        Tilslut oplader     ");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
             }
             lcd.lcdGotoXY(0, 3);
             lcd.lcdPrint("Program afsluttes");
             Thread.Sleep(2000);
+            lcd.lcdSetBackLight(0, 0, 0);
             lcd.lcdClear();
             lcd.lcdNoDisplay();
         }
