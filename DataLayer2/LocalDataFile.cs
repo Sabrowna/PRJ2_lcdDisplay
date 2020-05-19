@@ -31,16 +31,6 @@ namespace DataLayer2
         {
             bool result = false;
 
-            /*
-            if (File.Exists("MedarbejderID.txt") == false)
-            {
-                output = new FileStream("MedarbejderID.txt", FileMode.Create, FileAccess.Write);
-                StreamWriter fileWriter = new StreamWriter(output);
-                fileWriter.WriteLine("1234;2345;3456");
-                fileWriter.Close();
-            }
-            */
-
             input = new FileStream("MedarbejderID.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
@@ -67,7 +57,7 @@ namespace DataLayer2
         {
             int Retur = 0;
 
-            input = new FileStream("EKGMaaling4.txt", FileMode.Open, FileAccess.Read);
+            input = new FileStream("EKGMaalingerTEST.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
             string inputRecord;
@@ -87,9 +77,9 @@ namespace DataLayer2
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
                      
-            if (File.Exists("EKGMaaling5.txt") == false)
+            if (File.Exists("EKGMaalingerTEST.txt") == false)
             {
-                output = new FileStream("EKGMaaling5.txt", FileMode.Create, FileAccess.Write);
+                output = new FileStream("EKGMaalingerTEST.txt", FileMode.Create, FileAccess.Write);
                 writer = new StreamWriter(output);
                 foreach (double item in nyMåling.RåData)
                 {
@@ -98,7 +88,7 @@ namespace DataLayer2
                 writer.WriteLine(nyMåling.MedarbejderID + ";" + nyMåling.BorgerCPR + ";" + nyMåling.StarttidspunktMåling + ";" + nyMåling.AntalMålepunkter + ";" + nyMåling.SampleRateHz);
             }
 
-            output = new FileStream("EKGMaaling5.txt", FileMode.Append, FileAccess.Write);
+            output = new FileStream("EKGMaalingerTEST.txt", FileMode.Append, FileAccess.Write);
             writer = new StreamWriter(output);
             
             foreach (double item in nyMåling.RåData) //Vi indlæser først alle værdier fra array (de første 2500 værdier, adskilt med ;)
