@@ -109,6 +109,8 @@ namespace PresentationLayer
             {
                 if (answer == true)
                 {
+                    lcd.lcdClear();
+                    lcd.lcdPrint("Maaling paabegyndt");
                     ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
 
                     while (ekgRecordRef.StartEkgRecord() == false) // Venter her indtil metoden returnerer true = måling færdig

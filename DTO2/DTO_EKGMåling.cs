@@ -26,7 +26,7 @@ namespace DTO2
             }
             RåData = Rådata_;
             AntalMålepunkter = AntalMålepunkter_;
-            SampleRateHz = SampleRateHz_;
+            SampleRateHz = ((1/SampleRateHz_)/1000); 
         }
     }
 }
