@@ -15,13 +15,13 @@ namespace PresentationLayer
 
         public void ShowBatteryStatus() // Ved test kommenteres statements med ShowBatteryStatusTEST ind! 
         {
-            //double værdi = batteryRef.ShowBatteryStatus();
-            double værdi = (batteryRef.ShowBatteryStatusTEST());
+            double værdi = batteryRef.ShowBatteryStatus();
+            //double værdi = (batteryRef.ShowBatteryStatusTEST());
 
             if (værdi < 20)                // Hvis batteristatus er lav jf. UC, udskrives nedenstående
             {
 
-                lcd.lcdSetBackLight(250, 0, 0);
+                lcd.lcdSetBackLight(200, 0, 0);
 
 
                 for (int i = 0; i < 5; i++)
@@ -51,10 +51,10 @@ namespace PresentationLayer
 
             if (værdi >= 50)
             {
-                lcd.lcdSetBackLight(0, 250, 0);
+                lcd.lcdSetBackLight(0, 200, 0);
             }
             lcd.lcdGotoXY(0, 0);
-            lcd.lcdPrint($"Batteristatus: {Convert.ToInt32(batteryRef.ShowBatteryStatusTEST())} % ");
+            lcd.lcdPrint($"Batteristatus: {Convert.ToInt32(batteryRef.ShowBatteryStatus())} % ");
             Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
         }
 

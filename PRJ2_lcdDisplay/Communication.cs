@@ -141,9 +141,9 @@ namespace PresentationLayer
             while (continueEKGMeasurement);
 
             lcd.lcdClear();
-            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatusTEST()} %");
+            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
             Thread.Sleep(3000);
-            if (batteryRef.ShowBatteryStatusTEST() < 20)
+            if (batteryRef.ShowBatteryStatus() < 20)
             {
                 lcd.lcdGotoXY(0, 1);
                 lcd.lcdPrint("Lavt batteri        Tilslut oplader     ");
