@@ -10,10 +10,20 @@ namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser + fil
 
 {
     //Korrigerer mellem de forskellige klasser. Programmet starter
+    /// <summary>
+    /// Programmets hovedklasse, hvorfra selve programmet kaldes.
+    /// </summary>
     public class Mål_Ekg 
     {
+        /// <summary>
+        /// Reference til Communication.cs
+        /// </summary>
         public static Communication commRef;
 
+        /// <summary>
+        /// Mainmetode der med reference til Communication.cs kalder metoden Program. 
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             commRef = new Communication();

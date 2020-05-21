@@ -43,7 +43,13 @@ namespace LogicLayer
             ekgRecordEnd = true;
             return ekgRecordEnd;
         }
-        
+        /// <summary>
+        /// Opretter DTO med parametre tilsvarende kolonner i databasens tabel SP_NyeEkger. 
+        /// Sender målingen videre til datalaget, hvorfra målingen endeligt indlæses i databasen. 
+        /// </summary>
+        /// <param name="EmployeeIdAsString">Det indtastede medarbejderID som string. </param>
+        /// <param name="SocSecNumberAsString">Det indtastede CPR-nummer som string. 
+        /// Er måling foretaget uden CPR, er default 111111-1111 </param>
         public void CreateEKGDTO(string EmployeeIdAsString, string SocSecNumberAsString) //Modtager disse to fra presentationlayer
         {
             StartEkgRecord(); //Starter målingen
@@ -52,14 +58,21 @@ namespace LogicLayer
 
            localDataRef.InsertEKGMeasurement(nyMåling); //Sender målingen til databasen
         }
-
+        /// <summary>
+        /// Returnerer værdien af antallet af målinger i databasen +1. 
+        /// </summary>
+        /// <returns></returns>
         public string GetReceipt() //Får en værdi på antallet af målinger
         {
              int id = localDataRef.CountID();
 
              return Convert.ToString(id);
         }
-         
+        /// <summary>
+        /// Kontrollerer om medarbejderID er registreret i databasen.
+        /// </summary>
+        /// <param name="EmployeeId"></param>
+        /// <returns></returns>
         public bool CheckDBForEmployeeId(string EmployeeId)
         {  
             bool result;
