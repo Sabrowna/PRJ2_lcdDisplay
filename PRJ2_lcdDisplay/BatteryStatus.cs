@@ -9,10 +9,22 @@ namespace PresentationLayer
 {
     public class BatteryStatus
     {
-        public SerLCD lcd = new SerLCD();
-        private Battery batteryRef = new Battery();
 
+        public SerLCD lcd;
+        private Battery batteryRef; 
 
+        /// <summary>
+        /// Constructor for objekter af klassen. Instansierer klassens attributter. 
+        /// </summary>
+        public BatteryStatus()
+        {
+            lcd = new SerLCD();
+            batteryRef = new Battery();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void ShowBatteryStatus() // Ved test kommenteres statements med ShowBatteryStatusTEST ind! 
         {
             double værdi = batteryRef.ShowBatteryStatus();

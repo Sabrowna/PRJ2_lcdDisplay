@@ -9,7 +9,9 @@ using System.Collections.Immutable;
 
 namespace PresentationLayer
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class Communication
     {
         private SerLCD lcd;
@@ -22,7 +24,9 @@ namespace PresentationLayer
         // der bør også i forhold til isCharging laves en binding der tjekker om oplader pludselig bliver tilsluttet.
         // private double Batterystatus { get; set; }
 
-
+        /// <summary>
+        /// Constructor for objekt af klassen. 
+        /// </summary>        
         public Communication()
         {
             lcd = new SerLCD();
@@ -34,6 +38,10 @@ namespace PresentationLayer
             batteryStatusRef = new BatteryStatus();
 
         }
+
+        /// <summary>
+        /// Kalder de respektive metoder gennem de tre lag, og sikrer det ønskede flow i programmets afvikling
+        /// </summary>
         public void Program()
         {
             bool continueEKGMeasurement = false;

@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer2", "DataLayer2\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO2", "DTO2\DTO2.csproj", "{53827129-C318-4815-85C5-772B8439C05E}"
 EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Sandcastle Dokumentation Projekt", "..\..\..\OneDrive\Dokumenter\UNI\ITS\2. semester\Sandcastle Dokumentation Projekt\Sandcastle Dokumentation Projekt.shfbproj", "{6E0E9E8A-B879-43D0-B6EF-487C5D5729AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{53827129-C318-4815-85C5-772B8439C05E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53827129-C318-4815-85C5-772B8439C05E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53827129-C318-4815-85C5-772B8439C05E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E0E9E8A-B879-43D0-B6EF-487C5D5729AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E0E9E8A-B879-43D0-B6EF-487C5D5729AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E0E9E8A-B879-43D0-B6EF-487C5D5729AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E0E9E8A-B879-43D0-B6EF-487C5D5729AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
