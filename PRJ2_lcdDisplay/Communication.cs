@@ -41,6 +41,28 @@ namespace PresentationLayer
 
         /// <summary>
         /// Kalder de respektive metoder gennem de tre lag, og sikrer det ønskede flow i programmets afvikling
+        /// <example>
+        /// <code>
+        /// Pseudo kode:
+        ///1. Tænder lcddisplay, og nulstiller lcddisplay.
+        ///2. Aktiverer cursor, og aktiverer blink på cursor
+        ///3. Sætter baggrundsbelysning på lcddisplay til værdien(0,0,0)
+        ///4. Kører Batterry.ChargeBattery()
+        ///5. Kører Battery.ShowBatteryStatus
+        ///6. Kører Display.GetEmployeeID()
+        ///7. Kører Display.VerifyEmployeeID()
+        ///8. Hvis metoden returnerer false, gives 3 forsøg til indtastning af korrekt medarbejderID. 
+        ///9. Første forsøg inklusiv.Ved forkert indtastning udskrives ”ID ikke godkendt”.
+        ///10. Der ventes 1 sekund før forsøg på ny indtastning gives.
+        ///11. Indtastes korrekt ID stadig ikke, udskrives ”Du har brugt dine 3 forsøg.Programmet lukkes.” Programmet lukker efter 3 sekunder.
+        ///12. Ved korrekt indtastet medarbejderID nulstilles lcddisplay, og der udskrives ”ID godkendt”, hvorefter der ventes i 1 sekund.
+        ///13. Lcddisplay nulstilles.
+        ///14. Udskriver ”Maaling med CPR?”. Herefter køres Display.Yes_No(). Returneres true, køres Display.GetSocSecNumber().
+        ///15. Ellers Display.SocSecNumberAsString = ”11111111”
+        ///16. Lcddisplay nulstilles.
+        ///17. TO BE CONTINUED!!!!!
+        /// </code>
+        /// </example>
         /// </summary>
         public void Program()
         {
