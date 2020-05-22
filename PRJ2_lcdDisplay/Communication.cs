@@ -39,9 +39,7 @@ namespace PresentationLayer
         /// Reference til objekt af klassen.
         /// </summary>
         private BatteryStatus batteryStatusRef;
-        public bool isCharging = false; // Værdi skal hentes fra det fysiske system. Knap, kontakt etc.
-        // der bør også i forhold til isCharging laves en binding der tjekker om oplader pludselig bliver tilsluttet.
-        // private double Batterystatus { get; set; }
+        
 
         /// <summary>
         /// Constructor for objekt af klassen. Instansierer referencerne. 

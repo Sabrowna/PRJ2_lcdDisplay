@@ -5,12 +5,17 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Collections.Generic;
 using LogicLayer;
-/// <summary>
-/// Præsentationslaget jf. 3 lags modellen. 
-/// </summary>
-namespace PresentationLayer 
 
-{   
+namespace PresentationLayer 
+{
+    /// <summary>
+    /// Indeholder klasser der håndterer programflow og kommunikation med bruger. <c>PresentationLayer</c>.
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    class NamespaceDoc
+    {
+    }
+
     /// <summary>
     /// Programmets hovedklasse, hvorfra selve programmet kaldes.
     /// </summary>
