@@ -17,7 +17,13 @@ namespace PresentationLayer
         public TWIST twist;
         private Ekg_Record ekgRecordRef;
 
+        /// <summary>
+        /// Property der indeholder det indtastede medarbejderID
+        /// </summary>
         public string EmployeeIdAsString { get; set; } //Konvertering af medarbejderlisten til en string
+        /// <summary>
+        /// Property der indeholder det indtastede CPR-nummer.
+        /// </summary>
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
         private List<short> cprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én //Short fordi drejeknappen er en short
         private List<short> employeeIdList = new List<short>(); //Liste til medarbejder id //Short fordi drejeknappen er en short
@@ -229,11 +235,11 @@ namespace PresentationLayer
         /// </summary>
         /// <param name="EmployeeId"></param>
         /// <returns></returns>
-        public bool CheckDBForEmployeeId(string EmployeeId)
+        public bool VerifyEmployeeId(string EmployeeId)
         {
 
             bool result;
-            result = ekgRecordRef.CheckDBForEmployeeId(EmployeeId);
+            result = ekgRecordRef.VerifyEmployeeId(EmployeeId);
 
             return result;
         }

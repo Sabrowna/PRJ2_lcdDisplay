@@ -10,24 +10,24 @@ using System.Data.SqlTypes;
 using System.Security.Cryptography;
 
 namespace DataLayer2
-{
+{   
+    /// <summary>
+    /// Kommunikation med tekstfiler. 
+    /// </summary>
     public class LocalDataFile : IData
     {
         private FileStream input;
         private StreamReader reader;
         private FileStream output;
-        private FileStream output2;
         private StreamWriter writer;
-        private BinaryFormatter formatter;
+        
 
-        public int Retur { get; set; }
-        public double BatteryStatus { get; set; }
+        double BatteryStatus { get; set; }
 
-
-        public LocalDataFile()
+       public LocalDataFile()
         { }
 
-        public bool CheckDBForEmployeeId(string EmployeeId)
+        public bool VerifyEmployeeId(string EmployeeId)
         {
             bool result = false;
 
@@ -117,7 +117,7 @@ namespace DataLayer2
             return onOff;
         }
         //FRA JACOB
-        public void newRecord(double level, double voltage, double current, DateTime date)
+        public void NewRecord(double level, double voltage, double current, DateTime date)
         {
             //uploade new record of current Ah, voltage, current and time to database or datafile
             FileStream output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
@@ -127,7 +127,7 @@ namespace DataLayer2
         }
 
         //FRA JACOB
-        public DTO_BatteryLevel getRecord()
+        public DTO_BatteryLevel GetRecord()
         {
             if (File.Exists("batteryLevel.txt") == false)
             {

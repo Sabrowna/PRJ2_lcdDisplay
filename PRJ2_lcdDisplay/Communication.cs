@@ -63,9 +63,9 @@ namespace PresentationLayer
             displayRef.GetEmployeeId(); //Medarbejderen logger ind
 
 
-            displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString);
+            displayRef.VerifyEmployeeId(displayRef.EmployeeIdAsString);
             {
-                while (displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString) == false)
+                while (displayRef.VerifyEmployeeId(displayRef.EmployeeIdAsString) == false)
                 {
                     int index = 0;
                     for (int i = 0; i < 2; i++)
@@ -78,7 +78,7 @@ namespace PresentationLayer
                         displayRef.GetEmployeeId();
 
                         index++;
-                        if (displayRef.CheckDBForEmployeeId(displayRef.EmployeeIdAsString) == true)
+                        if (displayRef.VerifyEmployeeId(displayRef.EmployeeIdAsString) == true)
                         {
                             break;
                         }
