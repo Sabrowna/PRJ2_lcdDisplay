@@ -10,7 +10,7 @@ namespace DTO2
         public string MedarbejderID { get; set; }
         public string BorgerCPR { get; set; }
         public DateTime StarttidspunktMåling { get; set; }
-        public double[] RåData = new double[2500];
+        public double[] RåData = new double[3000];
 
         public int AntalMålepunkter { get; set; }
         public double SampleRateHz { get; set; }
@@ -26,7 +26,7 @@ namespace DTO2
             }
             RåData = Rådata_;
             AntalMålepunkter = AntalMålepunkter_;
-            SampleRateHz = ((1/SampleRateHz_)/1000); 
+            SampleRateHz = (1/(SampleRateHz_/1000)); 
         }
     }
 }
