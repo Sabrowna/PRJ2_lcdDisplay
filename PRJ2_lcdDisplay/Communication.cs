@@ -10,7 +10,7 @@ using System.Collections.Immutable;
 namespace PresentationLayer
 {
     /// <summary>
-    /// 
+    /// Varetager den overordnede og gennemgående kommunikation mellem systemets lag. 
     /// </summary>
     public class Communication
     {
@@ -25,7 +25,7 @@ namespace PresentationLayer
         // private double Batterystatus { get; set; }
 
         /// <summary>
-        /// Constructor for objekt af klassen. 
+        /// Constructor for objekt af klassen. Instansierer referencerne. 
         /// </summary>        
         public Communication()
         {

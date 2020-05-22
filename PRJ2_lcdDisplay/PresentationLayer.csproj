@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,6 +9,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>C:\Users\ynsen\Source\Repos\PRJ2_lcdDisplay27\PRJ2_lcdDisplay\PresentationLayer.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

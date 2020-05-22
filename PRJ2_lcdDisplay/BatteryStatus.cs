@@ -7,6 +7,9 @@ using System.Threading;
 
 namespace PresentationLayer
 {
+    /// <summary>
+    /// Varetager håndtering af data vedrørende status på batteri og om oplader er tilsluttet. 
+    /// </summary>
     public class BatteryStatus
     {
 
@@ -14,7 +17,7 @@ namespace PresentationLayer
         private Battery batteryRef; 
 
         /// <summary>
-        /// Constructor for objekter af klassen. Instansierer klassens attributter. 
+        /// Constructor for objekter af klassen. Instansierer referencer. 
         /// </summary>
         public BatteryStatus()
         {
@@ -22,9 +25,10 @@ namespace PresentationLayer
             batteryRef = new Battery();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+      /// <summary>
+      /// Viser batteristatus på LCD display ved hjælp af ændringer i baggrundsfarven på displayet. 
+      /// Udskriver tekst afhængig af batteristatus. 
+      /// </summary>
         public void ShowBatteryStatus() // Ved test kommenteres statements med ShowBatteryStatusTEST ind! 
         {
             double værdi = batteryRef.ShowBatteryStatus();
@@ -70,6 +74,9 @@ namespace PresentationLayer
             Thread.Sleep(3000); // Venter i 3 sek. så det er muligt at se status på batteri både på display LED
         }
 
+        /// <summary>
+        /// Indikerer om en oplader er tilsluttet systemet. 
+        /// </summary>
         public void ChargeBattery()
         {
             

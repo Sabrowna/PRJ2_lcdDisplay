@@ -8,6 +8,9 @@ using LogicLayer;
 
 namespace PresentationLayer
 {
+    /// <summary>
+    /// Varetager processerne omkring indtastning af medarbejderID og CPR-nummer. 
+    /// </summary>
     public class Display
     {
         public SerLCD lcd;
@@ -19,7 +22,9 @@ namespace PresentationLayer
         private List<short> cprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én //Short fordi drejeknappen er en short
         private List<short> employeeIdList = new List<short>(); //Liste til medarbejder id //Short fordi drejeknappen er en short
 
-
+        /// <summary>
+        /// Constructor til klassen. Instantierer referencerne til LCD og Encoder, samt referencen til EKG_Record.cs.
+        /// </summary>
         public Display()
         {
             lcd = new SerLCD();
@@ -30,7 +35,9 @@ namespace PresentationLayer
             lcd.lcdBlink();
 
         }
-
+        /// <summary>
+        /// Udskriver cifrene 0-9 på én linje. Anvendes til at vælge cifre fra ved indtastning af både medarbejderID og CPR-nummer.
+        /// </summary>
         public void WritenumberLine()
         {
             byte number = 0; // Lokal variabel til brug for udskrivning af NumberLine
@@ -45,6 +52,10 @@ namespace PresentationLayer
             }
         }
 
+        /// <summary>
+        /// Metode til indtastning af CPR-nummer. Gemmer indtastede værdier som værdier i en liste, 
+        /// og konverterer afslutningsvis listen til én samlet string. 
+        /// </summary>
         public void GetSocSecNumber()
         {
             byte xValueCPRLine = 0; //variabel
@@ -103,6 +114,11 @@ namespace PresentationLayer
             SocSecNumberAsString = string.Join("", cprNumbersL.ToArray());
         }
 
+
+        /// <summary>
+        /// Metode til indtastning af medarbejderID. Gemmer indtastede værdier som værdier i en liste, 
+        /// og konverterer afslutningsvis listen til én samlet string. 
+        /// </summary>
         public void GetEmployeeId()
         {
             byte xValueIDLine = 0; //variabel
@@ -174,6 +190,11 @@ namespace PresentationLayer
             }
         }
 
+        /// <summary>
+        /// Muligheden for at give brugeren et valg mellem henholdsvis ja eller nej. 
+        /// Eksempelvis som svar til om der ønskes at fortsætte måling med CPR-nummer.
+        /// </summary>
+        /// <returns></returns>
         public bool Yes_No()
         {
             bool værdi = false;
@@ -203,6 +224,11 @@ namespace PresentationLayer
             return værdi;
         }
 
+        /// <summary>
+        /// Kontrollerer om det indtastede medarbejderID findes i systemet - den lokale database. 
+        /// </summary>
+        /// <param name="EmployeeId"></param>
+        /// <returns></returns>
         public bool CheckDBForEmployeeId(string EmployeeId)
         {
 
