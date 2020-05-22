@@ -13,22 +13,46 @@ namespace DataLayer2
     /// </summary>
    public class LocalDB : IData
     {
-        //FRA JACOB
+       /// <summary>
+       /// Reference til objekt af klassen.
+       /// </summary>
         private FileStream input;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private StreamReader reader;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private FileStream output;
-
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private SqlConnection conn;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private SqlDataReader rdr;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private SqlCommand cmd;
+        /// <summary>
+        /// Tekststreng til hurtig indtastning i SqlCommand.
+        /// </summary>
         private const string db = "F20ST2ITS2201908775";
-
+        /// <summary>
+        /// Get/Set for værdien af batteristatus.
+        /// </summary>
         public double BatteryStatus { get; set; }
         /// <summary>
-        /// Klassens constructor.
+        /// Klassens constructor. Initialiserer referencen til SqlConnection. 
         /// </summary>
         public LocalDB()
-        { }
+        {
+            conn = new SqlConnection("Data Source=10.10.7.72\\SQL_Local;Initial Catalog=" + db + ";User ID=" + db + ";Password=" + db + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
+        }
 
         /// <summary>
         /// Undersøger om det indtastede medarbejderID forefindes i databasen.
@@ -40,7 +64,7 @@ namespace DataLayer2
             bool result = false;
 
             // Hent kolonnen SP_MedarbejderID fra tabellen SP_NyeEkger
-            conn = new SqlConnection("Data Source=10.10.7.72\\SQL_Local;Initial Catalog=" + db + ";User ID=" + db + ";Password=" + db + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //conn = new SqlConnection("Data Source=10.10.7.72\\SQL_Local;Initial Catalog=" + db + ";User ID=" + db + ";Password=" + db + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             
             cmd = new SqlCommand("Select * MedarbejderID from db_owner.SP_MedarbejderID", conn);
             
@@ -79,12 +103,27 @@ namespace DataLayer2
 
         /// <summary>
         /// Indlæser DTO objekt i databasen.
+        /// <example>
+        /// <code>
+        /// 1. conn.Open()
+        /// 2. Opret lokalt stringparamater(INSERT INTO SP_NyeEkger ())
+        /// 3a Kør cmd.
+        /// 3. Opret reference parametre fra DTO parametrene.
+        /// 4. Eksempel:
+        /// 
+        ///             cmd.Parameters.AddWithValue("@data",
+        ///             nyMåling.RåData.SelectMany(value =>
+        ///             BitConverter.GetBytes(value)).ToArray());
+        /// 
+        /// 5. conn.Close()
+        /// </code>
+        /// </example>
         /// </summary>
         /// <param name="nyMåling">Parameter modtaget fra LogicLayer.</param>
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
         { 
             conn.Open();
-            
+           
             string insertStringParam = $"INSERT INTO SP_NyeEkger ([raa_data],[id_medarbejder],[borger_cprnr],[start_tidspunkt],[antal_maalepunkter],[samplerate_hz]) OUTPUT INSERTED.id_måling VALUES(@data, @employeeID, @socSecNb, @startTime, @antalMålePkt, @hz)";
             
             using (SqlCommand cmd = new SqlCommand(insertStringParam, conn))
@@ -130,10 +169,10 @@ namespace DataLayer2
         /// <summary>
         /// Uploader ny registrering af de fire parametre til tekstfil. 
         /// </summary>
-        /// <param name="level"></param>
-        /// <param name="voltage"></param>
-        /// <param name="current"></param>
-        /// <param name="date"></param>
+        /// <param name="level"> </param>
+        /// <param name="voltage"> </param>
+        /// <param name="current"> </param>
+        /// <param name="date"> </param>
         public void NewRecord(double level, double voltage, double current, DateTime date)
         {
             //uploade new record of current Ah, voltage, current and time to database or datafile
@@ -173,7 +212,10 @@ namespace DataLayer2
             reader.Close();
             return result;
         }
-
+        /// <summary>
+        /// Testmetode der anvendes til at simulere bestemte værdier for batteri. 
+        /// </summary>
+        /// <returns>Værdi for batteriets kapacitet som double.</returns>
         public double ShowBatteryStatusTEST()
         {
             BatteryStatus = 60;

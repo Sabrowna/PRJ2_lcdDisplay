@@ -18,6 +18,9 @@ namespace LogicLayer
         /// Reference til DataLayer. 
         /// </summary>
         IData localDataRef;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private ADC1015 adc;
         /// <summary>
         /// Constructor til klassen. Initialiserer referencen til DataLayer.
@@ -27,12 +30,17 @@ namespace LogicLayer
             localDataRef = new LocalDataFile();
             adc = new ADC1015();
         }
- 
+        /// <summary>
+        /// Variabel der anvendes ved indlæsning af værdier når måling er aktiv. Defaultværdi = 0.
+        /// </summary>
         double sample = 0; //En sample er ét punkt
         /// <summary>
         /// Det samlede antal punkter der måles. 
         /// </summary>
         int antalSamples = 3000; //2500 samplesRettest tilbage til 12000 //Hvor mange samples skal der være i løbet af målingen
+        /// <summary>
+        /// Lokal variabel der sættes til DateTime.Now i formatet ToString("dd MMMM yyyy HH: mm:ss"), når StartEkgRecord() køres.
+        /// </summary>
         string starttidspunkt;
         /// <summary>
         /// Array til at holde de målte værdier.

@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 namespace DataLayer2
 {   
     /// <summary>
-    /// Kommunikation med tekstfiler. 
+    /// Kommunikation med tekstfiler. For beskrivelse af metoder og returværdier, se enten IData eller LocalDB.
     /// </summary>
     public class LocalDataFile : IData
     {

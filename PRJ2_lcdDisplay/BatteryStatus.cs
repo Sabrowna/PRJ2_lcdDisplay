@@ -12,8 +12,13 @@ namespace PresentationLayer
     /// </summary>
     public class BatteryStatus
     {
-
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         public SerLCD lcd;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private Battery batteryRef; 
 
         /// <summary>

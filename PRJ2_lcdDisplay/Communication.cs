@@ -14,11 +14,29 @@ namespace PresentationLayer
     /// </summary>
     public class Communication
     {
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private SerLCD lcd;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private TWIST twist;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private Display displayRef;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private Ekg_Record ekgRecordRef;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private Battery batteryRef;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         private BatteryStatus batteryStatusRef;
         public bool isCharging = false; // Værdi skal hentes fra det fysiske system. Knap, kontakt etc.
         // der bør også i forhold til isCharging laves en binding der tjekker om oplader pludselig bliver tilsluttet.
@@ -56,11 +74,20 @@ namespace PresentationLayer
         ///10. Der ventes 1 sekund før forsøg på ny indtastning gives.
         ///11. Indtastes korrekt ID stadig ikke, udskrives ”Du har brugt dine 3 forsøg.Programmet lukkes.” Programmet lukker efter 3 sekunder.
         ///12. Ved korrekt indtastet medarbejderID nulstilles lcddisplay, og der udskrives ”ID godkendt”, hvorefter der ventes i 1 sekund.
-        ///13. Lcddisplay nulstilles.
-        ///14. Udskriver ”Maaling med CPR?”. Herefter køres Display.Yes_No(). Returneres true, køres Display.GetSocSecNumber().
-        ///15. Ellers Display.SocSecNumberAsString = ”11111111”
-        ///16. Lcddisplay nulstilles.
-        ///17. TO BE CONTINUED!!!!!
+        ///13. Udskriver ”Maaling med CPR?”. Herefter køres Display.Yes_No(). Returneres true, køres Display.GetSocSecNumber().
+        ///14. Ellers Display.SocSecNumberAsString = ”11111111”
+        ///15. Udskriver "Start Ekg maaaling?"
+        ///16. Herefter køres Display.Yes_No().
+        ///17. Vælges ja, udskrives "Maaling paabegyndt"
+        ///18. ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString)
+        ///19. Når målingen er afsluttet udskrives "Maaling afsluttet".
+        ///20. ekgRecordRef.GetReceipt() udskriver kvittering for afsendelse + ID-nummer på målingen.
+        ///21. batteryRef.ShowBatteryStatus() udskriver batteristatus.
+        ///22. Er batteristatus lav, udskrives ""Lavt batteri        Tilslut oplader     ".
+        ///23. Program afsluttes.
+        ///
+        /// OBS!    Det er muligt at vælge ny måling efter punkt 20. Vælges dette, startes forfra ved punkt 18.
+        ///         Det er muligt at vælge nej i punkt 17. Vælges dette, springes der direkte til punkt 21. 
         /// </code>
         /// </example>
         /// </summary>

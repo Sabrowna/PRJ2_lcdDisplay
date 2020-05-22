@@ -5,11 +5,12 @@ using RaspberryPiCore.TWIST;
 using RaspberryPiCore.LCD;
 using System.Collections.Generic;
 using LogicLayer;
+/// <summary>
+/// Præsentationslaget jf. 3 lags modellen. 
+/// </summary>
+namespace PresentationLayer 
 
-namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser + filer
-
-{
-    //Korrigerer mellem de forskellige klasser. Programmet starter
+{   
     /// <summary>
     /// Programmets hovedklasse, hvorfra selve programmet kaldes.
     /// </summary>
@@ -23,7 +24,7 @@ namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser + fil
         /// <summary>
         /// Mainmetode der med reference til Communication.cs kalder metoden Program. Initialiserer referencen til Communication.cs.
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args"> </param>
         static void Main(string[] args)
         {
             commRef = new Communication();

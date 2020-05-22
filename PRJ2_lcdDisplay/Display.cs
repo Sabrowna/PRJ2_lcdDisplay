@@ -13,8 +13,17 @@ namespace PresentationLayer
     /// </summary>
     public class Display
     {
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         public SerLCD lcd;
+        /// <summary>
+        /// Reference til objekt af klassen.
+        /// </summary>
         public TWIST twist;
+        /// <summary>
+        /// Reference til klasse i LogicLayer.
+        /// </summary>
         private Ekg_Record ekgRecordRef;
 
         /// <summary>
@@ -25,7 +34,13 @@ namespace PresentationLayer
         /// Property der indeholder det indtastede CPR-nummer.
         /// </summary>
         public string SocSecNumberAsString { get; set; } //Convertering af CPR listen til en string
+        /// <summary>
+        /// Lokal liste <short> der holder de valgte værdier.
+        /// </summary>
         private List<short> cprNumbersL = new List<short>(); //Tilføjer de indskrevne CPR-numre én efter én //Short fordi drejeknappen er en short
+        /// <summary>
+        /// Lokal liste <short> der holder de valgte værdier.
+        /// </summary>
         private List<short> employeeIdList = new List<short>(); //Liste til medarbejder id //Short fordi drejeknappen er en short
 
         /// <summary>
@@ -200,7 +215,7 @@ namespace PresentationLayer
         /// Muligheden for at give brugeren et valg mellem henholdsvis ja eller nej. 
         /// Eksempelvis som svar til om der ønskes at fortsætte måling med CPR-nummer.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returnerer true eller false, afhængig af værdien af encoders count funktion.</returns>
         public bool Yes_No()
         {
             bool værdi = false;
@@ -233,8 +248,8 @@ namespace PresentationLayer
         /// <summary>
         /// Kontrollerer om det indtastede medarbejderID findes i systemet - den lokale database. 
         /// </summary>
-        /// <param name="EmployeeId"></param>
-        /// <returns></returns>
+        /// <param name="EmployeeId">Indtastet parameter der medsendes</param>
+        /// <returns> Returnerer true hvis indtastet medarbejderID findes i databasen.</returns>
         public bool VerifyEmployeeId(string EmployeeId)
         {
 

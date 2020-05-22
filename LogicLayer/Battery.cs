@@ -25,6 +25,9 @@ namespace LogicLayer
         private double current;
         private DTO_BatteryLevel batteryLevelRecord;
 
+        /// <summary>
+        /// Property til get/set af værdier for batteristatus.
+        /// </summary>
         private double BatteryStatus {get; set;}
         private ADC1015 adc;
         
@@ -43,7 +46,7 @@ namespace LogicLayer
         /// <summary>
         /// Returnerer true hvis opladning er i gang. Indeholder reference til DataLayer.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returnerer true eller false, afhængig af om oplader er tilstluttet eller ej.</returns>
         public bool Charging() // Besked fra præsentationslaget
         {
             bool chargingBattery = localDataRef.ChargingBattery();
@@ -56,7 +59,7 @@ namespace LogicLayer
         /// <summary>
         /// Returnerer spændingen på batteriet.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returnerer spændingsværdi som double. </returns>
         public double GetVoltage()
         {
             double voltageInput = adc.readADC_SingleEnded(1);
@@ -67,7 +70,7 @@ namespace LogicLayer
         /// <summary>
         /// Returnere strømtrækket i systemet. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returnerer strømværdi som double. </returns>
         public double GetCurrent()
         {
             double currentInput = adc.readADC_SingleEnded(2);
@@ -78,7 +81,7 @@ namespace LogicLayer
         /// <summary>
         /// Returnere status på batteriet, angivet i %
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Status på batteri (resterende kapacitet) som double. </returns>
         public double ShowBatteryStatus()
         {
             localDataRef.NewRecord(2000, 0, 0, DateTime.Now); //KOMMENTERES UD EFTER FØRSTE GANG
@@ -90,7 +93,7 @@ namespace LogicLayer
         /// <summary>
         /// Metode anvendt til test. Returnerer status på batteri angivet i %.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Aktuelle status på batteri.</returns>
         public double ShowBatteryStatusTEST() // Metode kun til test
         {
             return localDataRef.ShowBatteryStatusTEST();
@@ -109,7 +112,7 @@ namespace LogicLayer
         /// <summary>
         /// Returnerer DTO med data om batteri. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>DTO med værdier for batteri. </returns>
         public DTO_BatteryLevel GetRecord()
         {
             return localDataRef.GetRecord();
