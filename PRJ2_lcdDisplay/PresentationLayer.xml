@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PresentationLayer</name>
+    </assembly>
+    <members>
+        <member name="T:PresentationLayer.BatteryStatus">
+            <summary>
+            Varetager håndtering af data vedrørende status på batteri og om oplader er tilsluttet. 
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.BatteryStatus.lcd">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.BatteryStatus.batteryRef">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.BatteryStatus.#ctor">
+            <summary>
+            Constructor for objekter af klassen. Instansierer referencer. 
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.BatteryStatus.ShowBatteryStatus">
+            <summary>
+            Viser batteristatus på LCD display ved hjælp af ændringer i baggrundsfarven på displayet. 
+            Udskriver tekst afhængig af batteristatus. 
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.BatteryStatus.ChargeBattery">
+            <summary>
+            Indikerer om en oplader er tilsluttet systemet. 
+            </summary>
+        </member>
+        <member name="T:PresentationLayer.Communication">
+            <summary>
+            Varetager den overordnede og gennemgående kommunikation mellem systemets lag. 
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Communication.lcd">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Communication.twist">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Communication.displayRef">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Communication.ekgRecordRef">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Communication.batteryRef">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Communication.batteryStatusRef">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.Communication.#ctor">
+            <summary>
+            Constructor for objekt af klassen. Instansierer referencerne. 
+            </summary>        
+        </member>
+        <member name="M:PresentationLayer.Communication.Program">
+             <summary>
+             Kalder de respektive metoder gennem de tre lag, og sikrer det ønskede flow i programmets afvikling
+             <example>
+             <code>
+             Pseudo kode:
+            1. Tænder lcddisplay, og nulstiller lcddisplay.
+            2. Aktiverer cursor, og aktiverer blink på cursor
+            3. Sætter baggrundsbelysning på lcddisplay til værdien(0,0,0)
+            4. Kører Batterry.ChargeBattery()
+            5. Kører Battery.ShowBatteryStatus
+            6. Kører Display.GetEmployeeID()
+            7. Kører Display.VerifyEmployeeID()
+            8. Hvis metoden returnerer false, gives 3 forsøg til indtastning af korrekt medarbejderID. 
+            9. Første forsøg inklusiv.Ved forkert indtastning udskrives ”ID ikke godkendt”.
+            10. Der ventes 1 sekund før forsøg på ny indtastning gives.
+            11. Indtastes korrekt ID stadig ikke, udskrives ”Du har brugt dine 3 forsøg.Programmet lukkes.” Programmet lukker efter 3 sekunder.
+            12. Ved korrekt indtastet medarbejderID nulstilles lcddisplay, og der udskrives ”ID godkendt”, hvorefter der ventes i 1 sekund.
+            13. Udskriver ”Maaling med CPR?”. Herefter køres Display.Yes_No(). Returneres true, køres Display.GetSocSecNumber().
+            14. Ellers Display.SocSecNumberAsString = ”11111111”
+            15. Udskriver "Start Ekg maaaling?"
+            16. Herefter køres Display.Yes_No().
+            17. Vælges ja, udskrives "Maaling paabegyndt"
+            18. ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString)
+            19. Når målingen er afsluttet udskrives "Maaling afsluttet".
+            20. ekgRecordRef.GetReceipt() udskriver kvittering for afsendelse + ID-nummer på målingen.
+            21. batteryRef.ShowBatteryStatus() udskriver batteristatus.
+            22. Er batteristatus lav, udskrives ""Lavt batteri        Tilslut oplader     ".
+            23. Program afsluttes.
+            
+             OBS!    Det er muligt at vælge ny måling efter punkt 20. Vælges dette, startes forfra ved punkt 18.
+                     Det er muligt at vælge nej i punkt 17. Vælges dette, springes der direkte til punkt 21. 
+             </code>
+             </example>
+             </summary>
+        </member>
+        <member name="T:PresentationLayer.Display">
+            <summary>
+            Varetager processerne omkring indtastning af medarbejderID og CPR-nummer. 
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Display.lcd">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Display.twist">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Display.ekgRecordRef">
+            <summary>
+            Reference til klasse i LogicLayer.
+            </summary>
+        </member>
+        <member name="P:PresentationLayer.Display.EmployeeIdAsString">
+            <summary>
+            Property der indeholder det indtastede medarbejderID
+            </summary>
+        </member>
+        <member name="P:PresentationLayer.Display.SocSecNumberAsString">
+            <summary>
+            Property der indeholder det indtastede CPR-nummer.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:PresentationLayer.Display.cprNumbersL" -->
+        <!-- Badly formed XML comment ignored for member "F:PresentationLayer.Display.employeeIdList" -->
+        <member name="M:PresentationLayer.Display.#ctor">
+            <summary>
+            Constructor til klassen. Instantierer referencerne til LCD og Encoder, samt referencen til EKG_Record.cs.
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.Display.WritenumberLine">
+            <summary>
+            Udskriver cifrene 0-9 på én linje. Anvendes til at vælge cifre fra ved indtastning af både medarbejderID og CPR-nummer.
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.Display.GetSocSecNumber">
+            <summary>
+            Metode til indtastning af CPR-nummer. Gemmer indtastede værdier som værdier i en liste, 
+            og konverterer afslutningsvis listen til én samlet string. 
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.Display.GetEmployeeId">
+            <summary>
+            Metode til indtastning af medarbejderID. Gemmer indtastede værdier som værdier i en liste, 
+            og konverterer afslutningsvis listen til én samlet string. 
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.Display.Yes_No">
+            <summary>
+            Muligheden for at give brugeren et valg mellem henholdsvis ja eller nej. 
+            Eksempelvis som svar til om der ønskes at fortsætte måling med CPR-nummer.
+            </summary>
+            <returns>Returnerer true eller false, afhængig af værdien af encoders count funktion.</returns>
+        </member>
+        <member name="M:PresentationLayer.Display.VerifyEmployeeId(System.String)">
+            <summary>
+            Kontrollerer om det indtastede medarbejderID findes i systemet - den lokale database. 
+            </summary>
+            <param name="EmployeeId">Indtastet parameter der medsendes</param>
+            <returns> Returnerer true hvis indtastet medarbejderID findes i databasen.</returns>
+        </member>
+        <member name="T:PresentationLayer.Mål_Ekg">
+            <summary>
+            Programmets hovedklasse, hvorfra selve programmet kaldes.
+            </summary>
+        </member>
+        <member name="F:PresentationLayer.Mål_Ekg.commRef">
+            <summary>
+            Reference til Communication.cs
+            </summary>
+        </member>
+        <member name="M:PresentationLayer.Mål_Ekg.Main(System.String[])">
+            <summary>
+            Mainmetode der med reference til Communication.cs kalder metoden Program. Initialiserer referencen til Communication.cs.
+            </summary>
+            <param name="args"> </param>
+        </member>
+    </members>
+</doc>

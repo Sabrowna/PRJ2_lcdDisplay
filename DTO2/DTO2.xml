@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DTO2</name>
+    </assembly>
+    <members>
+        <member name="T:DTO2.DTO_BatteryLevel">
+            <summary>
+            Varetager oprettelse af DTO indeholdende oplysninger om batteristatus.
+            </summary>
+        </member>
+        <member name="M:DTO2.DTO_BatteryLevel.#ctor(System.Double,System.Double,System.Double,System.DateTime)">
+            <summary>
+            Constructor til objekt af klassen. 
+            </summary>
+            <param name="batteryLevel"></param>
+            <param name="voltage"></param>
+            <param name="current"></param>
+            <param name="date"></param>
+        </member>
+        <member name="T:DTO2.DTO_EKGMåling">
+            <summary>
+            Properties i klassen svarer til parametre der indgår i DTO_EKGMåling. 
+            Properties har relation til kolonnenavne i tabellen SP_NyeEkger. 
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_EKGMåling.MedarbejderID">
+            <summary>
+            MedarbejderID
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_EKGMåling.BorgerCPR">
+            <summary>
+            CPR-nummer
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_EKGMåling.StarttidspunktMåling">
+            <summary>
+            Starttidspunkt for måling.
+            </summary>
+        </member>
+        <member name="F:DTO2.DTO_EKGMåling.RåData">
+            <summary>
+            Array indeholdende samtlige målte værdier for en enkelt måling.
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_EKGMåling.AntalMålepunkter">
+            <summary>
+            Antallet af målepunkter for en hel måling.
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_EKGMåling.SampleRateHz">
+            <summary>
+            Modtager beregnet værdi af samplerate i Hz. 
+            </summary>
+        </member>
+        <member name="M:DTO2.DTO_EKGMåling.#ctor(System.String,System.String,System.DateTime,System.Double[],System.Int32,System.Double)">
+             <summary>
+              /// Constructor til objekt af klassen. DTO indeholdende parametre der skal videresendes til databasen.
+             <example>
+             <code>
+             {
+                   MedarbejderID = MedarbejderID_;
+                   BorgerCPR = BorgerCPR_;
+                   StarttidspunktMåling = StarttidspunktMåling_;
+            
+                    for (int i = 0; i Rådata_.Length; i++)
+                     {
+                         RåData[i] = Rådata_[i];
+                     }
+            
+                   RåData = Rådata_;
+                   AntalMålepunkter = AntalMålepunkter_;
+                   SampleRateHz = (1/(SampleRateHz_/1000)); 
+             }
+            </code>
+            </example>
+             </summary>
+             <param name="MedarbejderID_">Indtastning fra Display.cs</param>
+             <param name="BorgerCPR_">Indtastning fra Display.cs</param>
+             <param name="StarttidspunktMåling_">Starttidspunkt for målingen. Property der sættes i klassen.</param>
+             <param name="Rådata_">Samtlige målte værdier. </param>
+             <param name="AntalMålepunkter_">Antallet af målte værdier</param>
+             <param name="SampleRateHz_">Beregnet værdi: 1/(interval mellem målinger/1000)</param>
+        </member>
+    </members>
+</doc>

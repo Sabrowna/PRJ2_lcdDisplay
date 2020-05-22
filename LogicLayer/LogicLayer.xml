@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LogicLayer</name>
+    </assembly>
+    <members>
+        <member name="T:LogicLayer.Battery">
+            <summary>
+            Varetager registrering og behandling af batteridata.
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Battery.localDataRef">
+            <summary>
+            Reference til DataLayer.
+            </summary>
+        </member>
+        <member name="P:LogicLayer.Battery.BatteryStatus">
+            <summary>
+            Property til get/set af værdier for batteristatus.
+            </summary>
+        </member>
+        <member name="M:LogicLayer.Battery.#ctor">
+            <summary>
+            Constructor til klassen. Initialiserer referencer. 
+            </summary>
+        </member>
+        <member name="M:LogicLayer.Battery.Charging">
+            <summary>
+            Returnerer true hvis opladning er i gang. Indeholder reference til DataLayer.
+            </summary>
+            <returns>Returnerer true eller false, afhængig af om oplader er tilstluttet eller ej.</returns>
+        </member>
+        <member name="M:LogicLayer.Battery.GetVoltage">
+            <summary>
+            Returnerer spændingen på batteriet.
+            </summary>
+            <returns>Returnerer spændingsværdi som double. </returns>
+        </member>
+        <member name="M:LogicLayer.Battery.GetCurrent">
+            <summary>
+            Returnere strømtrækket i systemet. 
+            </summary>
+            <returns>Returnerer strømværdi som double. </returns>
+        </member>
+        <member name="M:LogicLayer.Battery.ShowBatteryStatus">
+            <summary>
+            Returnere status på batteriet, angivet i %
+            </summary>
+            <returns>Status på batteri (resterende kapacitet) som double. </returns>
+        </member>
+        <member name="M:LogicLayer.Battery.ShowBatteryStatusTEST">
+            <summary>
+            Metode anvendt til test. Returnerer status på batteri angivet i %.
+            </summary>
+            <returns>Aktuelle status på batteri.</returns>
+        </member>
+        <member name="M:LogicLayer.Battery.NewRecord">
+            <summary>
+            Ny registrering af parametre der indgår i DTO_BatteryLevel.
+            </summary>
+        </member>
+        <member name="M:LogicLayer.Battery.GetRecord">
+            <summary>
+            Returnerer DTO med data om batteri. 
+            </summary>
+            <returns>DTO med værdier for batteri. </returns>
+        </member>
+        <member name="T:LogicLayer.Ekg_Record">
+            <summary>
+            Varetager målingen af de elektriske imnpulser fra klamperne. 
+            Konverterer via ADC elektrisk signal. Opretter DTO med de påkrævede parametre. 
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Ekg_Record.localDataRef">
+            <summary>
+            Reference til DataLayer. 
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Ekg_Record.adc">
+            <summary>
+            Reference til objekt af klassen.
+            </summary>
+        </member>
+        <member name="M:LogicLayer.Ekg_Record.#ctor">
+            <summary>
+            Constructor til klassen. Initialiserer referencen til DataLayer.
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Ekg_Record.sample">
+            <summary>
+            Variabel der anvendes ved indlæsning af værdier når måling er aktiv. Defaultværdi = 0.
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Ekg_Record.antalSamples">
+            <summary>
+            Det samlede antal punkter der måles. 
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Ekg_Record.starttidspunkt">
+            <summary>
+            Lokal variabel der sættes til DateTime.Now i formatet ToString("dd MMMM yyyy HH: mm:ss"), når StartEkgRecord() køres.
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Ekg_Record.ekgRawData">
+            <summary>
+            Array til at holde de målte værdier.
+            </summary>
+        </member>
+        <member name="F:LogicLayer.Ekg_Record.samplerate">
+            <summary>
+            Intervallet mellem hver måling - angivet i millisekunder.
+            </summary>
+        </member>
+        <member name="M:LogicLayer.Ekg_Record.StartEkgRecord">
+            <summary>
+            Foretager en måling med intervallet angivet i attributten samplerate. 
+            Indlæser hver værdi i lokalt array ekgRawData.
+            </summary>
+            <returns> Returnerer true når måling er afsluttet. </returns>
+        </member>
+        <member name="M:LogicLayer.Ekg_Record.CreateEKGDTO(System.String,System.String)">
+            <summary>
+            Opretter DTO med parametre tilsvarende kolonner i databasens tabel SP_NyeEkger. 
+            Sender målingen videre til datalaget, hvorfra målingen endeligt indlæses i databasen. 
+            </summary>
+            <param name="EmployeeIdAsString">Det indtastede medarbejderID som string. </param>
+            <param name="SocSecNumberAsString">Det indtastede CPR-nummer som string. 
+            Er måling foretaget uden CPR, er default 111111-1111 </param>
+        </member>
+        <member name="M:LogicLayer.Ekg_Record.GetReceipt">
+            <summary>
+            Returnerer værdien af antallet af målinger i databasen +1. 
+            </summary>
+            <returns> Returværdien er en beregnet fortløbende ascenderende værdi, 
+            baseret på antallet af målinger i databasen. </returns>
+        </member>
+        <member name="M:LogicLayer.Ekg_Record.VerifyEmployeeId(System.String)">
+            <summary>
+            Kontrollerer om medarbejderID er registreret i databasen.
+            </summary>
+            <param name="EmployeeId">Modtager medarbejderID fra PresentationLayer - Display.cs</param>
+            <returns> Returnerer true eller false, afhængig af om medarbejderID findes i databasen. </returns>
+        </member>
+    </members>
+</doc>
