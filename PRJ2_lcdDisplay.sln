@@ -8,11 +8,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{65200414-48EB-4C03-B102-9F760960D84D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{22BB6636-DDE6-46BA-B073-F34A7E210164}"
-	ProjectSection(SolutionItems) = preProject
-		Graph1.dgml = Graph1.dgml
-		Graph2.dgml = Graph2.dgml
-		XMLSchema1.xsd = XMLSchema1.xsd
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer2", "DataLayer2\DataLayer2.csproj", "{183EF288-F0C9-4275-AD41-0B275F009A69}"
 EndProject

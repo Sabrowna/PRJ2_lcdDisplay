@@ -98,7 +98,7 @@ namespace PresentationLayer
                     lcd.lcdGotoXY((xValueCPRLine++), 2);
                     lcd.lcdPrint("-");
                     countingIsPressed++;
-                } 
+                }
             }
             SocSecNumberAsString = string.Join("", cprNumbersL.ToArray());
         }
@@ -140,19 +140,19 @@ namespace PresentationLayer
                         lcd.lcdGotoXY(getCount, 1);
                     }
                 }
-                    Thread.Sleep(500);
-                    employeeIdList.Add(twist.getCount()); //Tilføj til en liste som vi senere kan videresende
-                    lcd.lcdGotoXY(xValueIDLine, 2); // Går til linjen ID Nummer udskrives på
-                    lcd.lcdPrint(twist.getCount().ToString()); //Udskriver valgte værdi fra numberline som værdi i MedarbejderID
-                    xValueIDLine++; // Lægger 1 til værdien på den lokale variabel, så næste ciffer skrives på feltet til højre for
-                    twist.setCount(twist.getCount()); // Sætter værdien på twisterens count til nuværende
+                Thread.Sleep(500);
+                employeeIdList.Add(twist.getCount()); //Tilføj til en liste som vi senere kan videresende
+                lcd.lcdGotoXY(xValueIDLine, 2); // Går til linjen ID Nummer udskrives på
+                lcd.lcdPrint(twist.getCount().ToString()); //Udskriver valgte værdi fra numberline som værdi i MedarbejderID
+                xValueIDLine++; // Lægger 1 til værdien på den lokale variabel, så næste ciffer skrives på feltet til højre for
+                twist.setCount(twist.getCount()); // Sætter værdien på twisterens count til nuværende
 
 
-                    byte getCountEnd = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
-                    lcd.lcdGotoXY(getCountEnd, 1); //Sætter cursoren tilbage på numberline hvor den stod før
-                    countingIsPressed++; // Lægger 1 til countet på antal cifte i indtastet MedarbejderID
+                byte getCountEnd = Convert.ToByte(twist.getCount() + xStartValueNumberLine);
+                lcd.lcdGotoXY(getCountEnd, 1); //Sætter cursoren tilbage på numberline hvor den stod før
+                countingIsPressed++; // Lægger 1 til countet på antal cifte i indtastet MedarbejderID
 
-                EmployeeIdAsString = string.Join("",employeeIdList.ToArray());
+                EmployeeIdAsString = string.Join("", employeeIdList.ToArray());
             }
             for (int i = 0; i < 2; i++)
             {
@@ -172,7 +172,7 @@ namespace PresentationLayer
                 lcd.lcdPrint("             ");
                 Thread.Sleep(500);
             }
-        }              
+        }
 
         public bool Yes_No()
         {
@@ -205,13 +205,12 @@ namespace PresentationLayer
 
         public bool CheckDBForEmployeeId(string EmployeeId)
         {
-            
+
             bool result;
             result = ekgRecordRef.CheckDBForEmployeeId(EmployeeId);
 
             return result;
         }
-
     }
 }
 
