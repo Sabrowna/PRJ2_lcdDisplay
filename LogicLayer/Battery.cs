@@ -10,8 +10,14 @@ using DTO2;
 
 namespace LogicLayer
 {
+    /// <summary>
+    /// Varetager registrering og behandling af batteridata.
+    /// </summary>
     public class Battery
     {
+        /// <summary>
+        /// Reference til DataLayer.
+        /// </summary>
         IData localDataRef;
 
         private double voltage = 0;
@@ -21,15 +27,23 @@ namespace LogicLayer
 
         private double BatteryStatus {get; set;}
         private ADC1015 adc;
+        
+
+        /// <summary>
+        /// Constructor til klassen. Initialiserer referencer. 
+        /// </summary>
         public Battery()
         {
             localDataRef = new LocalDataFile();
-            batteryLevelRecord = localDataRef.getRecord(); //KOMMENTERES IND EFTER FØRSTE GANG 
+            batteryLevelRecord = localDataRef.GetRecord(); //KOMMENTERES IND EFTER FØRSTE GANG 
             batteryLevelRecord.Date = DateTime.Now; //KOMMENTERES IND EFTER FØRSTE GANG
             adc = new ADC1015();
         }
 
-
+        /// <summary>
+        /// Returnerer true hvis opladning er i gang. Indeholder reference til DataLayer.
+        /// </summary>
+        /// <returns></returns>
         public bool Charging() // Besked fra præsentationslaget
         {
             bool chargingBattery = localDataRef.ChargingBattery();
@@ -39,44 +53,66 @@ namespace LogicLayer
         }
         
         //JACOBS BATTERISTATUS KLASSER
-        public double getVoltage()
+        /// <summary>
+        /// Returnerer spændingen på batteriet.
+        /// </summary>
+        /// <returns></returns>
+        public double GetVoltage()
         {
             double voltageInput = adc.readADC_SingleEnded(1);
             voltage = maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
             return voltage;
         }
 
-        public double getCurrent()
+        /// <summary>
+        /// Returnere strømtrækket i systemet. 
+        /// </summary>
+        /// <returns></returns>
+        public double GetCurrent()
         {
             double currentInput = adc.readADC_SingleEnded(2);
             voltage = maxVoltage * (currentInput / (Math.Pow(2, 12) / 100)) / 100;
             current = voltage * 100 / 380;
             return current;
         }
-
+        /// <summary>
+        /// Returnere status på batteriet, angivet i %
+        /// </summary>
+        /// <returns></returns>
         public double ShowBatteryStatus()
         {
-            localDataRef.newRecord(2000, 0, 0, DateTime.Now); //KOMMENTERES UD EFTER FØRSTE GANG
-            batteryLevelRecord = getRecord();
-            newRecord();
+            localDataRef.NewRecord(2000, 0, 0, DateTime.Now); //KOMMENTERES UD EFTER FØRSTE GANG
+            batteryLevelRecord = GetRecord();
+            NewRecord();
             return batteryLevelRecord.BatteryLevel/2000*100;
         }
 
+        /// <summary>
+        /// Metode anvendt til test. Returnerer status på batteri angivet i %.
+        /// </summary>
+        /// <returns></returns>
         public double ShowBatteryStatusTEST() // Metode kun til test
         {
             return localDataRef.ShowBatteryStatusTEST();
         }
 
-        public void newRecord()
+        /// <summary>
+        /// Ny registrering af parametre der indgår i DTO_BatteryLevel.
+        /// </summary>
+        public void NewRecord()
         {
-            current = getCurrent();
+            current = GetCurrent();
             batteryLevelRecord.BatteryLevel = batteryLevelRecord.BatteryLevel - current * (DateTime.Now - batteryLevelRecord.Date).TotalSeconds / 3600;
-            localDataRef.newRecord(batteryLevelRecord.BatteryLevel, getVoltage(), getCurrent(), DateTime.Now);
+            localDataRef.NewRecord(batteryLevelRecord.BatteryLevel, GetVoltage(), GetCurrent(), DateTime.Now);
         }
 
-        public DTO_BatteryLevel getRecord()
+        /// <summary>
+        /// Returnerer DTO med data om batteri. 
+        /// </summary>
+        /// <returns></returns>
+        public DTO_BatteryLevel GetRecord()
         {
-            return localDataRef.getRecord();
+            return localDataRef.GetRecord();
         }
 
        

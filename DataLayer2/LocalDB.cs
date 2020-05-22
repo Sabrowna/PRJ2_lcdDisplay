@@ -8,6 +8,9 @@ using System.Data.SqlClient;
 using DTO2;
 namespace DataLayer2
 {
+    /// <summary>
+    /// Direkte kommunikation med databasen.
+    /// </summary>
    public class LocalDB : IData
     {
         //FRA JACOB
@@ -21,12 +24,18 @@ namespace DataLayer2
         private const string db = "F20ST2ITS2201908775";
 
         public double BatteryStatus { get; set; }
-
+        /// <summary>
+        /// Klassens constructor.
+        /// </summary>
         public LocalDB()
         { }
 
-        // Undersøg om EmployeeID findes i LokalDB - tabel MedarbejderID.
-        public bool CheckDBForEmployeeId(string EmployeeId)
+        /// <summary>
+        /// Undersøger om det indtastede medarbejderID forefindes i databasen.
+        /// </summary>
+        /// <param name="EmployeeId">Parameter modtaget fra indtastning. </param>
+        /// <returns>Returnerer default false. Hvis medarbejderID  findes i databasen, returneres true.</returns>
+        public bool VerifyEmployeeId(string EmployeeId)
         {
             bool result = false;
 
@@ -53,6 +62,10 @@ namespace DataLayer2
 
         }
 
+        /// <summary>
+        /// Kontrollerer antallet af eksisterende målinger i databasen.
+        /// </summary>
+        /// <returns>Returnerer værdien for måleID på næstkommende entry.</returns>
         public int CountID()
         {
             int Retur;
@@ -64,14 +77,20 @@ namespace DataLayer2
             return Retur;
         }
 
+        /// <summary>
+        /// Indlæser DTO objekt i databasen.
+        /// </summary>
+        /// <param name="nyMåling">Parameter modtaget fra LogicLayer.</param>
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling) // Indlæs DTO her med de respektive data. Set vores værdier ind i en tabel i SQL server
         { 
             conn.Open();
-
+            
             string insertStringParam = $"INSERT INTO SP_NyeEkger ([raa_data],[id_medarbejder],[borger_cprnr],[start_tidspunkt],[antal_maalepunkter],[samplerate_hz]) OUTPUT INSERTED.id_måling VALUES(@data, @employeeID, @socSecNb, @startTime, @antalMålePkt, @hz)";
+            
             using (SqlCommand cmd = new SqlCommand(insertStringParam, conn))
             {
                 //Tilføjer vores rådata til et BLOB objekt
+                
                 cmd.Parameters.AddWithValue("@data",
                 nyMåling.RåData.SelectMany(value =>
                 BitConverter.GetBytes(value)).ToArray());
@@ -85,7 +104,12 @@ namespace DataLayer2
             }
             conn.Close();
         }
-
+        /// <summary>
+        /// Genererer ved hjælp af Random.Next() en bool. 
+        /// Indikerer om oplader er tilsluttet. Metoden er oprettet grundet Corona, 
+        /// da denne funktion ellers skulle have været implementeret i hardware. 
+        /// </summary>
+        /// <returns>Returnerer true hvis oplader er tilsluttet. </returns>
         public bool ChargingBattery()
         {
             bool onOff = false;
@@ -103,7 +127,14 @@ namespace DataLayer2
         }
 
         //FRA JACOB
-        public void newRecord(double level, double voltage, double current, DateTime date)
+        /// <summary>
+        /// Uploader ny registrering af de fire parametre til tekstfil. 
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="voltage"></param>
+        /// <param name="current"></param>
+        /// <param name="date"></param>
+        public void NewRecord(double level, double voltage, double current, DateTime date)
         {
             //uploade new record of current Ah, voltage, current and time to database or datafile
             FileStream output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
@@ -113,7 +144,11 @@ namespace DataLayer2
         }
 
         //FRA JACOB
-        public DTO_BatteryLevel getRecord()
+        /// <summary>
+        /// Opretter DTO med de senest registrerede værdier for batteri.
+        /// </summary>
+        /// <returns>Returnerer DTO med værdier registreret ved seneste måling.</returns>
+        public DTO_BatteryLevel GetRecord()
         {
             if (File.Exists("batteryLevel.txt") == false)
             {

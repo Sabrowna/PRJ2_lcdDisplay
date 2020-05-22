@@ -21,7 +21,7 @@ namespace PresentationLayer // Nyeste version - Sabrina + Dannys rettelser + fil
         public static Communication commRef;
 
         /// <summary>
-        /// Mainmetode der med reference til Communication.cs kalder metoden Program. 
+        /// Mainmetode der med reference til Communication.cs kalder metoden Program. Initialiserer referencen til Communication.cs.
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
