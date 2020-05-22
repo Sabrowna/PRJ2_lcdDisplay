@@ -9,9 +9,21 @@ namespace DTO2
     /// </summary>
     public class DTO_BatteryLevel
     {
+        /// <summary>
+        /// Property til BatteryLevel parameter i DTO objekt. 
+        /// </summary>
         public double BatteryLevel { get; set; }
+        /// <summary>
+        /// Property til Voltage parameter i DTO objekt. 
+        /// </summary>
         public double Voltage { get; set; }
+        /// <summary>
+        /// Property til Current parameter i DTO objekt. 
+        /// </summary>
         public double Current { get; set; }
+        /// <summary>
+        /// Property til DateTime parameter i DTO objekt. 
+        /// </summary>
         public DateTime Date { get; set; }
         /// <summary>
         /// Constructor til objekt af klassen. 

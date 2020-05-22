@@ -9,7 +9,7 @@ using LogicLayer;
 namespace PresentationLayer 
 {
     /// <summary>
-    /// Indeholder klasser der håndterer programflow og kommunikation med bruger. <c>PresentationLayer</c>.
+    /// Indeholder klasser der håndterer programflow og kommunikation med bruger.
     /// </summary>
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     class NamespaceDoc

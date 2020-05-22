@@ -9,9 +9,17 @@ using DTO2;
 namespace DataLayer2
 {
     /// <summary>
+    /// Indeholder klasser der håndterer kommunikation med database og filer. 
+    /// Derudover interfacet IData der implementeres i begge klasser.
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    class NamespaceDoc
+    {
+    }
+    /// <summary>
     /// Direkte kommunikation med databasen.
     /// </summary>
-   public class LocalDB : IData
+    public class LocalDB : IData
     {
        /// <summary>
        /// Reference til objekt af klassen.

@@ -7,7 +7,15 @@ using RaspberryPiCore.ADC;
 using RaspberryPiCore;
 
 namespace LogicLayer
-{ 
+{
+    /// <summary>
+    /// Indeholder klasser der håndterer kommunikation mellem boundaryklasserne i henholdsvis DataLayer og PresentationLayer,
+    /// samt oprettelse af DTO objekter. Derudover registrering af data i forbindelse med måling. 
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    class NamespaceDoc
+    {
+    }
     /// <summary>
     /// Varetager målingen af de elektriske imnpulser fra klamperne. 
     /// Konverterer via ADC elektrisk signal. Opretter DTO med de påkrævede parametre. 

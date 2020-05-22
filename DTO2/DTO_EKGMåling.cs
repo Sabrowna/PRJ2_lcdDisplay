@@ -5,10 +5,17 @@ using System.Text;
 namespace DTO2
 {
     /// <summary>
+    /// Indeholder klasser der håndterer oprettelse af DTO objekter. 
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    class NamespaceDoc
+    {
+    }
+    /// <summary>
     /// Properties i klassen svarer til parametre der indgår i DTO_EKGMåling. 
     /// Properties har relation til kolonnenavne i tabellen SP_NyeEkger. 
     /// </summary>
-        
+
     public class DTO_EKGMåling
     {
         /// <summary>
