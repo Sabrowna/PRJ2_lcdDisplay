@@ -19,8 +19,10 @@ namespace DataLayer2
         private FileStream input;
         private StreamReader reader;
         private FileStream output;
-         private StreamWriter writer;
+        private StreamWriter writer;
         private BinaryFormatter formatter;
+
+        double BatteryStatus { get; set; }
 
        public LocalDataFile()
         { }
