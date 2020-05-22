@@ -45,7 +45,7 @@ namespace DTO2
         ///       BorgerCPR = BorgerCPR_;
         ///       StarttidspunktMåling = StarttidspunktMåling_;
         ///
-        ///        for (int i = 0; i<Rådata_.Length; i++)
+        ///        for (int i = 0; i Rådata_.Length; i++)
         ///         {
         ///             RåData[i] = Rådata_[i];
         ///         }
@@ -53,7 +53,7 @@ namespace DTO2
         ///       RåData = Rådata_;
         ///       AntalMålepunkter = AntalMålepunkter_;
         ///       SampleRateHz = (1/(SampleRateHz_/1000)); 
-        ///}
+        /// }
         ///</code>
         ///</example>
         /// </summary>
