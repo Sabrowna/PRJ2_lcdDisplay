@@ -20,9 +20,10 @@ namespace LogicLayer
         /// </summary>
         IData localDataRef;
 
-        private double voltage = 0;
-        private const int maxVoltage = 5;
+        private double voltage;
         private double current;
+        private double batteryLevel;
+        private const int maxVoltage = 5;
         private DTO_BatteryLevel batteryLevelRecord;
 
         /// <summary>
@@ -38,8 +39,17 @@ namespace LogicLayer
         public Battery()
         {
             localDataRef = new LocalDataFile();
-            batteryLevelRecord = localDataRef.GetRecord(); //KOMMENTERES IND EFTER FØRSTE GANG 
-            batteryLevelRecord.Date = DateTime.Now; //KOMMENTERES IND EFTER FØRSTE GANG
+            batteryLevel = assumeLevel();
+            batteryLevelRecord = GetRecord(); //KOMMENTERES IND EFTER FØRSTE GANG 
+            if (batteryLevel != 0)
+            {
+                localDataRef.NewRecord(batteryLevel, DateTime.Now);
+            }
+            else
+            {
+                batteryLevelRecord.Date = DateTime.Now;
+            }
+
             adc = new ADC1015();
         }
 
@@ -63,7 +73,7 @@ namespace LogicLayer
         public double GetVoltage()
         {
             double voltageInput = adc.readADC_SingleEnded(1);
-            voltage = maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
+            voltage = 2 * maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
             return voltage;
         }
 
@@ -74,8 +84,7 @@ namespace LogicLayer
         public double GetCurrent()
         {
             double currentInput = adc.readADC_SingleEnded(2);
-            voltage = maxVoltage * (currentInput / (Math.Pow(2, 12) / 100)) / 100;
-            current = voltage * 100 / 380;
+            current = maxVoltage * 1000 * (currentInput / (Math.Pow(2, 12) / 100)) / 100 * 100 / 4400;
             return current;
         }
         /// <summary>
@@ -84,10 +93,40 @@ namespace LogicLayer
         /// <returns>Status på batteri (resterende kapacitet) som double. </returns>
         public double ShowBatteryStatus()
         {
-            localDataRef.NewRecord(2000, 0, 0, DateTime.Now); //KOMMENTERES UD EFTER FØRSTE GANG
+            current = GetCurrent();
+            batteryLevel = assumeLevel();
+            if (batteryLevel != 0)
+            {
+                localDataRef.NewRecord(batteryLevel, DateTime.Now);
+            }
             batteryLevelRecord = GetRecord();
-            NewRecord();
-            return batteryLevelRecord.BatteryLevel/2000*100;
+            batteryLevelRecord.BatteryLevel = batteryLevelRecord.BatteryLevel - current * (DateTime.Now - batteryLevelRecord.Date).TotalSeconds / 3600;
+            localDataRef.NewRecord(batteryLevelRecord.BatteryLevel, DateTime.Now);
+            return batteryLevelRecord.BatteryLevel;
+        }
+
+        // assumeLevel() Ny metode
+        // Hver gang denne metode køres bliver batteriniveauet sat ud fra batteriets spænding.
+        // Hvis batteriniveauet er mellem ca. 10-90% vil det sidst husket niveau blive brugt til at udregne det nuværende
+        public int assumeLevel()
+        { 
+            voltage = GetVoltage();
+            int batteryLevel = 0;
+            if (voltage > 9.0)
+            {
+                batteryLevel = 2000;
+            }
+            else if (voltage > 8)
+            { }
+            else if (voltage > 3)
+            {
+                batteryLevel = 200;
+            }
+            else
+            {
+                batteryLevel = 100;
+            }
+            return batteryLevel;
         }
 
         /// <summary>
@@ -102,12 +141,7 @@ namespace LogicLayer
         /// <summary>
         /// Ny registrering af parametre der indgår i DTO_BatteryLevel.
         /// </summary>
-        public void NewRecord()
-        {
-            current = GetCurrent();
-            batteryLevelRecord.BatteryLevel = batteryLevelRecord.BatteryLevel - current * (DateTime.Now - batteryLevelRecord.Date).TotalSeconds / 3600;
-            localDataRef.NewRecord(batteryLevelRecord.BatteryLevel, GetVoltage(), GetCurrent(), DateTime.Now);
-        }
+ 
 
         /// <summary>
         /// Returnerer DTO med data om batteri. 

@@ -179,6 +179,11 @@
             <param name="EmployeeId">Indtastet parameter der medsendes</param>
             <returns> Returnerer true hvis indtastet medarbejderID findes i databasen.</returns>
         </member>
+        <member name="T:PresentationLayer.NamespaceDoc">
+            <summary>
+            Indeholder klasser der håndterer programflow og kommunikation med bruger.
+            </summary>
+        </member>
         <member name="T:PresentationLayer.Mål_Ekg">
             <summary>
             Programmets hovedklasse, hvorfra selve programmet kaldes.

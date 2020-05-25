@@ -65,6 +65,12 @@
             </summary>
             <returns>DTO med værdier for batteri. </returns>
         </member>
+        <member name="T:LogicLayer.NamespaceDoc">
+            <summary>
+            Indeholder klasser der håndterer kommunikation mellem boundaryklasserne i henholdsvis DataLayer og PresentationLayer,
+            samt oprettelse af DTO objekter. Derudover registrering af data i forbindelse med måling. 
+            </summary>
+        </member>
         <member name="T:LogicLayer.Ekg_Record">
             <summary>
             Varetager målingen af de elektriske imnpulser fra klamperne. 

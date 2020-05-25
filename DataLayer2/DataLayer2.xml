@@ -60,6 +60,12 @@
             Kommunikation med tekstfiler. For beskrivelse af metoder og returværdier, se enten IData eller LocalDB.
             </summary>
         </member>
+        <member name="T:DataLayer2.NamespaceDoc">
+            <summary>
+            Indeholder klasser der håndterer kommunikation med database og filer. 
+            Derudover interfacet IData der implementeres i begge klasser.
+            </summary>
+        </member>
         <member name="T:DataLayer2.LocalDB">
             <summary>
             Direkte kommunikation med databasen.

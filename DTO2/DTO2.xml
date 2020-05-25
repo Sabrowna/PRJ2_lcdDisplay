@@ -9,6 +9,26 @@
             Varetager oprettelse af DTO indeholdende oplysninger om batteristatus.
             </summary>
         </member>
+        <member name="P:DTO2.DTO_BatteryLevel.BatteryLevel">
+            <summary>
+            Property til BatteryLevel parameter i DTO objekt. 
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_BatteryLevel.Voltage">
+            <summary>
+            Property til Voltage parameter i DTO objekt. 
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_BatteryLevel.Current">
+            <summary>
+            Property til Current parameter i DTO objekt. 
+            </summary>
+        </member>
+        <member name="P:DTO2.DTO_BatteryLevel.Date">
+            <summary>
+            Property til DateTime parameter i DTO objekt. 
+            </summary>
+        </member>
         <member name="M:DTO2.DTO_BatteryLevel.#ctor(System.Double,System.Double,System.Double,System.DateTime)">
             <summary>
             Constructor til objekt af klassen. 
@@ -17,6 +37,11 @@
             <param name="voltage"></param>
             <param name="current"></param>
             <param name="date"></param>
+        </member>
+        <member name="T:DTO2.NamespaceDoc">
+            <summary>
+            Indeholder klasser der håndterer oprettelse af DTO objekter. 
+            </summary>
         </member>
         <member name="T:DTO2.DTO_EKGMåling">
             <summary>

@@ -192,9 +192,9 @@ namespace PresentationLayer
                     answer = displayRef.Yes_No();
                     continueEKGMeasurement = answer; 
                 }
-                break;
-            }
-            while (continueEKGMeasurement);
+            
+            } while (continueEKGMeasurement);
+
 
             lcd.lcdClear();
             lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");

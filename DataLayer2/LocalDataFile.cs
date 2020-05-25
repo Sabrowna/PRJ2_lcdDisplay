@@ -10,7 +10,7 @@ using System.Data.SqlTypes;
 using System.Security.Cryptography;
 
 namespace DataLayer2
-{   
+{
     /// <summary>
     /// Kommunikation med tekstfiler. For beskrivelse af metoder og returværdier, se enten IData eller LocalDB.
     /// </summary>
@@ -20,11 +20,11 @@ namespace DataLayer2
         private StreamReader reader;
         private FileStream output;
         private StreamWriter writer;
-        
+
 
         double BatteryStatus { get; set; }
 
-       public LocalDataFile()
+        public LocalDataFile()
         { }
 
         public bool VerifyEmployeeId(string EmployeeId)
@@ -76,7 +76,7 @@ namespace DataLayer2
 
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
-                     
+
             if (File.Exists("EKGMaalingerTEST.txt") == false)
             {
                 output = new FileStream("EKGMaalingerTEST.txt", FileMode.Create, FileAccess.Write);
@@ -90,7 +90,7 @@ namespace DataLayer2
 
             output = new FileStream("EKGMaalingerTEST.txt", FileMode.Append, FileAccess.Write);
             writer = new StreamWriter(output);
-            
+
             foreach (double item in nyMåling.RåData) //Vi indlæser først alle værdier fra array (de første 2500 værdier, adskilt med ;)
             {
                 writer.Write(item + ";");
@@ -108,7 +108,7 @@ namespace DataLayer2
             Random random = new Random();
             int number = random.Next(0, 11);
 
-            if(number % 6 == 0)
+            if (number % 6 == 0)
             {
                 onOff = true;
             }
@@ -117,12 +117,12 @@ namespace DataLayer2
             return onOff;
         }
         //FRA JACOB
-        public void NewRecord(double level, double voltage, double current, DateTime date)
+        public void NewRecord(double level, DateTime date)
         {
             //uploade new record of current Ah, voltage, current and time to database or datafile
             FileStream output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
             StreamWriter fileWriter = new StreamWriter(output);
-            fileWriter.WriteLine(level + ";" + voltage + ";" + current + ";" + date);
+            fileWriter.WriteLine(level + ";" + date);
             fileWriter.Close();
         }
 
@@ -136,9 +136,10 @@ namespace DataLayer2
                 fileWriter.WriteLine(2000 + ";" + 0 + ";" + 0 + ";" + DateTime.Now);
                 fileWriter.Close();
             }
+
             input = new FileStream("batteryLevel.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
-            DTO_BatteryLevel result = new DTO_BatteryLevel(0, 0, 0, DateTime.Now);
+            DTO_BatteryLevel result = new DTO_BatteryLevel(0, DateTime.Now);
 
             string inputRecord;
             string[] inputFields;
@@ -146,13 +147,13 @@ namespace DataLayer2
             while ((inputRecord = reader.ReadLine()) != null)
             {
                 inputFields = inputRecord.Split(';');
-                result = new DTO_BatteryLevel(Convert.ToDouble(inputFields[0]), Convert.ToDouble(inputFields[1]), Convert.ToDouble(inputFields[2]), Convert.ToDateTime(inputFields[3]));
+                result = new DTO_BatteryLevel(Convert.ToDouble(inputFields[0]), Convert.ToDateTime(inputFields[1]));
             }
 
             reader.Close();
             return result;
-        }
 
+        }
         public double ShowBatteryStatusTEST()
         {
             BatteryStatus = 15;
@@ -160,4 +161,5 @@ namespace DataLayer2
         }
     }
 }
+
 

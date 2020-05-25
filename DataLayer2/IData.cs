@@ -28,10 +28,8 @@ namespace DataLayer2
         /// Ny registrering af parametre til DTO
         /// </summary>
         /// <param name="level"></param>
-        /// <param name="voltage"></param>
-        /// <param name="current"></param>
         /// <param name="date"></param>
-        void NewRecord(double level, double voltage, double current, DateTime date);
+        void NewRecord(double level, DateTime date);
 
         /// <summary>
         /// Opretter DTO med de senest registrerede værdier for batteri.

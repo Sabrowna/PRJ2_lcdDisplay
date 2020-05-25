@@ -181,12 +181,12 @@ namespace DataLayer2
         /// <param name="voltage"> </param>
         /// <param name="current"> </param>
         /// <param name="date"> </param>
-        public void NewRecord(double level, double voltage, double current, DateTime date)
+        public void NewRecord(double level, DateTime date)
         {
             //uploade new record of current Ah, voltage, current and time to database or datafile
             FileStream output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
             StreamWriter fileWriter = new StreamWriter(output);
-            fileWriter.WriteLine(level + ";" + voltage + ";" + current + ";" + date);
+            fileWriter.WriteLine(level + ";" + date);
             fileWriter.Close();
         }
 
@@ -201,12 +201,12 @@ namespace DataLayer2
             {
                 output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter fileWriter = new StreamWriter(output);
-                fileWriter.WriteLine(2000 + ";" + 0 + ";" + 0 + ";" + DateTime.Now);
+                fileWriter.WriteLine(2000 + ";" + DateTime.Now);
                 fileWriter.Close();
             }
             input = new FileStream("batteryLevel.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
-            DTO_BatteryLevel result = new DTO_BatteryLevel(0, 0, 0, DateTime.Now);
+            DTO_BatteryLevel result = new DTO_BatteryLevel(0, DateTime.Now);
 
             string inputRecord;
             string[] inputFields;
@@ -214,17 +214,17 @@ namespace DataLayer2
             while ((inputRecord = reader.ReadLine()) != null)
             {
                 inputFields = inputRecord.Split(';');
-                result = new DTO_BatteryLevel(Convert.ToDouble(inputFields[0]), Convert.ToDouble(inputFields[1]), Convert.ToDouble(inputFields[2]), Convert.ToDateTime(inputFields[3]));
+                result = new DTO_BatteryLevel(Convert.ToDouble(inputFields[0]), Convert.ToDateTime(inputFields[1]));
             }
 
             reader.Close();
             return result;
         }
-        /// <summary>
-        /// Testmetode der anvendes til at simulere bestemte værdier for batteri. 
-        /// </summary>
-        /// <returns>Værdi for batteriets kapacitet som double.</returns>
-        public double ShowBatteryStatusTEST()
+            /// <summary>
+            /// Testmetode der anvendes til at simulere bestemte værdier for batteri. 
+            /// </summary>
+            /// <returns>Værdi for batteriets kapacitet som double.</returns>
+            public double ShowBatteryStatusTEST()
         {
             BatteryStatus = 60;
             return BatteryStatus;
