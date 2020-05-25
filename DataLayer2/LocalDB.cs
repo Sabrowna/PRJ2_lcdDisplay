@@ -178,12 +178,10 @@ namespace DataLayer2
         /// Uploader ny registrering af de fire parametre til tekstfil. 
         /// </summary>
         /// <param name="level"> </param>
-        /// <param name="voltage"> </param>
-        /// <param name="current"> </param>
         /// <param name="date"> </param>
         public void NewRecord(double level, DateTime date)
         {
-            //uploade new record of current Ah, voltage, current and time to database or datafile
+            //uploade new record of current Ah and time to database or datafile
             FileStream output = new FileStream("batteryLevel.txt", FileMode.Create, FileAccess.Write);
             StreamWriter fileWriter = new StreamWriter(output);
             fileWriter.WriteLine(level + ";" + date);

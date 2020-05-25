@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 namespace DataLayer2
 {
     /// <summary>
-    /// Kommunikation med tekstfiler. For beskrivelse af metoder og returværdier, se enten IData eller LocalDB.
+    /// Kommunikation med tekstfiler. 
     /// </summary>
     public class LocalDataFile : IData
     {
@@ -24,9 +24,17 @@ namespace DataLayer2
 
         double BatteryStatus { get; set; }
 
+        /// <summary>
+        /// Klassens constructor.  
+        /// </summary>
         public LocalDataFile()
         { }
 
+        /// <summary>
+        /// Undersøger om det indtastede medarbejderID forefindes i txt.filen.
+        /// </summary>
+        /// <param name="EmployeeId">Parameter modtaget fra indtastning. </param>
+        /// <returns>Returnerer default false. Hvis medarbejderID  findes i filen, returneres true.</returns>
         public bool VerifyEmployeeId(string EmployeeId)
         {
             bool result = false;
@@ -52,7 +60,10 @@ namespace DataLayer2
             return result;
         }
 
-
+        /// <summary>
+        /// Kontrollerer antallet af eksisterende målinger i txt.filen.
+        /// </summary>
+        /// <returns>Returnerer værdien for måleID på næstkommende entry.</returns>
         public int CountID()
         {
             int Retur = 0;
@@ -74,6 +85,10 @@ namespace DataLayer2
             return Retur;
         }
 
+        /// <summary>
+        /// Modtager DTO objekt som parameter, og udskriver hver enkelt parameter herfra til txt.fil.      
+        /// </summary>
+        /// <param name="nyMåling">Parameter modtaget fra LogicLayer.</param>
         public void InsertEKGMeasurement(DTO_EKGMåling nyMåling)
         {
 
@@ -100,7 +115,12 @@ namespace DataLayer2
             writer.Close();
         }
 
-
+        /// <summary>
+        /// Genererer ved hjælp af Random.Next() en bool. 
+        /// Indikerer om oplader er tilsluttet. Metoden er oprettet grundet Corona, 
+        /// da denne funktion ellers skulle have været implementeret i hardware. 
+        /// </summary>
+        /// <returns>Returnerer true hvis oplader er tilsluttet. </returns>
         public bool ChargingBattery()
         {
             bool onOff = false;
@@ -117,6 +137,13 @@ namespace DataLayer2
             return onOff;
         }
         //FRA JACOB
+
+        //FRA JACOB
+        /// <summary>
+        /// Uploader ny registrering af de fire parametre til tekstfil. 
+        /// </summary>
+        /// <param name="level"> </param>
+        /// <param name="date"> </param>
         public void NewRecord(double level, DateTime date)
         {
             //uploade new record of current Ah, voltage, current and time to database or datafile
@@ -127,6 +154,10 @@ namespace DataLayer2
         }
 
         //FRA JACOB
+        /// <summary>
+        /// Opretter DTO med de senest registrerede værdier for batteri.
+        /// </summary>
+        /// <returns>Returnerer DTO med værdier registreret ved seneste måling.</returns>
         public DTO_BatteryLevel GetRecord()
         {
             if (File.Exists("batteryLevel.txt") == false)
@@ -154,6 +185,11 @@ namespace DataLayer2
             return result;
 
         }
+
+        /// <summary>
+        /// Testmetode der anvendes til at simulere bestemte værdier for batteri. 
+        /// </summary>
+        /// <returns>Værdi for batteriets kapacitet som double.</returns>
         public double ShowBatteryStatusTEST()
         {
             BatteryStatus = 15;
