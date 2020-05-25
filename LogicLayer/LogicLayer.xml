@@ -48,6 +48,13 @@
             </summary>
             <returns>Status på batteri (resterende kapacitet) som double. </returns>
         </member>
+        <member name="M:LogicLayer.Battery.AssumeLevel">
+            <summary>
+            Hver gang denne metode køres bliver batteriniveauet sat ud fra batteriets spænding.
+            Hvis batteriniveauet er mellem ca. 10-90% vil det sidst huskede niveau, blive brugt til at udregne det nuværende
+            </summary>
+            <returns>Værdi for batteristatus</returns>
+        </member>
         <member name="M:LogicLayer.Battery.ShowBatteryStatusTEST">
             <summary>
             Metode anvendt til test. Returnerer status på batteri angivet i %.

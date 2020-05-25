@@ -55,8 +55,59 @@
         </member>
         <member name="T:DataLayer2.LocalDataFile">
             <summary>
-            Kommunikation med tekstfiler. For beskrivelse af metoder og returværdier, se enten IData eller LocalDB.
+            Kommunikation med tekstfiler. 
             </summary>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.#ctor">
+            <summary>
+            Klassens constructor.  
+            </summary>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.VerifyEmployeeId(System.String)">
+            <summary>
+            Undersøger om det indtastede medarbejderID forefindes i txt.filen.
+            </summary>
+            <param name="EmployeeId">Parameter modtaget fra indtastning. </param>
+            <returns>Returnerer default false. Hvis medarbejderID  findes i filen, returneres true.</returns>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.CountID">
+            <summary>
+            Kontrollerer antallet af eksisterende målinger i txt.filen.
+            </summary>
+            <returns>Returnerer værdien for måleID på næstkommende entry.</returns>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.InsertEKGMeasurement(DTO2.DTO_EKGMåling)">
+            <summary>
+            Modtager DTO objekt som parameter, og udskriver hver enkelt parameter herfra til txt.fil.      
+            </summary>
+            <param name="nyMåling">Parameter modtaget fra LogicLayer.</param>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.ChargingBattery">
+            <summary>
+            Genererer ved hjælp af Random.Next() en bool. 
+            Indikerer om oplader er tilsluttet. Metoden er oprettet grundet Corona, 
+            da denne funktion ellers skulle have været implementeret i hardware. 
+            </summary>
+            <returns>Returnerer true hvis oplader er tilsluttet. </returns>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.NewRecord(System.Double,System.DateTime)">
+            <summary>
+            Uploader ny registrering af de fire parametre til tekstfil. 
+            </summary>
+            <param name="level"> </param>
+            <param name="date"> </param>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.GetRecord">
+            <summary>
+            Opretter DTO med de senest registrerede værdier for batteri.
+            </summary>
+            <returns>Returnerer DTO med værdier registreret ved seneste måling.</returns>
+        </member>
+        <member name="M:DataLayer2.LocalDataFile.ShowBatteryStatusTEST">
+            <summary>
+            Testmetode der anvendes til at simulere bestemte værdier for batteri. 
+            </summary>
+            <returns>Værdi for batteriets kapacitet som double.</returns>
         </member>
         <member name="T:DataLayer2.NamespaceDoc">
             <summary>
@@ -161,8 +212,6 @@
             Uploader ny registrering af de fire parametre til tekstfil. 
             </summary>
             <param name="level"> </param>
-            <param name="voltage"> </param>
-            <param name="current"> </param>
             <param name="date"> </param>
         </member>
         <member name="M:DataLayer2.LocalDB.GetRecord">

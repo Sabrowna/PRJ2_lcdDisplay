@@ -197,7 +197,7 @@ namespace PresentationLayer
 
 
             lcd.lcdClear();
-            lcd.lcdPrint($"Batteristatus: {batteryRef.ShowBatteryStatus()} %");
+            batteryStatusRef.ShowBatteryStatus();
             Thread.Sleep(3000);
             if (batteryRef.ShowBatteryStatus() < 20)
             {

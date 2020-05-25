@@ -72,7 +72,7 @@ namespace LogicLayer
         /// <returns>Returnerer spændingsværdi som double. </returns>
         public double GetVoltage()
         {
-            double voltageInput = 3800;//adc.readADC_SingleEnded(1);
+            double voltageInput = 3480;//adc.readADC_SingleEnded(1);
             voltage = 2 * maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
             return voltage;
         }
@@ -84,7 +84,8 @@ namespace LogicLayer
         public double GetCurrent()
         {
             double currentInput = 1000;//adc.readADC_SingleEnded(2);
-            current = maxVoltage * 1000 * (currentInput / (Math.Pow(2, 12) / 100)) / 100 * 100 / 4400;
+            voltage = (currentInput / Math.Pow(2, 12)) * maxVoltage;
+            current = ((voltage * 100 / 0.1)/4400)*1000;//maxVoltage * 1000 * (currentInput / (Math.Pow(2, 12) / 100)) / 100 * 100 / 4400;
             return current;
         }
         /// <summary>
@@ -102,7 +103,7 @@ namespace LogicLayer
             batteryLevelRecord = GetRecord();
             batteryLevelRecord.BatteryLevel = batteryLevelRecord.BatteryLevel - current * (DateTime.Now - batteryLevelRecord.Date).TotalSeconds / 3600;
             localDataRef.NewRecord(batteryLevelRecord.BatteryLevel, DateTime.Now);
-            return batteryLevelRecord.BatteryLevel;
+            return batteryLevelRecord.BatteryLevel/2000*100;
         }
 
       
