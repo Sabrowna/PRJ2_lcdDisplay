@@ -39,7 +39,7 @@ namespace LogicLayer
         public Battery()
         {
             localDataRef = new LocalDataFile();
-            batteryLevel = assumeLevel();
+            batteryLevel = AssumeLevel();
             batteryLevelRecord = GetRecord(); //KOMMENTERES IND EFTER FØRSTE GANG 
             if (batteryLevel != 0)
             {
@@ -94,7 +94,7 @@ namespace LogicLayer
         public double ShowBatteryStatus()
         {
             current = GetCurrent();
-            batteryLevel = assumeLevel();
+            batteryLevel = AssumeLevel();
             if (batteryLevel != 0)
             {
                 localDataRef.NewRecord(batteryLevel, DateTime.Now);
@@ -105,10 +105,13 @@ namespace LogicLayer
             return batteryLevelRecord.BatteryLevel;
         }
 
-        // assumeLevel() Ny metode
-        // Hver gang denne metode køres bliver batteriniveauet sat ud fra batteriets spænding.
-        // Hvis batteriniveauet er mellem ca. 10-90% vil det sidst husket niveau blive brugt til at udregne det nuværende
-        public int assumeLevel()
+      
+        /// <summary>
+        /// Hver gang denne metode køres bliver batteriniveauet sat ud fra batteriets spænding.
+        /// Hvis batteriniveauet er mellem ca. 10-90% vil det sidst huskede niveau, blive brugt til at udregne det nuværende
+        /// </summary>
+        /// <returns>Værdi for batteristatus</returns>
+        public int AssumeLevel()
         { 
             voltage = GetVoltage();
             int batteryLevel = 0;
