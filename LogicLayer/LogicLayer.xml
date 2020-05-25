@@ -54,12 +54,10 @@
             </summary>
             <returns>Aktuelle status på batteri.</returns>
         </member>
-        <member name="M:LogicLayer.Battery.NewRecord">
+        <member name="M:LogicLayer.Battery.GetRecord">
             <summary>
             Ny registrering af parametre der indgår i DTO_BatteryLevel.
             </summary>
-        </member>
-        <member name="M:LogicLayer.Battery.GetRecord">
             <summary>
             Returnerer DTO med data om batteri. 
             </summary>

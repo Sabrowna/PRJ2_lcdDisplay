@@ -72,7 +72,7 @@ namespace LogicLayer
         /// <returns>Returnerer spændingsværdi som double. </returns>
         public double GetVoltage()
         {
-            double voltageInput = adc.readADC_SingleEnded(1);
+            double voltageInput = 3800;//adc.readADC_SingleEnded(1);
             voltage = 2 * maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
             return voltage;
         }
@@ -83,7 +83,7 @@ namespace LogicLayer
         /// <returns>Returnerer strømværdi som double. </returns>
         public double GetCurrent()
         {
-            double currentInput = adc.readADC_SingleEnded(2);
+            double currentInput = 1000;//adc.readADC_SingleEnded(2);
             current = maxVoltage * 1000 * (currentInput / (Math.Pow(2, 12) / 100)) / 100 * 100 / 4400;
             return current;
         }

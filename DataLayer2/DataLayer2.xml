@@ -28,13 +28,11 @@
             </summary>
             <param name="nyMåling">Modtager DTO objekt fra LogicLayer. </param>
         </member>
-        <member name="M:DataLayer2.IData.NewRecord(System.Double,System.Double,System.Double,System.DateTime)">
+        <member name="M:DataLayer2.IData.NewRecord(System.Double,System.DateTime)">
             <summary>
             Ny registrering af parametre til DTO
             </summary>
             <param name="level"></param>
-            <param name="voltage"></param>
-            <param name="current"></param>
             <param name="date"></param>
         </member>
         <member name="M:DataLayer2.IData.GetRecord">
@@ -158,7 +156,7 @@
             </summary>
             <returns>Returnerer true hvis oplader er tilsluttet. </returns>
         </member>
-        <member name="M:DataLayer2.LocalDB.NewRecord(System.Double,System.Double,System.Double,System.DateTime)">
+        <member name="M:DataLayer2.LocalDB.NewRecord(System.Double,System.DateTime)">
             <summary>
             Uploader ny registrering af de fire parametre til tekstfil. 
             </summary>
